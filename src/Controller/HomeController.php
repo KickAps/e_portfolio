@@ -2,15 +2,15 @@
 
 namespace App\Controller;
 
+use App\Repository\ProfilRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
-    public function index()
+    public function index(ProfilRepository $repo)
     {
-        return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController',
-        ]);
+        $profil = $repo->findAll()[0];
+        return $this->render('home/index.html.twig', compact('profil'));
     }
 }

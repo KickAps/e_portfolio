@@ -40,12 +40,12 @@ class Profil
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity=project::class, mappedBy="profil", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Project::class, mappedBy="profil", orphanRemoval=true)
      */
     private $projects;
 
     /**
-     * @ORM\OneToMany(targetEntity=career::class, mappedBy="profil", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Career::class, mappedBy="profil", orphanRemoval=true)
      */
     private $professional_career;
 
