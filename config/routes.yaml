@@ -26,4 +26,4 @@ app_project_update:
 app_project_delete:
     path: /project/{id<[0-9]+>}/delete
     controller: App\Controller\ProjectController::delete
-    methods: POST
+    methods: DELETE

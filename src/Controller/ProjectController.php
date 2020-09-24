@@ -97,10 +97,17 @@ class ProjectController extends AbstractController
 
     /**
      * @param  Project
+     * @param  Request
      * @return Twig template
      */
-    public function delete(Project $project)
+    public function delete(Project $project, Request $request)
     {
-
+        $csrf_token = $request->request->get('csrf_token');
+        if ($this->isCsrfTokenValid('project_deletion_' . $project->getId(), $csrf_token))
+        {
+            $this->em->remove($project);
+            $this->em->flush();
+        }
+        return $this->redirectToRoute('app_projects');
     }
 }
