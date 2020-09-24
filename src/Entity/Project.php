@@ -2,14 +2,18 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\Timestampable;
 use App\Repository\ProjectRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=ProjectRepository::class)
+ * @ORM\HasLifecycleCallbacks
  */
 class Project
 {
+    use Timestampable;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue

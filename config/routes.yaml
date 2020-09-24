@@ -1,3 +1,11 @@
-index:
-   path: /
-   controller: App\Controller\HomeController::index
+app_home:
+    path: /
+    controller: App\Controller\HomeController::index
+
+app_projects:
+    path: /project
+    controller: App\Controller\ProjectController::index
+
+app_project_show:
+    path: /project/{id<[0-9]+>}
+    controller: App\Controller\ProjectController::show
