@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProjectController!{% endblock %}
+
+{% block body %}
+    <h1>Créer Project</h1>
+
+    {{ form_start(myForm) }}
+        {{ form_widget(myForm) }}
+        <input type="submit" value="Créer">
+    {{ form_end(myForm) }}
+
+    <a href="{{ path('app_projects') }}">Retour</a>
+{% endblock %}

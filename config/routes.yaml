@@ -1,11 +1,29 @@
 app_home:
     path: /
     controller: App\Controller\HomeController::index
+    methods: GET
 
 app_projects:
     path: /project
     controller: App\Controller\ProjectController::index
+    methods: GET
 
 app_project_show:
     path: /project/{id<[0-9]+>}
     controller: App\Controller\ProjectController::show
+    methods: GET
+
+app_project_create:
+    path: /project/create
+    controller: App\Controller\ProjectController::create
+    methods: GET|POST
+
+app_project_update:
+    path: /project/{id<[0-9]+>}/update
+    controller: App\Controller\ProjectController::update
+    methods: GET|POST
+
+app_project_delete:
+    path: /project/{id<[0-9]+>}/delete
+    controller: App\Controller\ProjectController::delete
+    methods: POST

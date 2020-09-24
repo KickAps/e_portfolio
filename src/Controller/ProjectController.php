@@ -3,11 +3,23 @@
 namespace App\Controller;
 
 use App\Entity\Project;
+use App\Repository\ProfilRepository;
 use App\Repository\ProjectRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\HttpFoundation\Request;
 
 class ProjectController extends AbstractController
 {
+    private $em;
+
+    public function __construct(EntityManagerInterface $em)
+    {
+        $this->em = $em;
+    }
+
     /**
      * @param  ProjectRepository 
      * @return Twig template that prints all projects
@@ -25,5 +37,81 @@ class ProjectController extends AbstractController
     public function show(Project $project)
     {
         return $this->render('project/show.html.twig', compact('project'));
+    }
+
+    /**
+     * @param  Request
+     * @param  EntityManagerInterface
+     * @return Twig template
+     */
+    public function create(Request $request, ProfilRepository $repo)
+    {
+        $project = new Project;
+        $profil = $repo->findAll()[0];
+
+        $form = $this->createFormBuilder($project)
+            ->add('title', TextType::class, ['attr' => ['autofocus' => true]])
+            ->add('description', TextareaType::class, ['attr' => ['rows' => 5, 'cols' => 100]])
+            ->add('imagesFolder', TextType::class)
+            ->add('mainImage', TextType::class)
+            ->getForm()
+        ;
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $project->setProfil($profil);
+            $this->em->persist($project);
+            $this->em->flush();
+
+            return $this->redirectToRoute('app_project_show', [
+                'id' => $project->getId()
+            ]);
+        }
+
+        return $this->render('project/create.html.twig', [
+            'myForm' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @param  Project
+     * @param  Request
+     * @return Twig template
+     */
+    public function update(Project $project, Request $request)
+    {
+        $form = $this->createFormBuilder($project)
+            ->add('title', TextType::class, ['attr' => ['autofocus' => true]])
+            ->add('description', TextareaType::class, ['attr' => ['rows' => 5, 'cols' => 100]])
+            ->add('imagesFolder', TextType::class)
+            ->add('mainImage', TextType::class)
+            ->getForm()
+        ;
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $this->em->flush();
+
+            return $this->redirectToRoute('app_project_show', [
+                'id' => $project->getId()
+            ]);
+        }
+
+        return $this->render('project/update.html.twig', [
+            'myForm' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @param  Project
+     * @return Twig template
+     */
+    public function delete(Project $project)
+    {
+
     }
 }
