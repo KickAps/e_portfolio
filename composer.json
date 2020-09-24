@@ -28,6 +28,7 @@
         "symfony/process": "5.1.*",
         "symfony/property-access": "5.1.*",
         "symfony/property-info": "5.1.*",
+        "symfony/proxy-manager-bridge": "5.1.*",
         "symfony/security-bundle": "5.1.*",
         "symfony/serializer": "5.1.*",
         "symfony/string": "5.1.*",
@@ -40,12 +41,14 @@
         "twig/twig": "^2.12|^3.0"
     },
     "require-dev": {
+        "psy/psysh": "^0.10.4",
         "symfony/browser-kit": "^5.1",
         "symfony/css-selector": "^5.1",
         "symfony/debug-bundle": "^5.1",
         "symfony/maker-bundle": "^1.0",
         "symfony/phpunit-bridge": "^5.1",
-        "symfony/var-dumper": "^5.1"
+        "symfony/var-dumper": "^5.1",
+        "theofidry/psysh-bundle": "^4.3"
     },
     "config": {
         "optimize-autoloader": true,
