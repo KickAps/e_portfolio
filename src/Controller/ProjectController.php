@@ -3,12 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Project;
+use App\Form\ProjectType;
 use App\Repository\ProfilRepository;
 use App\Repository\ProjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\HttpFoundation\Request;
 
 class ProjectController extends AbstractController
@@ -49,13 +48,7 @@ class ProjectController extends AbstractController
         $project = new Project;
         $profil = $repo->findAll()[0];
 
-        $form = $this->createFormBuilder($project)
-            ->add('title', TextType::class, ['attr' => ['autofocus' => true]])
-            ->add('description', TextareaType::class, ['attr' => ['rows' => 5, 'cols' => 100]])
-            ->add('imagesFolder', TextType::class)
-            ->add('mainImage', TextType::class)
-            ->getForm()
-        ;
+        $form = $this->createForm(ProjectType::class, $project);
 
         $form->handleRequest($request);
 
@@ -82,13 +75,9 @@ class ProjectController extends AbstractController
      */
     public function update(Project $project, Request $request)
     {
-        $form = $this->createFormBuilder($project)
-            ->add('title', TextType::class, ['attr' => ['autofocus' => true]])
-            ->add('description', TextareaType::class, ['attr' => ['rows' => 5, 'cols' => 100]])
-            ->add('imagesFolder', TextType::class)
-            ->add('mainImage', TextType::class)
-            ->getForm()
-        ;
+        $form = $this->createForm(ProjectType::class, $project, [
+            'method' => 'PUT'
+        ]);
 
         $form->handleRequest($request);
 
