@@ -5,10 +5,7 @@
 {% block body %}
     <h1>Modifier un project</h1>
 
-    {{ form_start(myForm) }}
-        {{ form_widget(myForm) }}
-        <input type="submit" value="Modifier">
-    {{ form_end(myForm) }}
+    {{ include('/project/_form.html.twig', {submitButtonText: 'Modifier'}) }}
 
     <a href="{{ path('app_projects') }}">Retour</a>
 {% endblock %}

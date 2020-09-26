@@ -24,6 +24,6 @@ app_project_update:
     methods: GET|PUT
 
 app_project_delete:
-    path: /project/{id<[0-9]+>}/delete
+    path: /project/{id<[0-9]+>}
     controller: App\Controller\ProjectController::delete
     methods: DELETE
