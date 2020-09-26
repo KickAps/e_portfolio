@@ -3,9 +3,11 @@
 {% set title = project.title ~ " | " ~ website.name %}
 
 {% block body %}
-    <h1>{{ tab.update }}</h1>
+    <div class="row">
+        <div class="col-md6 mx-auto">
+            <h1>{{ tab.update }}</h1>
 
-    {{ include('/layouts/partials/_form.html.twig', {submitButtonText: button.update}) }}
-
-    <a href="{{ path('app_projects') }}">{{ button.return }}</a>
+            {{ include('/layouts/partials/_form.html.twig', {submitButtonText: button.update}) }}
+        </div>
+    </div>
 {% endblock %}

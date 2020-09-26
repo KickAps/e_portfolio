@@ -3,9 +3,11 @@
 {% set title = navbar.new ~ " | " ~ website.name %}
 
 {% block body %}
-    <h1>{{ tab.new }}</h1>
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <h1>{{ tab.new }}</h1>
 
-    {{ include('/layouts/partials/_form.html.twig', {submitButtonText: button.create}) }}
-
-    <a href="{{ path('app_projects') }}">{{ button.return }}</a>
+            {{ include('/layouts/partials/_form.html.twig', {submitButtonText: button.create}) }}
+        </div>
+    </div>
 {% endblock %}
