@@ -6,13 +6,10 @@
         
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
-            <link rel="stylesheet" type="text/css" href="{{ asset('build/app.css') }}">
         {% endblock %}
     </head>
     <body>
-        
         {{ include('layouts/partials/_flash_messages.html.twig')}}
-        
         {{ include('layouts/partials/_navbar.html.twig')}}
         
         <main role="main" class="container">
