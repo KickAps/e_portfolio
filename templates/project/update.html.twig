@@ -1,11 +1,11 @@
-{% extends 'base.html.twig' %}
+{% extends 'layouts/base.html.twig' %}
 
 {% block title %}Hello ProjectController!{% endblock %}
 
 {% block body %}
     <h1>Modifier un project</h1>
 
-    {{ include('/project/_form.html.twig', {submitButtonText: 'Modifier'}) }}
+    {{ include('/layouts/partials/_form.html.twig', {submitButtonText: 'Modifier'}) }}
 
     <a href="{{ path('app_projects') }}">Retour</a>
 {% endblock %}

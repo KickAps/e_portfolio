@@ -58,6 +58,8 @@ class ProjectController extends AbstractController
             $this->em->persist($project);
             $this->em->flush();
 
+            $this->addFlash('success', 'Projet créé avec succés !');
+
             return $this->redirectToRoute('app_project_show', [
                 'id' => $project->getId()
             ]);
@@ -85,6 +87,8 @@ class ProjectController extends AbstractController
         {
             $this->em->flush();
 
+            $this->addFlash('success', 'Projet modifié avec succés !');
+
             return $this->redirectToRoute('app_project_show', [
                 'id' => $project->getId()
             ]);
@@ -107,6 +111,8 @@ class ProjectController extends AbstractController
         {
             $this->em->remove($project);
             $this->em->flush();
+
+            $this->addFlash('info', 'Projet supprimé avec succés !');
         }
         return $this->redirectToRoute('app_projects');
     }

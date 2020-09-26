@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+        <style>
+            .alert {
+                padding: 10px;
+                color: white;
+                text-align: center;
+            }
+            .alert-success {
+                background-color: green;
+            }
+            .alert-info {
+                background-color: blue;
+            }
+            .alert-error {
+                background-color: red;
+            }
+        </style>
+        {% endblock %}
+    </head>
+    <body>
+        
+        {{ include('layouts/partials/_flash_messages.html.twig')}}
+        
+         <nav>
+             <ul>
+                 <li><a href="{{ path('app_projects') }}">Tous les projets</a></li>
+                 <li><a href="{{ path('app_project_create') }}">Nouveau projet</a></li>
+             </ul>
+         </nav>
+
+        {% block body %}{% endblock %}
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>
