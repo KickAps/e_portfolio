@@ -1,2 +1,18 @@
 twig:
     default_path: '%kernel.project_dir%/templates'
+    form_themes: ['bootstrap_4_layout.html.twig']
+    globals:
+        website:
+            name: 'E-Porfolio'
+        button:
+            create: 'Créer'
+            update: 'Modifier'
+            delete: 'Supprimer'
+            return: 'Retour'
+        navbar:
+            projects: 'Projets'
+            new: 'Nouveau'
+            career: 'Parcours'
+        tab:
+            new: 'Créer un project'
+            update: 'Modifier un project'

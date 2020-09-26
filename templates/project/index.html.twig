@@ -1,9 +1,9 @@
 {% extends 'layouts/base.html.twig' %}
 
-{% block title %}Hello ProjectController!{% endblock %}
+{% set title = navbar.projects ~ " | " ~ website.name %}
 
 {% block body %}
-    <h1>{{ pluralize(projects|length, 'Project') }}</h1>
+    <h1>{{ pluralize(projects|length, navbar.projects|trim('s')) }}</h1>
     {% for project in projects %}
         <article>
             <h2><a href="{{ path('app_project_show', {'id' : project.id}) }}">{{ project.title }}</a></h2>

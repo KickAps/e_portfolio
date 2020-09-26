@@ -1,5 +1,5 @@
 {{ form_start(myForm) }}
     {{ form_widget(myForm) }}
     {# ?? = |default #}
-    <input type="submit" value="{{ submitButtonText ?? 'Créer' }}">
+    <input type="submit" class="btn btn-primary btn-block" value="{{ submitButtonText ?? button.create }}" formnovalidate>
 {{ form_end(myForm) }}
