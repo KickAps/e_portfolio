@@ -14,10 +14,17 @@ class ProjectType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', TextType::class, ['attr' => ['autofocus' => true]])
-            ->add('description', TextareaType::class, ['attr' => ['rows' => 5, 'cols' => 100]])
-            ->add('images_folder')
-            ->add('main_image')
+            ->add('title', TextType::class, [
+                'label' => 'Titre',
+                'attr' => ['autofocus' => true]
+            ])
+            ->add('description', TextareaType::class, [
+                'label' => 'Description',
+                'attr' => ['rows' => 5, 'cols' => 100]
+            ])
+            ->add('images', null, [
+                'label' => 'Images'
+            ])
         ;
     }
 

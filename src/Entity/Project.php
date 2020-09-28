@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Entity\Traits\Timestampable;
 use App\Repository\ProjectRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -36,20 +38,20 @@ class Project
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $images_folder;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $main_image;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Profil::class, inversedBy="projects")
      * @ORM\JoinColumn(nullable=false)
      */
     private $profil;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="project", orphanRemoval=true)
+     */
+    private $images;
+
+    public function __construct()
+    {
+        $this->images = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -80,30 +82,6 @@ class Project
         return $this;
     }
 
-    public function getImagesFolder(): ?string
-    {
-        return $this->images_folder;
-    }
-
-    public function setImagesFolder(string $images_folder): self
-    {
-        $this->images_folder = $images_folder;
-
-        return $this;
-    }
-
-    public function getMainImage(): ?string
-    {
-        return $this->main_image;
-    }
-
-    public function setMainImage(string $main_image): self
-    {
-        $this->main_image = $main_image;
-
-        return $this;
-    }
-
     public function getProfil(): ?Profil
     {
         return $this->profil;
@@ -112,6 +90,37 @@ class Project
     public function setProfil(?Profil $profil): self
     {
         $this->profil = $profil;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Image[]
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Image $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Image $image): self
+    {
+        if ($this->images->contains($image)) {
+            $this->images->removeElement($image);
+            // set the owning side to null (unless already changed)
+            if ($image->getProject() === $this) {
+                $image->setProject(null);
+            }
+        }
 
         return $this;
     }
