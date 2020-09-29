@@ -44,7 +44,7 @@ class Project
     private $profil;
 
     /**
-     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="project", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="project", orphanRemoval=true, cascade={"persist"})
      */
     private $images;
 
