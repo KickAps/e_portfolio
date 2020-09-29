@@ -27,3 +27,8 @@ app_project_delete:
     path: /project/{id<[0-9]+>}
     controller: App\Controller\ProjectController::delete
     methods: DELETE
+
+app_image_delete:
+    path: /image/{id<[0-9]+>}
+    controller: App\Controller\ProjectController::deleteImage
+    methods: DELETE

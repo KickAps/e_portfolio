@@ -1,5 +1,25 @@
 {{ form_start(myForm) }}
     {{ form_widget(myForm) }}
-    {# ?? = |default #}
+
+    {% if project is defined %}
+        <div class="mb-3">
+        {% for image in project.images %}
+            <div class="project-image mb-3">
+                <img src="{{ asset('/uploads/' ~ image.name) }}" alt="Image" width="150">
+                <a href="#" type="button" class="btn" onclick="{{ 'event.preventDefault(); confirm(\'Veuillez confirmer la suppression\') && document.getElementById(\'js-image-delete-form-' ~ image.id ~ '\').submit();' }}">&#10006;</a>
+            </div>
+        {% endfor %}
+        </div>
+    {% endif %}
+
     <input type="submit" class="btn btn-primary btn-block" value="{{ submitButtonText ?? button.create }}" formnovalidate>
 {{ form_end(myForm) }}
+
+{% if project is defined %}
+    {% for image in project.images %}
+        <form id="{{ 'js-image-delete-form-' ~ image.id }}" action="{{ path('app_image_delete', {'id' : image.id}) }}" method="post" style="display: none;">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token('image_deletion_' ~ image.id) }}">
+            <input type="hidden" name="_method" value="DELETE">
+        </form>
+    {% endfor %}
+{% endif %}

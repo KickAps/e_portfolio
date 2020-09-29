@@ -8,7 +8,13 @@ $('.custom-file-input').on('change', function(e){
         imagesName.push(images[i].name)
     }
 
-    console.log(imagesName.join(', '));
-
     $('.custom-file-label').html(imagesName.join(' - '));
+});
+
+$('.project-image').mouseover(function(e){
+    $(e.currentTarget).find('.btn').css("display", "block");
+});
+
+$('.project-image').mouseout(function(e){
+    $(e.currentTarget).find('.btn').css("display", "none");
 });

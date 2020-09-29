@@ -15,16 +15,39 @@ html, body {
     margin: 0;
     border: none;
     border-radius: 0;
+}
 
-    &.alert-success {
-        background-color: green;
+.project-image {
+    display: inline-block;
+    position: relative;
+
+    & img {
+        @extend .rounded;
+        opacity: 1;
+
+        &:hover {
+            opacity: 0.8;
+        }
     }
 
-    &.alert-error {
-        background-color: red;
-    }
+    & .btn {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        background-color: grey;
+        color: white;
+        font-size: 25px;
+        padding: 12px 24px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
 
-    &.alert-info {
-        background-color: blue;
+        &:hover {
+            background-color: #555;
+        }
     }
 }
+

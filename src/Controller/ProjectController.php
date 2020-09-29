@@ -15,6 +15,21 @@ class ProjectController extends AbstractController
 {
     private $em;
 
+    private function addImagesToProject(array $images, Project $project)
+    {
+        foreach ($images as $image) {
+            $i = new Image;
+            $filename = md5(uniqid()). "-" . $image->getClientOriginalName();
+            $i->setName($filename);
+
+            // Move to uplaods folder
+            $image->move($this->getParameter('images_dir'), $filename);
+
+            // Associate the image to the project
+            $project->addImage($i);
+        }
+    }
+
     public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
@@ -64,17 +79,7 @@ class ProjectController extends AbstractController
         {
             $images = $form->get('images')->getData();
 
-            foreach ($images as $image) {
-                $i = new Image;
-                $filename = md5(uniqid()). "-" . $image->getClientOriginalName();
-                $i->setName($filename);
-
-                // Move to uplaods folder
-                $image->move($this->getParameter('images_dir'), $filename);
-
-                // Associate the image to the project
-                $project->addImage($i);
-            }
+            $this->addImagesToProject($images, $project);
 
             // Associate the project to the current profil
             $profil->addProject($project);
@@ -112,6 +117,10 @@ class ProjectController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid())
         {
+            $images = $form->get('images')->getData();
+
+            $this->addImagesToProject($images, $project);
+
             $this->em->flush();
 
             // Flash message
@@ -157,5 +166,20 @@ class ProjectController extends AbstractController
 
         // Redirection
         return $this->redirectToRoute('app_projects');
+    }
+
+    public function deleteImage(Image $image, Request $request)
+    {
+        unlink($this->getParameter('images_dir') . $image->getName());
+
+        $project = $image->getProject();
+        $project->removeImage($image);
+        $this->em->remove($image);
+        $this->em->flush();
+
+        // Redirection
+        return $this->redirectToRoute('app_project_update', [
+            'id' => $project->getId()
+        ]);
     }
 }
