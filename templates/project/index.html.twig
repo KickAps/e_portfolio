@@ -3,14 +3,12 @@
 {% set title = navbar.projects ~ " | " ~ website.name %}
 
 {% block body %}
-    <h1>{{ pluralize(projects|length, navbar.projects|trim('s')) }}</h1>
+    <h1 class="text-center text-muted">{{ pluralize(projects|length, navbar.projects|trim('s')) }}</h1>
     {% for project in projects %}
         <article>
             <h2><a href="{{ path('app_project_show', {'id' : project.id}) }}">{{ project.title }}</a></h2>
             <p>{{ project.description|u.truncate(10, '...', false) }}</p>
             <p>Submitted {{ project.updatedAt|date|ago }}</p>
         </article>
-    {% else %}
-        <p>Aucun projet</p>
     {% endfor %}
 {% endblock %}

@@ -86,6 +86,11 @@ class ProjectController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid())
         {
+            if (is_null($project->getMainImage()))
+            {
+                $project->setMainImage($this->getParameter('default_image'));
+            }
+
             $images = $form->get('images')->getData();
 
             $this->addImagesToProject($images, $project);
@@ -126,6 +131,11 @@ class ProjectController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid())
         {
+            if (is_null($project->getMainImage()))
+            {
+                $project->setMainImage($this->getParameter('default_image'));
+            }
+
             $images = $form->get('images')->getData();
 
             $this->addImagesToProject($images, $project);
@@ -186,7 +196,14 @@ class ProjectController extends AbstractController
             unlink($this->getParameter('images_dir') . $image->getUniqueName());
 
             $project = $image->getProject();
+            // If the deleted image is the main image
+            if ($project->getMainImage() === $image->getUniqueName())
+            {
+                $project->setMainImage($this->getParameter('default_image'));
+            }
+
             $project->removeImage($image);
+
             $this->em->remove($image);
             $this->em->flush();
 
