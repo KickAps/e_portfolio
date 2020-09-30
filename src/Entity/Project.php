@@ -27,7 +27,7 @@ class Project
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
-     * @Assert\Length(min=3)
+     * @Assert\Length(min=3, max=30)
      */
     private $title;
 

@@ -4,11 +4,24 @@
 
 {% block body %}
     <h1 class="text-center text-muted">{{ pluralize(projects|length, navbar.projects|trim('s')) }}</h1>
-    {% for project in projects %}
-        <article>
-            <h2><a href="{{ path('app_project_show', {'id' : project.id}) }}">{{ project.title }}</a></h2>
-            <p>{{ project.description|u.truncate(10, '...', false) }}</p>
-            <p>Submitted {{ project.updatedAt|date|ago }}</p>
-        </article>
+    {% for row in projects|batch(3) %}
+        <div class="row mb-5">
+            {% for project in row %}
+                <div class="col-md-4">
+                    <article class="project bg-white rounded shadow">
+                        <h5 class="p-2">
+                            <a href="{{ path('app_project_show', {'id' : project.id}) }}" class="text-secondary text-decoration-none">{{ project.title }}</a>
+                        </h5>
+                        <div class="mw-100 overflow-hidden">
+                            <a href="{{ path('app_project_show', {'id' : project.id}) }}">
+                                <img src="{{ asset('/uploads/' ~ project.mainImage) }}" alt="Image" class="w-100 rounded">
+                            </a>
+                        </div>
+                        <p class="p-2">{{ project.description|u.truncate(10, '...', false) }}</p>
+                        <p class="pl-1 text-muted"><small>Submitted {{ project.updatedAt|date|ago }}</small></p>
+                    </article>
+                </div>
+            {% endfor %}
+        </div>
     {% endfor %}
 {% endblock %}

@@ -59,6 +59,6 @@ class AppExtension extends AbstractExtension
         {
             $class = "project-image-update mb-3";
         }
-        return $mainImage === $currentImage ? $class . " main-image" : $class;
+        return $mainImage === $currentImage ? $class . " main-image" : $class . " secondary-image";
     }
 }
