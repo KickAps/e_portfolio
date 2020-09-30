@@ -160,7 +160,7 @@ class ProjectController extends AbstractController
         {
             foreach ($project->getImages() as $image)
             {
-                unlink($this->getParameter('images_dir') . $image->getName());
+                unlink($this->getParameter('images_dir') . $image->getUniqueName());
             }
 
             // TODO : Get the current user
@@ -180,12 +180,15 @@ class ProjectController extends AbstractController
 
     public function deleteImage(Image $image, Request $request)
     {
-        unlink($this->getParameter('images_dir') . $image->getName());
+        unlink($this->getParameter('images_dir') . $image->getUniqueName());
 
         $project = $image->getProject();
         $project->removeImage($image);
         $this->em->remove($image);
         $this->em->flush();
+
+        // Flash message
+        $this->addFlash('info', 'Image supprimée avec succés !');
 
         // Redirection
         return $this->redirectToRoute('app_project_update', [

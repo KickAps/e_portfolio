@@ -1,8 +1,42 @@
 import $ from 'jquery';
 
+$(document).ready(function() {
+    // If the current page is the project update page (ex: project/42/update)
+    if (window.location.pathname.match(/project\/[0-9]*\/update/i)) {
+        var tmp = [];
+        var path = "";
+        var name = "";
+        var uniqueName = "";
+        var option = null;
+
+        // Get the current main image
+        var mainImage = $('#main-image')[0].value;
+
+        $('.project-image-update').each(function(i){
+            // Get the unique name of each image
+            path = $( this ).find('img')[0].src;
+            tmp = path.split('/');
+            uniqueName = tmp[tmp.length - 1];
+
+            // Get the name of each image
+            name = $( this ).find('img')[0].name;
+
+            if (uniqueName === mainImage) {
+                // Add the selected option by default to the select
+                option = new Option(name, uniqueName, true, true);
+            } else {
+                // Add the option to the select
+                option = new Option(name, uniqueName);
+            }
+            $('#project_mainImage').append($(option));
+        });
+    }
+});
+
 $('.custom-file-input').on('change', function(e){
     var images = e.currentTarget.files;
     var imagesName = [];
+    var option = null;
 
     $('#project_mainImage')[0].disabled = false;
 
@@ -10,7 +44,8 @@ $('.custom-file-input').on('change', function(e){
         name = images[i].name;
         imagesName.push(name);
 
-        var option = new Option(name, name);
+        // Add the option to the select
+        option = new Option(name, name);
         $('#project_mainImage').append($(option));
     }
 
