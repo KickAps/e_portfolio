@@ -4,19 +4,22 @@
 
 {% block body %}
     <article>
-        <div>
+        <div class="mb-3">
             <h2>{{ project.title }}</h2>
             <p>{{ project.description }}</p>
 
+
             {% for image in project.images %}
-                <img src="{{ asset('/uploads/' ~ image.name) }}" alt="Image" width="150">
+                <div class="{{ set_main_image(image.uniqueName, project.mainImage ?? '', 'show') }}">
+                    <img src="{{ asset('/uploads/' ~ image.uniqueName) }}" alt="Image" height="250">
+                </div>
             {% endfor %}
+
         </div>
         
         <a href="{{ path('app_project_update', {'id' : project.id}) }}">{{ button.update }}</a> |
         
-        <a href="#" onclick="event.preventDefault(); confirm('Veuillez confirmer la suppression') && document.getElementById('js-project-delete-form').submit();">{{ button.delete }}</a> |
-        <a href="{{ path('app_projects') }}">{{ button.return }}</a>
+        <a href="#" onclick="event.preventDefault(); confirm('Veuillez confirmer la suppression') && document.getElementById('js-project-delete-form').submit();">{{ button.delete }}</a>
         
         <form id="js-project-delete-form" action="{{ path('app_project_delete', {'id' : project.id}) }}" method="post" style="display: none;">
             <input type="hidden" name="csrf_token" value="{{ csrf_token('project_deletion_' ~ project.id) }}">

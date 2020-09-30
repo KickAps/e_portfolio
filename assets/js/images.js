@@ -4,17 +4,23 @@ $('.custom-file-input').on('change', function(e){
     var images = e.currentTarget.files;
     var imagesName = [];
 
-    for (var i = images.length - 1; i >= 0; i--) {
-        imagesName.push(images[i].name)
+    $('#project_mainImage')[0].disabled = false;
+
+    for (var i = 0; i < images.length; i++) {
+        name = images[i].name;
+        imagesName.push(name);
+
+        var option = new Option(name, name);
+        $('#project_mainImage').append($(option));
     }
 
     $('.custom-file-label').html(imagesName.join(' - '));
 });
 
-$('.project-image').mouseover(function(e){
+$('.project-image-update').mouseover(function(e){
     $(e.currentTarget).find('.btn').css("display", "block");
 });
 
-$('.project-image').mouseout(function(e){
+$('.project-image-update').mouseout(function(e){
     $(e.currentTarget).find('.btn').css("display", "none");
 });

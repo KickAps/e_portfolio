@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Project;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -28,7 +29,13 @@ class ProjectType extends AbstractType
                 'multiple' => true,
                 'mapped' => false
             ])
+            ->add('mainImage', ChoiceType::class, [
+                'label' => 'Choix de l\'image principale',
+                'choices' => []
+            ])
         ;
+
+        $builder->get('mainImage')->resetViewTransformers();
     }
 
     public function configureOptions(OptionsResolver $resolver)

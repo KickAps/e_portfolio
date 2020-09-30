@@ -28,6 +28,11 @@ class Image
      */
     private $project;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $uniqueName;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -53,6 +58,18 @@ class Image
     public function setProject(?Project $project): self
     {
         $this->project = $project;
+
+        return $this;
+    }
+
+    public function getUniqueName(): ?string
+    {
+        return $this->uniqueName;
+    }
+
+    public function setUniqueName(string $uniqueName): self
+    {
+        $this->uniqueName = $uniqueName;
 
         return $this;
     }

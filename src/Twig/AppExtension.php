@@ -30,7 +30,8 @@ class AppExtension extends AbstractExtension
     {
         return [
             new TwigFunction('pluralize', [$this, 'pluralize']),
-            new TwigFunction('set_active_route', [$this, 'setActiveRoute'])
+            new TwigFunction('set_active_route', [$this, 'setActiveRoute']),
+            new TwigFunction('set_main_image', [$this, 'setMainImage'])
         ];
     }
 
@@ -44,6 +45,20 @@ class AppExtension extends AbstractExtension
     public function setActiveRoute(string $route) : string
     {
         $currentRoute = $this->requestStack->getCurrentRequest()->attributes->get('_route');
-        return $currentRoute == $route ? 'nav-item active' : 'nav-item';
+        return $currentRoute === $route ? 'nav-item active' : 'nav-item';
+    }
+
+    public function setMainImage(string $currentImage, string $mainImage, string $action) : string
+    {
+        $class = "";
+        if ($action === "show")
+        {
+            $class = "project-image-show mb-3";
+        }
+        else if ($action === "update")
+        {
+            $class = "project-image-update mb-3";
+        }
+        return $mainImage === $currentImage ? $class . " main-image" : $class;
     }
 }

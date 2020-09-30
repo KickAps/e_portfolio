@@ -17,13 +17,22 @@ class ProjectController extends AbstractController
 
     private function addImagesToProject(array $images, Project $project)
     {
-        foreach ($images as $image) {
+        foreach ($images as $image)
+        {
             $i = new Image;
-            $filename = md5(uniqid()). "-" . $image->getClientOriginalName();
+            $filename = $image->getClientOriginalName();
+            $uniqueFilename = md5(uniqid()). "-" . $filename;
+
+            if ($filename === $project->getMainImage())
+            {
+                $project->setMainImage($uniqueFilename);
+            }
+
             $i->setName($filename);
+            $i->setUniqueName($uniqueFilename);
 
             // Move to uplaods folder
-            $image->move($this->getParameter('images_dir'), $filename);
+            $image->move($this->getParameter('images_dir'), $uniqueFilename);
 
             // Associate the image to the project
             $project->addImage($i);
@@ -149,7 +158,8 @@ class ProjectController extends AbstractController
         $csrf_token = $request->request->get('csrf_token');
         if ($this->isCsrfTokenValid('project_deletion_' . $project->getId(), $csrf_token))
         {
-            foreach ($project->getImages() as $image) {
+            foreach ($project->getImages() as $image)
+            {
                 unlink($this->getParameter('images_dir') . $image->getName());
             }
 

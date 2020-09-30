@@ -10,14 +10,22 @@ html, body {
 
 .alert {
     padding: 10px;
-    color: white;
     text-align: center;
     margin: 0;
     border: none;
     border-radius: 0;
 }
 
-.project-image {
+.project-image-show {
+    display: inline-block;
+    position: relative;
+
+    & img {
+        @extend .rounded;
+    }
+}
+
+.project-image-update {
     display: inline-block;
     position: relative;
 
@@ -49,5 +57,9 @@ html, body {
             background-color: #555;
         }
     }
+}
+
+.main-image img {
+    border: 5px solid gold;
 }
 
