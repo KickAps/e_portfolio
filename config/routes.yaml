@@ -32,3 +32,8 @@ app_image_delete:
     path: /image/{id<[0-9]+>}
     controller: App\Controller\ProjectController::deleteImage
     methods: DELETE
+
+app_careers:
+    path: /carrer
+    controller: App\Controller\CareerController::index
+    methods: GET

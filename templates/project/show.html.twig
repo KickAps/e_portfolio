@@ -3,19 +3,28 @@
 {% set title = project.title ~ " | " ~ website.name %}
 
 {% block body %}
-    <div class="row mb-5">
+    <!-- Project Details Section Heading-->
+    <h2 class="page-section-heading text-center text-secondary text-uppercase font-weight-bold">{{ project.title ~ " ~ " ~ tab.details }}</h2>
+    <!-- Icon Divider-->
+    <div class="divider-custom">
+        <div class="divider-custom-line"></div>
+        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+        <div class="divider-custom-line"></div>
+    </div>
+
+    <div class="row">
         <div class="col">
             <article class="bg-white rounded shadow">
-                <h2 class="p-2">{{ project.title }}</h2>
                 {% for image in project.images %}
                     <div class="{{ set_main_image(image.uniqueName, project.mainImage ?? '', 'show') }}">
                         <img src="{{ asset('/uploads/' ~ image.uniqueName) }}" alt="Image" height="250">
                     </div>
                 {% endfor %}
                 <p class="p-2">{{ project.description }}</p>
-
-                <a href="{{ path('app_project_update', {'id' : project.id}) }}" class="ml-2 mb-2 btn btn-light">{{ button.update }}</a>
-                <a href="#" onclick="event.preventDefault(); confirm('Veuillez confirmer la suppression') && document.getElementById('js-project-delete-form').submit();" class="mb-2 btn btn-light">{{ button.delete }}</a>
+                <div class="width-fit-content mx-auto">
+                    <a href="{{ path('app_project_update', {'id' : project.id}) }}" class="mb-2 btn btn-primary">{{ button.update }}</a>
+                    <a href="#" onclick="event.preventDefault(); confirm('Veuillez confirmer la suppression') && document.getElementById('js-project-delete-form').submit();" class="mb-2 btn btn-danger">{{ button.delete }}</a>
+                </div>
             </article>
             
             <form id="js-project-delete-form" action="{{ path('app_project_delete', {'id' : project.id}) }}" method="post" style="display: none;">

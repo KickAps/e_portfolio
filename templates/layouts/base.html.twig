@@ -2,17 +2,26 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+
         <title>{{title ?? website.name }}</title>
         
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
     </head>
-    <body>
-        {{ include('layouts/partials/_flash_messages.html.twig')}}
+
+    <body id="page-top">
         {{ include('layouts/partials/_navbar.html.twig')}}
+
+        {% block header %}{% endblock %}
         
         <main role="main" class="main-container">
+            {{ include('layouts/partials/_flash_messages.html.twig')}}
             {% block body %}{% endblock %}
         </main>
 

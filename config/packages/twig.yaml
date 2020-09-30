@@ -14,5 +14,7 @@ twig:
             new: 'Nouveau'
             career: 'Parcours'
         tab:
-            new: 'Créer un project'
-            update: 'Modifier un project'
+            new: 'Créer un projet'
+            update: 'Mise à jour'
+            details: 'Détails'
+            career: 'Parcours'

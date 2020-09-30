@@ -29,23 +29,22 @@ class AppExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('pluralize', [$this, 'pluralize']),
             new TwigFunction('set_active_route', [$this, 'setActiveRoute']),
             new TwigFunction('set_main_image', [$this, 'setMainImage'])
         ];
     }
 
-    public function pluralize(int $count, string $singular, string $plural = null) : string
+    public function setActiveRoute(array $routes) : string
     {
-        $plural ??= $singular . "s";
-        $s = $count <= 1 ? $singular : $plural;
-        return "$count $s";
-    }
-
-    public function setActiveRoute(string $route) : string
-    {
+        $class = "nav-item mx-0 mx-lg-1 rounded";
         $currentRoute = $this->requestStack->getCurrentRequest()->attributes->get('_route');
-        return $currentRoute === $route ? 'nav-item active' : 'nav-item';
+
+        foreach ($routes as $route) {
+            if ($currentRoute === $route) {
+                return $class . ' active';
+            }
+        }
+        return $class;
     }
 
     public function setMainImage(string $currentImage, string $mainImage, string $action) : string

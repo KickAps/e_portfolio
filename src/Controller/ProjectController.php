@@ -52,10 +52,9 @@ class ProjectController extends AbstractController
     {
         // TODO : Get the current user
         $profil = $profilRepository->findAll()[0];
-        $projects = $profil->getProjects();
 
         // Template render
-        return $this->render('project/index.html.twig', compact('projects'));
+        return $this->render('project/index.html.twig', compact('profil'));
     }
 
     /**
