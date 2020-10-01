@@ -7,13 +7,13 @@
 
         <div class="collapse navbar-collapse" id="navbarsExample04">
             <ul class="navbar-nav ml-auto">
-                <li class="{{ set_active_route(['app_project_create']) }}">
+                <li class="{{ set_active_route('app_project_create') }}">
                     <a class="nav-link py-3 px-0 px-lg-3 font-weight-bold" href="{{ path('app_project_create') }}">{{ navbar.new|upper }}</a>
                 </li>
-                <li class="{{ set_active_route(['app_projects', 'app_project_show', 'app_project_update']) }}">
+                <li class="{{ set_active_route('app_projects') }}">
                     <a class="nav-link py-3 px-0 px-lg-3 font-weight-bold" href="{{ path('app_projects') }}">{{ navbar.projects|upper }}</a>
                 </li>
-                <li class="{{ set_active_route(['app_careers']) }}">
+                <li class="{{ set_active_route('app_careers') }}">
                     <a class="nav-link py-3 px-0 px-lg-3 font-weight-bold" href="{{ path('app_careers') }}">{{ navbar.career|upper }}</a>
                 </li>
             </ul>

@@ -34,17 +34,12 @@ class AppExtension extends AbstractExtension
         ];
     }
 
-    public function setActiveRoute(array $routes) : string
+    public function setActiveRoute(string $route) : string
     {
         $class = "nav-item mx-0 mx-lg-1 rounded";
         $currentRoute = $this->requestStack->getCurrentRequest()->attributes->get('_route');
 
-        foreach ($routes as $route) {
-            if ($currentRoute === $route) {
-                return $class . ' active';
-            }
-        }
-        return $class;
+        return $currentRoute === $route ? $class . ' active' : $class;
     }
 
     public function setMainImage(string $currentImage, string $mainImage, string $action) : string
