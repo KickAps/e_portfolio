@@ -1,35 +1,39 @@
-import $ from 'jquery';
+const $ = require('jquery');
+
+function initSelectMainImage() {
+    var tmp = [];
+    var path = "";
+    var name = "";
+    var uniqueName = "";
+    var option = null;
+
+    // Get the current main image
+    var mainImage = $('#main-image')[0].value;
+
+    $('.project-image-update').each(function(i){
+        // Get the unique name of each image
+        path = $( this ).find('img')[0].src;
+        tmp = path.split('/');
+        uniqueName = tmp[tmp.length - 1];
+
+        // Get the name of each image
+        name = $( this ).find('img')[0].name;
+
+        if (uniqueName === mainImage) {
+            // Add the selected option by default to the select
+            option = new Option(name, uniqueName, true, true);
+        } else {
+            // Add the option to the select
+            option = new Option(name, uniqueName);
+        }
+        $('#project_mainImage').append($(option));
+    });
+}
 
 $(document).ready(function() {
     // If the current page is the project update page (ex: project/42/update)
     if (window.location.pathname.match(/project\/[0-9]*\/update/i)) {
-        var tmp = [];
-        var path = "";
-        var name = "";
-        var uniqueName = "";
-        var option = null;
-
-        // Get the current main image
-        var mainImage = $('#main-image')[0].value;
-
-        $('.project-image-update').each(function(i){
-            // Get the unique name of each image
-            path = $( this ).find('img')[0].src;
-            tmp = path.split('/');
-            uniqueName = tmp[tmp.length - 1];
-
-            // Get the name of each image
-            name = $( this ).find('img')[0].name;
-
-            if (uniqueName === mainImage) {
-                // Add the selected option by default to the select
-                option = new Option(name, uniqueName, true, true);
-            } else {
-                // Add the option to the select
-                option = new Option(name, uniqueName);
-            }
-            $('#project_mainImage').append($(option));
-        });
+        initSelectMainImage();
     }
 });
 
@@ -47,6 +51,11 @@ $('.custom-file-input').on('change', function(e){
         // Add the option to the select
         option = new Option(name, name);
         $('#project_mainImage').append($(option));
+    }
+
+    if (images.length === 0) {
+        $('#project_mainImage').empty();
+        initSelectMainImage();
     }
 
     $('.custom-file-label').html(imagesName.join(' - '));
