@@ -7,7 +7,7 @@
             <!-- Masthead Avatar Image-->
             <img class="masthead-avatar mb-5" src="assets/img/avataaars.svg" alt="" />
             <!-- Masthead Heading-->
-            <h1 class="masthead-heading text-uppercase mb-0">{{ profil.firstname|upper }} {{ profil.name|upper }}</h1>
+            <h1 class="masthead-heading text-uppercase mb-0 font-weight-bold">{{ profil.firstname|upper }} {{ profil.name|upper }}</h1>
             <!-- Icon Divider-->
             <div class="divider-custom divider-light">
                 <div class="divider-custom-line"></div>
@@ -15,7 +15,40 @@
                 <div class="divider-custom-line"></div>
             </div>
             <!-- Masthead Subheading-->
-            <p class="masthead-subheading font-weight-light mb-0">{{ profil.work }}</p>
+            <p class="masthead-subheading font-weight-bold mb-0">{{ profil.work }}</p>
         </div>
     </header>
+    <!-- About Section-->
+    <section class="page-section">
+        <div class="container">
+            <!-- About Section Heading-->
+            <h2 class="page-section-heading text-center text-uppercase text-secondary font-weight-bold pt-5">Présentation</h2>
+            <!-- Icon Divider-->
+            <div class="divider-custom">
+                <div class="divider-custom-line"></div>
+                <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                <div class="divider-custom-line"></div>
+            </div>
+            <!-- About Section Content-->
+            <div>
+                <p class="font-weight-light pb-5 mb-0" align="justify">{{ profil.description }}</p>
+            </div>
+        </div>
+    </section>
+    <!-- Contact Section-->
+    <section class="page-section bg-primary">
+        <div class="container">
+            <!-- Contact Section Heading-->
+            <h2 class="page-section-heading text-center text-uppercase text-white font-weight-bold pt-5">Me contacter</h2>
+            <!-- Icon Divider-->
+            <div class="divider-custom divider-light">
+                <div class="divider-custom-line"></div>
+                <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                <div class="divider-custom-line"></div>
+            </div>
+            <div>
+                <p class="font-weight-light text-white pb-5 mb-0" align="justify">{{ profil.description }}</p>
+            </div>
+        </div>
+    </section>
 {% endblock %}
