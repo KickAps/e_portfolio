@@ -37,3 +37,8 @@ app_careers:
     path: /carrer
     controller: App\Controller\CareerController::index
     methods: GET
+
+app_profil:
+    path: /profil
+    controller: App\Controller\ProfilController::index
+    methods: GET
