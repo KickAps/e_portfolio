@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\CareerRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -19,6 +20,8 @@ class Career
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotNull
+     * @Assert\Length(min=3, max=30)
      */
     private $title;
 
@@ -28,7 +31,8 @@ class Career
     private $start_date;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
+     * @Assert\GreaterThan(propertyPath="start_date")
      */
     private $end_date;
 
@@ -48,7 +52,7 @@ class Career
         return $this->title;
     }
 
-    public function setTitle(string $title): self
+    public function setTitle(?string $title): self
     {
         $this->title = $title;
 
@@ -60,7 +64,7 @@ class Career
         return $this->start_date;
     }
 
-    public function setStartDate(\DateTimeInterface $start_date): self
+    public function setStartDate(?\DateTimeInterface $start_date): self
     {
         $this->start_date = $start_date;
 
@@ -72,7 +76,7 @@ class Career
         return $this->end_date;
     }
 
-    public function setEndDate(\DateTimeInterface $end_date): self
+    public function setEndDate(?\DateTimeInterface $end_date): self
     {
         $this->end_date = $end_date;
 

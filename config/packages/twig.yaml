@@ -8,17 +8,19 @@ twig:
             create: 'Créer'
             update: 'Modifier'
             delete: 'Supprimer'
-            return: 'Retour'
             validate: 'Valider'
+            add: 'Ajouter'
         navbar:
             projects: 'Projets'
             new: 'Nouveau'
             career: 'Parcours'
         tab:
-            new: 'Créer un projet'
+            project:
+                new: 'Créer un nouveau projet'
+            career:
+                new: 'Créer un nouveau parcours'
             update: 'Mise à jour'
             details: 'Détails'
-            career: 'Parcours'
             about: 'Présentation'
             contact: 'Me Contacter'
             profil: 'Profil'

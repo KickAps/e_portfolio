@@ -3,7 +3,7 @@ app_home:
     controller: App\Controller\HomeController::index
     methods: GET
 
-app_projects:
+app_project:
     path: /project
     controller: App\Controller\ProjectController::index
     methods: GET
@@ -38,10 +38,15 @@ app_career:
     controller: App\Controller\CareerController::index
     methods: GET
 
+app_career_create:
+    path: /carrer/create
+    controller: App\Controller\CareerController::create
+    methods: GET|POST
+
 app_career_update:
     path: /carrer/update
     controller: App\Controller\CareerController::update
-    methods: GET|POST|PUT
+    methods: GET|PUT
 
 app_profil:
     path: /profil

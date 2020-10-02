@@ -184,7 +184,7 @@ class ProjectController extends AbstractController
         }
 
         // Redirection
-        return $this->redirectToRoute('app_projects');
+        return $this->redirectToRoute('app_project');
     }
 
     public function deleteImage(Image $image, Request $request)

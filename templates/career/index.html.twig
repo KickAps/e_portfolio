@@ -4,7 +4,7 @@
 
 {% block body %}
     <!-- Career Section Heading-->
-    <h2 class="page-section-heading text-center text-secondary text-uppercase font-weight-bold">{{ tab.career }}</h2>
+    <h2 class="page-section-heading text-center text-secondary text-uppercase font-weight-bold">{{ navbar.career }}</h2>
     <!-- Icon Divider-->
     <div class="divider-custom">
         <div class="divider-custom-line"></div>
@@ -13,12 +13,13 @@
     </div>
 
     <div class="width-fit-content mx-auto">
-        <a href="{{ path('app_career_update') }}" class="mb-2 btn btn-primary">{{ button.update }}</a>
+        <a href="{{ path('app_career_create') }}" class="mb-2 btn btn-primary">{{ button.add }}</a>
     </div>
 
 {% endblock %}
 
 {% block timeline %}
     <div class="timeline-div" id="timeline"></div>
-    <input type="hidden" id="data" value="{{ json_data }}">
+    <input type="hidden" id="json_range_data" value="{{ json_range_data }}">
+    <input type="hidden" id="json_moment_data" value="{{ json_moment_data }}">
 {% endblock %}
