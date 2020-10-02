@@ -6,11 +6,14 @@ function initSelectMainImage() {
     var name = "";
     var uniqueName = "";
     var option = null;
+    var images = $('.project-image-update');
 
     // Get the current main image
     var mainImage = $('#main-image')[0].value;
 
-    $('.project-image-update').each(function(i){
+
+
+    images.each(function(i){
         // Get the unique name of each image
         path = $( this ).find('img')[0].src;
         tmp = path.split('/');
@@ -28,6 +31,11 @@ function initSelectMainImage() {
         }
         $('#project_mainImage').append($(option));
     });
+
+    if (images.length !== 0) {
+        $('#project_mainImage')[0].disabled = false;
+    }
+
 }
 
 $(document).ready(function() {
@@ -35,36 +43,38 @@ $(document).ready(function() {
     if (window.location.pathname.match(/project\/[0-9]*\/update/i)) {
         initSelectMainImage();
     }
-});
 
-$('.custom-file-input').on('change', function(e){
-    var images = e.currentTarget.files;
-    var imagesName = [];
-    var option = null;
+    $('.custom-file-input').on('change', function(e){
+        var images = e.currentTarget.files;
+        var imagesName = [];
+        var option = null;
 
-    $('#project_mainImage')[0].disabled = false;
+        $('#project_mainImage')[0].disabled = false;
 
-    for (var i = 0; i < images.length; i++) {
-        name = images[i].name;
-        imagesName.push(name);
+        for (var i = 0; i < images.length; i++) {
+            name = images[i].name;
+            imagesName.push(name);
 
-        // Add the option to the select
-        option = new Option(name, name);
-        $('#project_mainImage').append($(option));
-    }
+            // Add the option to the select
+            option = new Option(name, name);
+            $('#project_mainImage').append($(option));
+        }
 
-    if (images.length === 0) {
-        $('#project_mainImage').empty();
-        initSelectMainImage();
-    }
+        if (images.length === 0) {
+            $('#project_mainImage').empty();
+            $('#project_mainImage')[0].disabled = true;
+            $('.custom-file-label').html('');
+            initSelectMainImage();
+        }
 
-    $('.custom-file-label').html(imagesName.join(' - '));
-});
+        $('.custom-file-label').html(imagesName.join(' - '));
+    });
 
-$('.project-image-update').mouseover(function(e){
-    $(e.currentTarget).find('.btn').css("display", "block");
-});
+    $('.project-image-update').mouseover(function(e){
+        $(e.currentTarget).find('.btn').css("display", "block");
+    });
 
-$('.project-image-update').mouseout(function(e){
-    $(e.currentTarget).find('.btn').css("display", "none");
+    $('.project-image-update').mouseout(function(e){
+        $(e.currentTarget).find('.btn').css("display", "none");
+    });
 });

@@ -11,4 +11,14 @@
         <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
         <div class="divider-custom-line"></div>
     </div>
+
+    <div class="width-fit-content mx-auto">
+        <a href="{{ path('app_career_update') }}" class="mb-2 btn btn-primary">{{ button.update }}</a>
+    </div>
+
+{% endblock %}
+
+{% block timeline %}
+    <div class="timeline-div" id="timeline"></div>
+    <input type="hidden" id="data" value="{{ json_data }}">
 {% endblock %}

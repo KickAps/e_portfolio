@@ -31,7 +31,8 @@ class ProjectType extends AbstractType
             ])
             ->add('mainImage', ChoiceType::class, [
                 'label' => 'Choix de l\'image principale',
-                'choices' => []
+                'choices' => [],
+                'disabled' => true
             ])
         ;
 

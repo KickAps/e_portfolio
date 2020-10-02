@@ -47,12 +47,12 @@ class Profil
     /**
      * @ORM\OneToMany(targetEntity=Career::class, mappedBy="profil", orphanRemoval=true)
      */
-    private $professional_career;
+    private $career;
 
     public function __construct()
     {
         $this->projects = new ArrayCollection();
-        $this->professional_career = new ArrayCollection();
+        $this->career = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -142,28 +142,28 @@ class Profil
     /**
      * @return Collection|career[]
      */
-    public function getProfessionalCareer(): Collection
+    public function getCareer(): Collection
     {
-        return $this->professional_career;
+        return $this->career;
     }
 
-    public function addProfessionalCareer(career $professionalCareer): self
+    public function addCareer(career $career): self
     {
-        if (!$this->professional_career->contains($professionalCareer)) {
-            $this->professional_career[] = $professionalCareer;
-            $professionalCareer->setProfil($this);
+        if (!$this->career->contains($career)) {
+            $this->career[] = $career;
+            $career->setProfil($this);
         }
 
         return $this;
     }
 
-    public function removeProfessionalCareer(career $professionalCareer): self
+    public function removeCareer(career $career): self
     {
-        if ($this->professional_career->contains($professionalCareer)) {
-            $this->professional_career->removeElement($professionalCareer);
+        if ($this->career->contains($career)) {
+            $this->career->removeElement($career);
             // set the owning side to null (unless already changed)
-            if ($professionalCareer->getProfil() === $this) {
-                $professionalCareer->setProfil(null);
+            if ($career->getProfil() === $this) {
+                $career->setProfil(null);
             }
         }
 

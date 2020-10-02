@@ -9,6 +9,7 @@ twig:
             update: 'Modifier'
             delete: 'Supprimer'
             return: 'Retour'
+            validate: 'Valider'
         navbar:
             projects: 'Projets'
             new: 'Nouveau'

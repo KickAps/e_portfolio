@@ -33,10 +33,15 @@ app_image_delete:
     controller: App\Controller\ProjectController::deleteImage
     methods: DELETE
 
-app_careers:
+app_career:
     path: /carrer
     controller: App\Controller\CareerController::index
     methods: GET
+
+app_career_update:
+    path: /carrer/update
+    controller: App\Controller\CareerController::update
+    methods: GET|POST|PUT
 
 app_profil:
     path: /profil
