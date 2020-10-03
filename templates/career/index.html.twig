@@ -22,4 +22,17 @@
     <div class="timeline-div" id="timeline"></div>
     <input type="hidden" id="json_range_data" value="{{ json_range_data }}">
     <input type="hidden" id="json_moment_data" value="{{ json_moment_data }}">
+
+    <div class="main-container">
+    {% for career in profil.career %}
+        <article class="project bg-white rounded shadow">
+            <h3 class="p-4 text-center">
+                <a href="" class="text-secondary text-decoration-none">{{ career.title }}</a>
+            </h3>
+            <p class="p-2">bla</p>
+            <p class="p-2">{{ career.startDate|date }}</p>
+            <p class="p-2">{{ career.endDate|date }}</p>
+        </article>
+    {% endfor %}
+    </div>
 {% endblock %}

@@ -18,11 +18,11 @@ class CareerType extends AbstractType
                 'label' => 'Titre',
                 'attr' => ['autofocus' => true]
             ])
-            ->add('start_date', DateType::class, [
+            ->add('startDate', DateType::class, [
                 'widget' => 'single_text',
                 'empty_data' => null
             ])
-            ->add('end_date', DateType::class, [
+            ->add('endDate', DateType::class, [
                 'widget' => 'single_text'
             ])
         ;
