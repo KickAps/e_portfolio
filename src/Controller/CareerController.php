@@ -83,13 +83,51 @@ class CareerController extends AbstractController
         ]);
     }
 
-    public function update(ProfilRepository $profilRepository)
+    public function update(Career $career, Request $request)
     {
-        $career = new Career;
-        // TODO : Get the current user
-        $profil = $profilRepository->findAll()[0];
+        $form = $this->createForm(CareerType::class, $career, [
+            'method' => 'PUT'
+        ]);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $this->em->flush();
+
+            // Flash message
+            $this->addFlash('success', 'Parcours modifié avec succés !');
+
+            // Redirection
+            return $this->redirectToRoute('app_career', [
+                'id' => $career->getId()
+            ]);
+        }
 
         // Template render
-        return $this->render('career/update.html.twig');
+        return $this->render('career/update.html.twig', [
+            'myForm' => $form->createView(),
+            'career' => $career
+        ]);
+    }
+
+    public function delete(Career $career, Request $request, ProfilRepository $profilRepository)
+    {
+        $csrf_token = $request->request->get('csrf_token');
+        if ($this->isCsrfTokenValid('career_deletion_' . $career->getId(), $csrf_token))
+        {
+            // TODO : Get the current user
+            $profil = $profilRepository->findAll()[0];
+            $profil->removeCareer($career);
+
+            $this->em->remove($career);
+            $this->em->flush();
+
+            // Flash message
+            $this->addFlash('info', 'Parcours supprimé avec succés !');
+        }
+
+        // Redirection
+        return $this->redirectToRoute('app_career');
     }
 }

@@ -1,8 +1,10 @@
+### HOME ###
 app_home:
     path: /
     controller: App\Controller\HomeController::index
     methods: GET
 
+### PROJECT ###
 app_project:
     path: /project
     controller: App\Controller\ProjectController::index
@@ -33,6 +35,7 @@ app_image_delete:
     controller: App\Controller\ProjectController::deleteImage
     methods: DELETE
 
+### CAREER ###
 app_career:
     path: /carrer
     controller: App\Controller\CareerController::index
@@ -44,10 +47,16 @@ app_career_create:
     methods: GET|POST
 
 app_career_update:
-    path: /carrer/update
+    path: /carrer/{id<[0-9]+>}/update
     controller: App\Controller\CareerController::update
     methods: GET|PUT
 
+app_career_delete:
+    path: /career/{id<[0-9]+>}
+    controller: App\Controller\CareerController::delete
+    methods: DELETE
+
+### PROFIL ###
 app_profil:
     path: /profil
     controller: App\Controller\ProfilController::index

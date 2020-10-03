@@ -17,7 +17,7 @@
 
 {% if project is defined %}
     {% for image in project.images %}
-        <form id="{{ 'js-image-delete-form-' ~ image.id }}" action="{{ path('app_image_delete', {'id' : image.id}) }}" method="post" style="display: none;">
+        <form id="{{ 'js-image-delete-form-' ~ image.id }}" action="{{ path('app_image_delete', {'id' : image.id}) }}" method="post" class="display-none">
             <input type="hidden" name="csrf_token" value="{{ csrf_token('image_deletion_' ~ image.id) }}">
             <input type="hidden" name="_method" value="DELETE">
         </form>

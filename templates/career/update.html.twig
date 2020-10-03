@@ -4,7 +4,7 @@
 
 {% block body %}
     <!-- Career Section Heading-->
-    <h2 class="page-section-heading text-center text-secondary text-uppercase font-weight-bold">{{ tab.career ~ " ~ " ~ tab.update }}</h2>
+    <h2 class="page-section-heading text-center text-secondary text-uppercase font-weight-bold">{{ navbar.career ~ " ~ " ~ tab.update }}</h2>
     <!-- Icon Divider-->
     <div class="divider-custom">
         <div class="divider-custom-line"></div>
@@ -12,6 +12,10 @@
         <div class="divider-custom-line"></div>
     </div>
 
-    <input type="submit" class="btn btn-primary block" value="{{ button.validate }}" formnovalidate>
+    {{ form_start(myForm) }}
+        {{ form_widget(myForm) }}
+
+        <input type="submit" class="btn btn-primary block" value="{{ button.validate }}" formnovalidate>
+    {{ form_end(myForm) }}
 
 {% endblock %}

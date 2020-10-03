@@ -13,6 +13,7 @@ html, body {
 .main-container {
     @extend .container;
     max-width: max-content;
+    min-width: 40%;
     margin-top: 100px;
 }
 
@@ -95,6 +96,10 @@ li.active {
 
 .timeline-div {
     height: 300px;
+}
+
+.display-none {
+    display: none;
 }
 
 /* Bootstrap Template */

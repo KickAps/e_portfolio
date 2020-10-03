@@ -25,14 +25,25 @@
 
     <div class="main-container">
     {% for career in profil.career %}
-        <article class="project bg-white rounded shadow">
+        <article id="{{ career.title|replace({' ': '-', '\'': ''}) }}" class="project bg-white rounded shadow m-4 pb-2">
             <h3 class="p-4 text-center">
-                <a href="" class="text-secondary text-decoration-none">{{ career.title }}</a>
+                <p class="text-secondary text-decoration-none">{{ career.title }}</p>
             </h3>
             <p class="p-2">bla</p>
             <p class="p-2">{{ career.startDate|date }}</p>
             <p class="p-2">{{ career.endDate|date }}</p>
+
+            <div class="width-fit-content mx-auto">
+                <a href="{{ path('app_career_update', {'id' : career.id}) }}" class="mb-2 btn btn-primary">{{ button.update }}</a>
+                <a href="#" onclick="{{ 'event.preventDefault(); confirm(\'Veuillez confirmer la suppression\') && document.getElementById(\'js-career-delete-form-' ~ career.id ~ '\').submit();' }}" class="mb-2 btn btn-danger">{{ button.delete }}</a>
+            </div>
         </article>
+
+        <form id="{{ 'js-career-delete-form-' ~ career.id }}" action="{{ path('app_career_delete', {'id' : career.id}) }}" method="post" class="display-none">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token('career_deletion_' ~ career.id) }}">
+            <input type="hidden" name="_method" value="DELETE">
+        </form>
+
     {% endfor %}
     </div>
 {% endblock %}
