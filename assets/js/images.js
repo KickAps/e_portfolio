@@ -11,8 +11,6 @@ function initSelectMainImage() {
     // Get the current main image
     var mainImage = $('#main-image')[0].value;
 
-
-
     images.each(function(i){
         // Get the unique name of each image
         path = $( this ).find('img')[0].src;
@@ -38,13 +36,9 @@ function initSelectMainImage() {
 
 }
 
-$(document).ready(function() {
-    // If the current page is the project update page (ex: project/42/update)
-    if (window.location.pathname.match(/project\/[0-9]*\/update/i)) {
-        initSelectMainImage();
-    }
-
-    $('.custom-file-input').on('change', function(e){
+function imagesManager() {
+    $('#project_mainImage')[0].disabled = true;
+    $('.custom-file-input').on('change', function(e) {
         var images = e.currentTarget.files;
         var imagesName = [];
         var option = null;
@@ -77,4 +71,16 @@ $(document).ready(function() {
     $('.project-image-update').mouseout(function(e){
         $(e.currentTarget).find('.btn').css("display", "none");
     });
+}
+
+$(document).ready(function()
+{
+    // If the current page is the project updating page (ex: project/42/update)
+    if (window.location.pathname.match(/project\/[0-9]*\/update/i)) {
+        imagesManager();
+        initSelectMainImage();
+    // If the current page is the project creating page
+    } else if (window.location.pathname.match(/project\/create/i)) {
+        imagesManager();
+    }
 });
