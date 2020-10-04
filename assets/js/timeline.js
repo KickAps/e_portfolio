@@ -59,4 +59,9 @@ function scrollToElement(element) {
     var id = element.replace(' ', '-').replace('\'', '');
     var pos = $('#'+id)[0].getBoundingClientRect();
     window.scrollTo(0, pos.top-100);
+
+    $('#'+id)[0].animate (
+        [{ border: '1px solid red' },{ border: '1px solid white' }],
+        { duration: 2000 }
+    );
 }
