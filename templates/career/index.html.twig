@@ -23,9 +23,9 @@
     <input type="hidden" id="json_range_data" value="{{ json_range_data }}">
     <input type="hidden" id="json_moment_data" value="{{ json_moment_data }}">
 
-    <div class="main-container">
+    <div class="main-container unselectable">
     {% for career in profil.career %}
-        <article id="{{ career.title|replace({' ': '-', '\'': ''}) }}" class="project bg-white rounded shadow m-4 pb-2">
+        <article id="{{ career.title|replace({' ': '-', '\'': ''}) }}" class="bg-white rounded shadow m-4 pb-2">
             <h3 class="p-4 text-center">
                 <p class="text-secondary text-decoration-none">{{ career.title }}</p>
             </h3>
