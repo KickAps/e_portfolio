@@ -36,7 +36,7 @@ function initSelectMainImage() {
 
 }
 
-function imagesManager() {
+function imagesManager(action = null) {
     $('#project_mainImage')[0].disabled = true;
     $('.custom-file-input').on('change', function(e) {
         var images = e.currentTarget.files;
@@ -44,6 +44,12 @@ function imagesManager() {
         var option = null;
 
         $('#project_mainImage')[0].disabled = false;
+        $('#project_mainImage').empty();
+        $('.custom-file-label').html('');
+
+        if (action === "update") {
+            initSelectMainImage();
+        }
 
         for (var i = 0; i < images.length; i++) {
             name = images[i].name;
@@ -54,11 +60,8 @@ function imagesManager() {
             $('#project_mainImage').append($(option));
         }
 
-        if (images.length === 0) {
-            $('#project_mainImage').empty();
+        if (images.length === 0 && action !== "update") {
             $('#project_mainImage')[0].disabled = true;
-            $('.custom-file-label').html('');
-            initSelectMainImage();
         }
 
         $('.custom-file-label').html(imagesName.join(' - '));
@@ -77,7 +80,7 @@ $(document).ready(function()
 {
     // If the current page is the project updating page (ex: project/42/update)
     if (window.location.pathname.match(/project\/[0-9]*\/update/i)) {
-        imagesManager();
+        imagesManager("update");
         initSelectMainImage();
     // If the current page is the project creating page
     } else if (window.location.pathname.match(/project\/create/i)) {
