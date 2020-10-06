@@ -28,6 +28,8 @@ $(document).ready(function() {
         // Moment
         var moment = chart.moment(moment_data);
 
+        moment.direction("down");
+
         moment.tooltip().format(function(e){
             current = e.value;
         });
