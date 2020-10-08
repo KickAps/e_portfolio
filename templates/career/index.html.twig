@@ -1,6 +1,6 @@
 {% extends 'layouts/base.html.twig' %}
 
-{% set title = "TODO | " ~ website.name %}
+{% set title = navbar.career ~ " | " ~ website.name %}
 
 {% block body %}
     <!-- Career Section Heading-->
@@ -12,14 +12,17 @@
         <div class="divider-custom-line"></div>
     </div>
 
-    <div class="width-fit-content mx-auto">
-        <a href="{{ path('app_career_create') }}" class="mb-2 btn btn-primary">{{ button.add }}</a>
-    </div>
-
 {% endblock %}
 
 {% block timeline %}
-    <div class="timeline-div" id="timeline"></div>
+    <div class="m-3 p-3 bg-white rounded shadow">
+        <div class="timeline-div" id="timeline"></div>
+
+        <div class="width-fit-content mx-auto">
+            <a href="{{ path('app_career_create') }}" class="mb-2 btn btn-primary">{{ button.add }}</a>
+        </div>
+    </div>
+
     <input type="hidden" id="json_range_data" value="{{ json_range_data }}">
     <input type="hidden" id="json_moment_data" value="{{ json_moment_data }}">
 

@@ -1,10 +1,10 @@
 {% extends 'layouts/base.html.twig' %}
 
-{% set title = "TODO | " ~ website.name %}
+{% set title = career.title ~ " | " ~ website.name %}
 
 {% block body %}
-    <!-- Career Section Heading-->
-    <h2 class="page-section-heading text-center text-secondary text-uppercase font-weight-bold">{{ navbar.career ~ " ~ " ~ tab.update }}</h2>
+    <!-- Career Update Section Heading-->
+    <h2 class="page-section-heading text-center text-secondary text-uppercase font-weight-bold">{{ career.title ~ " ~ " ~ tab.update }}</h2>
     <!-- Icon Divider-->
     <div class="divider-custom">
         <div class="divider-custom-line"></div>
@@ -12,10 +12,12 @@
         <div class="divider-custom-line"></div>
     </div>
 
+    <div class="p-3 bg-white rounded shadow">
     {{ form_start(myForm) }}
         {{ form_widget(myForm) }}
 
         <input type="submit" class="btn btn-primary block" value="{{ button.validate }}" formnovalidate>
     {{ form_end(myForm) }}
+    </div>
 
 {% endblock %}

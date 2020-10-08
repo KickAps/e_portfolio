@@ -12,10 +12,7 @@
         <div class="divider-custom-line"></div>
     </div>
 
-    <div class="row">
-        <div class="col-md6 mx-auto">
-
-            {{ include('/layouts/partials/_form.html.twig', {submitButtonText: button.update, project: project}) }}
-        </div>
+    <div class="p-3 bg-white rounded shadow">
+        {{ include('/layouts/partials/_form.html.twig', {submitButtonText: button.update, project: project}) }}
     </div>
 {% endblock %}

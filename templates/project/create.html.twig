@@ -3,18 +3,16 @@
 {% set title = navbar.new ~ " | " ~ website.name %}
 
 {% block body %}
-    <div class="row">
-        <div class="col-md-6 mx-auto">
-            <!-- New Project Section Heading-->
-            <h2 class="page-section-heading text-center text-secondary text-uppercase font-weight-bold">{{ tab.project.new }}</h2>
-            <!-- Icon Divider-->
-            <div class="divider-custom">
-                <div class="divider-custom-line"></div>
-                <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                <div class="divider-custom-line"></div>
-            </div>
+    <!-- New Project Section Heading-->
+    <h2 class="page-section-heading text-center text-secondary text-uppercase font-weight-bold">{{ tab.project.new }}</h2>
+    <!-- Icon Divider-->
+    <div class="divider-custom">
+        <div class="divider-custom-line"></div>
+        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+        <div class="divider-custom-line"></div>
+    </div>
 
-            {{ include('/layouts/partials/_form.html.twig', {submitButtonText: button.create}) }}
-        </div>
+    <div class="p-3 bg-white rounded shadow">
+        {{ include('/layouts/partials/_form.html.twig', {submitButtonText: button.create}) }}
     </div>
 {% endblock %}

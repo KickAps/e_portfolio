@@ -25,7 +25,7 @@
                                 <img src="{{ asset('/uploads/' ~ project.mainImage) }}" alt="Image" class="w-100">
                             </a>
                         </div>
-                        <p class="p-2">{{ project.description|u.truncate(10, '...', false) }}</p>
+                        <p class="p-2">{{ project.description|u.truncate(20, '...', true) }}</p>
                         <p class="pl-1 text-muted"><small>Submitted {{ project.updatedAt|date|ago }}</small></p>
                     </article>
                 </div>
