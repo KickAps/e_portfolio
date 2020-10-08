@@ -6,19 +6,31 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarsExample04">
-            <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav ml-auto py-2 px-0 px-lg-3 font-weight-bold text-uppercase">
+            {% if app.user %}
                 <li class="{{ set_active_route('app_project_create') }}">
-                    <a class="nav-link py-3 px-0 px-lg-3 font-weight-bold" href="{{ path('app_project_create') }}">{{ navbar.new|upper }}</a>
+                    <a class="nav-link" href="{{ path('app_project_create') }}">{{ navbar.new }}</a>
                 </li>
                 <li class="{{ set_active_route('app_project') }}">
-                    <a class="nav-link py-3 px-0 px-lg-3 font-weight-bold" href="{{ path('app_project') }}">{{ navbar.projects|upper }}</a>
+                    <a class="nav-link" href="{{ path('app_project') }}">{{ navbar.projects }}</a>
                 </li>
                 <li class="{{ set_active_route('app_career') }}">
-                    <a class="nav-link py-3 px-0 px-lg-3 font-weight-bold" href="{{ path('app_career') }}">{{ navbar.career|upper }}</a>
+                    <a class="nav-link" href="{{ path('app_career') }}">{{ navbar.career }}</a>
                 </li>
                 <li class="{{ set_active_route('app_user') }}">
-                    <a class="nav-link py-3 px-0 px-lg-3 font-weight-bold" href="{{ path('app_user') }}"><i class="fas fa-user"></i></a>
+                    <a class="nav-link" href="{{ path('app_user') }}"><i class="fas fa-user"></i></a>
                 </li>
+                <li class="{{ set_active_route('') }}">
+                    <a class="nav-link" href="{{ path('app_logout') }}">Logout</i></a>
+                </li>
+            {% else %}
+                <li class="{{ set_active_route('') }}">
+                    <a class="nav-link" href="">Register</a>
+                </li>
+                <li class="{{ set_active_route('') }}">
+                    <a class="nav-link" href="{{ path('app_login') }}">Login</i></a>
+                </li>
+            {% endif %}
             </ul>
         </div>
     </div>

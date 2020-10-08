@@ -56,6 +56,16 @@ app_career_delete:
     controller: App\Controller\CareerController::delete
     methods: DELETE
 
+### LOGIN ###
+app_login:
+    path: /login
+    controller: App\Controller\SecurityController::login
+    methods: GET|POST
+
+app_logout:
+    path: /logout
+    controller: App\Controller\SecurityController::logout
+
 ### USER ###
 app_user:
     path: /user
