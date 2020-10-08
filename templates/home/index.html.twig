@@ -7,7 +7,7 @@
             <!-- Masthead Avatar Image-->
             <img class="masthead-avatar mb-5" src="assets/img/avataaars.svg" alt="" />
             <!-- Masthead Heading-->
-            <h1 class="masthead-heading text-uppercase mb-0 font-weight-bold">{{ profil.firstname }} {{ profil.name }}</h1>
+            <h1 class="masthead-heading text-uppercase mb-0 font-weight-bold">{{ user.firstName }} {{ user.lastName }}</h1>
             <!-- Icon Divider-->
             <div class="divider-custom divider-light">
                 <div class="divider-custom-line"></div>
@@ -15,7 +15,7 @@
                 <div class="divider-custom-line"></div>
             </div>
             <!-- Masthead Subheading-->
-            <p class="masthead-subheading font-weight-bold mb-0">{{ profil.work }}</p>
+            <p class="masthead-subheading font-weight-bold mb-0">{{ user.work }}</p>
         </div>
     </header>
     <!-- About Section-->
@@ -31,7 +31,7 @@
             </div>
             <!-- About Section Content-->
             <div>
-                <p class="font-weight-light pb-5 mb-0" align="justify">{{ profil.description }}</p>
+                <p class="font-weight-light pb-5 mb-0" align="justify">{{ user.description }}</p>
             </div>
         </div>
     </section>
@@ -47,7 +47,7 @@
                 <div class="divider-custom-line"></div>
             </div>
             <div>
-                <p class="font-weight-light text-white pb-5 mb-0" align="justify">{{ profil.description }}</p>
+                <p class="font-weight-light text-white pb-5 mb-0" align="justify">{{ user.description }}</p>
             </div>
         </div>
     </section>

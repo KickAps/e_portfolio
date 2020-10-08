@@ -24,12 +24,12 @@
     <input type="hidden" id="json_moment_data" value="{{ json_moment_data }}">
 
     <div class="main-container unselectable">
-    {% for career in profil.career %}
+    {% for career in user.career %}
         <article id="{{ career.title|replace({' ': '-', '\'': ''}) }}" class="bg-white rounded shadow m-4 pb-2">
             <h3 class="p-4 text-center">
                 <p class="text-secondary text-decoration-none">{{ career.title }}</p>
             </h3>
-            <p class="p-2">bla</p>
+            <p class="p-2">Description...</p>
             <p class="p-2">{{ career.startDate|date }}</p>
             <p class="p-2">{{ career.endDate|date }}</p>
 

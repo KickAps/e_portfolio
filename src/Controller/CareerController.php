@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Career;
 use App\Form\CareerType;
 use App\Repository\CareerRepository;
-use App\Repository\ProfilRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,15 +18,15 @@ class CareerController extends AbstractController
         $this->em = $em;
     }
 
-    public function index(ProfilRepository $profilRepository, CareerRepository $tmp)
+    public function index(UserRepository $userRepository, CareerRepository $tmp)
     {
         // TODO : Get the current user
-        $profil = $profilRepository->findAll()[0];
+        $user = $userRepository->findAll()[0];
 
         $range_data = [];
         $moment_data = [];
 
-        foreach ($profil->getCareer() as $career)
+        foreach ($user->getCareer() as $career)
         {
             if ($career->getEndDate())
             {
@@ -49,14 +49,14 @@ class CareerController extends AbstractController
         $json_moment_data = json_encode($moment_data);
 
         // Template render
-        return $this->render('career/index.html.twig', compact('profil', 'json_range_data', 'json_moment_data'));
+        return $this->render('career/index.html.twig', compact('user', 'json_range_data', 'json_moment_data'));
     }
 
-    public function create(Request $request, ProfilRepository $profilRepository)
+    public function create(Request $request, UserRepository $userRepository)
     {
         $career = new Career;
         // TODO : Get the current user
-        $profil = $profilRepository->findAll()[0];
+        $user = $userRepository->findAll()[0];
 
         $form = $this->createForm(CareerType::class, $career);
 
@@ -64,8 +64,8 @@ class CareerController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid())
         {
-            // Associate the project to the current profil
-            $profil->addCareer($career);
+            // Associate the project to the current user
+            $user->addCareer($career);
 
             $this->em->persist($career);
             $this->em->flush();
@@ -111,14 +111,14 @@ class CareerController extends AbstractController
         ]);
     }
 
-    public function delete(Career $career, Request $request, ProfilRepository $profilRepository)
+    public function delete(Career $career, Request $request, UserRepository $userRepository)
     {
         $csrf_token = $request->request->get('csrf_token');
         if ($this->isCsrfTokenValid('career_deletion_' . $career->getId(), $csrf_token))
         {
             // TODO : Get the current user
-            $profil = $profilRepository->findAll()[0];
-            $profil->removeCareer($career);
+            $user = $userRepository->findAll()[0];
+            $user->removeCareer($career);
 
             $this->em->remove($career);
             $this->em->flush();

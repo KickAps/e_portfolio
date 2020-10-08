@@ -37,10 +37,10 @@ class Career
     private $endDate;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Profil::class, inversedBy="career")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="career")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $profil;
+    private $user;
 
     public function getId(): ?int
     {
@@ -83,14 +83,14 @@ class Career
         return $this;
     }
 
-    public function getProfil(): ?Profil
+    public function getUser(): ?User
     {
-        return $this->profil;
+        return $this->user;
     }
 
-    public function setProfil(?Profil $profil): self
+    public function setUser(?User $user): self
     {
-        $this->profil = $profil;
+        $this->user = $user;
 
         return $this;
     }

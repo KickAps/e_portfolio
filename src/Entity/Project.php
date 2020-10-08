@@ -38,10 +38,10 @@ class Project
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Profil::class, inversedBy="projects")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="projects")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $profil;
+    private $user;
 
     /**
      * @ORM\OneToMany(targetEntity=Image::class, mappedBy="project", orphanRemoval=true, cascade={"persist"})
@@ -87,14 +87,14 @@ class Project
         return $this;
     }
 
-    public function getProfil(): ?Profil
+    public function getUser(): ?User
     {
-        return $this->profil;
+        return $this->user;
     }
 
-    public function setProfil(?Profil $profil): self
+    public function setUser(?User $user): self
     {
-        $this->profil = $profil;
+        $this->user = $user;
 
         return $this;
     }

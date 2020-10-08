@@ -4,7 +4,7 @@
 
 {% block body %}
     <!-- Project Section Heading-->
-    <h2 class="page-section-heading text-center text-secondary text-uppercase font-weight-bold">{{ navbar.projects ~ " ~ " ~ profil.projects|length}}</h2>
+    <h2 class="page-section-heading text-center text-secondary text-uppercase font-weight-bold">{{ navbar.projects ~ " ~ " ~ user.projects|length}}</h2>
     <!-- Icon Divider-->
     <div class="divider-custom">
         <div class="divider-custom-line"></div>
@@ -12,7 +12,7 @@
         <div class="divider-custom-line"></div>
     </div>
 
-    {% for row in profil.projects|batch(3) %}
+    {% for row in user.projects|batch(3) %}
         <div class="row">
             {% for project in row %}
                 <div class="col-md-4">
@@ -20,9 +20,9 @@
                         <h3 class="p-4 text-center">
                             <a href="{{ path('app_project_show', {'id' : project.id}) }}" class="text-secondary text-decoration-none">{{ project.title }}</a>
                         </h3>
-                        <div class="mw-100 overflow-hidden">
+                        <div class="mw-100 rounded overflow-hidden">
                             <a href="{{ path('app_project_show', {'id' : project.id}) }}">
-                                <img src="{{ asset('/uploads/' ~ project.mainImage) }}" alt="Image" class="w-100 rounded">
+                                <img src="{{ asset('/uploads/' ~ project.mainImage) }}" alt="Image" class="w-100">
                             </a>
                         </div>
                         <p class="p-2">{{ project.description|u.truncate(10, '...', false) }}</p>

@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Image;
 use App\Entity\Project;
 use App\Form\ProjectType;
-use App\Repository\ProfilRepository;
+use App\Repository\UserRepository;
 use App\Repository\ProjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -48,13 +48,13 @@ class ProjectController extends AbstractController
      * @param  ProjectRepository 
      * @return Twig template that prints all projects
      */
-    public function index(ProfilRepository $profilRepository)
+    public function index(UserRepository $userRepository)
     {
         // TODO : Get the current user
-        $profil = $profilRepository->findAll()[0];
+        $user = $userRepository->findAll()[0];
 
         // Template render
-        return $this->render('project/index.html.twig', compact('profil'));
+        return $this->render('project/index.html.twig', compact('user'));
     }
 
     /**
@@ -72,12 +72,12 @@ class ProjectController extends AbstractController
      * @param  EntityManagerInterface
      * @return Twig template
      */
-    public function create(Request $request, ProfilRepository $profilRepository)
+    public function create(Request $request, UserRepository $userRepository)
     {
         $project = new Project;
 
         // TODO : Get the current user
-        $profil = $profilRepository->findAll()[0];
+        $user = $userRepository->findAll()[0];
 
         $form = $this->createForm(ProjectType::class, $project);
 
@@ -94,8 +94,8 @@ class ProjectController extends AbstractController
 
             $this->addImagesToProject($images, $project);
 
-            // Associate the project to the current profil
-            $profil->addProject($project);
+            // Associate the project to the current user
+            $user->addProject($project);
 
             $this->em->persist($project);
             $this->em->flush();
@@ -162,7 +162,7 @@ class ProjectController extends AbstractController
      * @param  Request
      * @return Twig template
      */
-    public function delete(Project $project, Request $request, ProfilRepository $profilRepository)
+    public function delete(Project $project, Request $request, UserRepository $userRepository)
     {
         $csrf_token = $request->request->get('csrf_token');
         if ($this->isCsrfTokenValid('project_deletion_' . $project->getId(), $csrf_token))
@@ -173,8 +173,8 @@ class ProjectController extends AbstractController
             }
 
             // TODO : Get the current user
-            $profil = $profilRepository->findAll()[0];
-            $profil->removeProject($project);
+            $user = $userRepository->findAll()[0];
+            $user->removeProject($project);
 
             $this->em->remove($project);
             $this->em->flush();

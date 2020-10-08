@@ -56,8 +56,8 @@ app_career_delete:
     controller: App\Controller\CareerController::delete
     methods: DELETE
 
-### PROFIL ###
-app_profil:
-    path: /profil
-    controller: App\Controller\ProfilController::index
+### USER ###
+app_user:
+    path: /user
+    controller: App\Controller\UserController::index
     methods: GET
