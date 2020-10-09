@@ -4,11 +4,23 @@
 
 {% block body %}
     <!-- User Section Heading-->
-    <h2 class="page-section-heading text-center text-secondary text-uppercase font-weight-bold">{{ user.firstname ~ " ~ " ~ tab.profil }}</h2>
+    <h2 class="page-section-heading text-center text-secondary text-uppercase font-weight-bold">{{ user.firstName ~ " ~ " ~ tab.profil }}</h2>
     <!-- Icon Divider-->
     <div class="divider-custom">
         <div class="divider-custom-line"></div>
         <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
         <div class="divider-custom-line"></div>
+    </div>
+
+    <div class="p-3 bg-white rounded shadow">
+        <p class="p-2">{{ user.firstName ~ " " ~ user.lastName }}</p>
+        <p class="p-2">{{ user.email }}</p>
+        <p class="p-2">{{ user.work }}</p>
+        <p class="p-2 text-break">{{ user.description }}</p>
+
+        <div class="width-fit-content mx-auto">
+            <a href="{{ path('app_user_update') }}" class="mb-2 btn btn-primary">{{ button.update }}</a>
+        </div>
+
     </div>
 {% endblock %}

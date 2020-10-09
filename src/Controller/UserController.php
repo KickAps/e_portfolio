@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Form\UserType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
 
 class UserController extends AbstractController
@@ -22,9 +25,28 @@ class UserController extends AbstractController
         ]);
     }
 
-    public function update()
+    public function update(Request $request, EntityManagerInterface $em)
     {
+        $form = $this->createForm(UserType::class, $this->user, [
+            'method' => 'PUT'
+        ]);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $em->flush();
+
+            // Flash message
+            $this->addFlash('success', 'Informations modifiées avec succés !');
+
+            // Redirection
+            return $this->redirectToRoute('app_user_show');
+        }
+
+        // Template render
         return $this->render('user/update.html.twig', [
+            'myForm' => $form->createView(),
             'user' => $this->user
         ]);
     }

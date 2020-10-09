@@ -67,7 +67,7 @@ app_logout:
     controller: App\Controller\SecurityController::logout
 
 ### USER ###
-app_user:
+app_user_show:
     path: /user
     controller: App\Controller\UserController::show
     methods: GET
