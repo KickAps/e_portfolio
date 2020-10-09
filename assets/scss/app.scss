@@ -20,9 +20,10 @@ html, body {
 .alert {
     padding: 10px;
     text-align: center;
-    margin: 0;
+    margin: auto;
     border: none;
     border-radius: 0;
+    max-width: 40%;
 }
 
 .project-image-show {
@@ -114,7 +115,7 @@ li.active {
 
 /* Bootstrap Template */
 .masthead {
-    padding-top: calc(6rem + 74px);
+    padding-top: 6rem;
     padding-bottom: 6rem;
 
     & .masthead-heading {
