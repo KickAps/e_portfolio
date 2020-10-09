@@ -5,15 +5,15 @@ namespace App\Controller;
 use App\Entity\Image;
 use App\Entity\Project;
 use App\Form\ProjectType;
-use App\Repository\UserRepository;
-use App\Repository\ProjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
 
 class ProjectController extends AbstractController
 {
     private $em;
+    private $user;
 
     private function addImagesToProject(array $images, Project $project)
     {
@@ -39,22 +39,24 @@ class ProjectController extends AbstractController
         }
     }
 
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $em, Security $security)
     {
+        // Initiate the entity manager
         $this->em = $em;
+
+        // Get the current user
+        $this->user = $security->getUser();
     }
 
     /**
-     * @param  ProjectRepository 
      * @return Twig template that prints all projects
      */
-    public function index(UserRepository $userRepository)
+    public function index()
     {
-        // TODO : Get the current user
-        $user = $userRepository->findAll()[0];
-
         // Template render
-        return $this->render('project/index.html.twig', compact('user'));
+        return $this->render('project/index.html.twig', [
+            'user' => $this->user
+        ]);
     }
 
     /**
@@ -72,15 +74,11 @@ class ProjectController extends AbstractController
      * @param  EntityManagerInterface
      * @return Twig template
      */
-    public function create(Request $request, UserRepository $userRepository)
+    public function create(Request $request)
     {
         $project = new Project;
 
-        // TODO : Get the current user
-        $user = $userRepository->findAll()[0];
-
         $form = $this->createForm(ProjectType::class, $project);
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid())
@@ -95,7 +93,7 @@ class ProjectController extends AbstractController
             $this->addImagesToProject($images, $project);
 
             // Associate the project to the current user
-            $user->addProject($project);
+            $this->user->addProject($project);
 
             $this->em->persist($project);
             $this->em->flush();
@@ -162,7 +160,7 @@ class ProjectController extends AbstractController
      * @param  Request
      * @return Twig template
      */
-    public function delete(Project $project, Request $request, UserRepository $userRepository)
+    public function delete(Project $project, Request $request)
     {
         $csrf_token = $request->request->get('csrf_token');
         if ($this->isCsrfTokenValid('project_deletion_' . $project->getId(), $csrf_token))
@@ -172,9 +170,7 @@ class ProjectController extends AbstractController
                 unlink($this->getParameter('images_dir') . $image->getUniqueName());
             }
 
-            // TODO : Get the current user
-            $user = $userRepository->findAll()[0];
-            $user->removeProject($project);
+            $this->user->removeProject($project);
 
             $this->em->remove($project);
             $this->em->flush();

@@ -2,17 +2,30 @@
 
 namespace App\Controller;
 
-use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 class UserController extends AbstractController
 {
-    public function index(UserRepository $userRepository)
-    {
-        // TODO : Get the current user
-        $user = $userRepository->findAll()[0];
+    private $user;
 
-        return $this->render('user/index.html.twig', compact('user'));
+    public function __construct(Security $security)
+    {
+        // Get the current user
+        $this->user = $security->getUser();
+    }
+
+    public function show()
+    {
+        return $this->render('user/show.html.twig', [
+            'user' => $this->user
+        ]);
+    }
+
+    public function update()
+    {
+        return $this->render('user/update.html.twig', [
+            'user' => $this->user
+        ]);
     }
 }

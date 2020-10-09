@@ -27,6 +27,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
     use TargetPathTrait;
 
     public const LOGIN_ROUTE = 'app_login';
+    public const HOME_ROUTE = 'app_home';
 
     private $entityManager;
     private $urlGenerator;
@@ -105,7 +106,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         }
 
 
-        return new RedirectResponse($this->urlGenerator->generate('app_home'));
+        return new RedirectResponse($this->urlGenerator->generate(self::HOME_ROUTE));
     }
 
     protected function getLoginUrl()

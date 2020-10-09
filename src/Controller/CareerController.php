@@ -4,29 +4,31 @@ namespace App\Controller;
 
 use App\Entity\Career;
 use App\Form\CareerType;
-use App\Repository\CareerRepository;
-use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 class CareerController extends AbstractController
 {
-    public function __construct(EntityManagerInterface $em)
+    private $em;
+    private $user;
+
+    public function __construct(EntityManagerInterface $em, Security $security)
     {
+        // Initiate the entity manager
         $this->em = $em;
+
+        // Get the current user
+        $this->user = $security->getUser();
     }
 
-    public function index(UserRepository $userRepository, CareerRepository $tmp)
+    public function index()
     {
-        // TODO : Get the current user
-        $user = $userRepository->findAll()[0];
-
         $range_data = [];
         $moment_data = [];
 
-        foreach ($user->getCareer() as $career)
+        foreach ($this->user->getCareer() as $career)
         {
             if ($career->getEndDate())
             {
@@ -49,23 +51,24 @@ class CareerController extends AbstractController
         $json_moment_data = json_encode($moment_data);
 
         // Template render
-        return $this->render('career/index.html.twig', compact('user', 'json_range_data', 'json_moment_data'));
+        return $this->render('career/index.html.twig', [
+            'user' => $this->user, 
+            'json_range_data' => $json_range_data, 
+            'json_moment_data' => $json_moment_data
+        ]);
     }
 
-    public function create(Request $request, UserRepository $userRepository)
+    public function create(Request $request)
     {
         $career = new Career;
-        // TODO : Get the current user
-        $user = $userRepository->findAll()[0];
 
         $form = $this->createForm(CareerType::class, $career);
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid())
         {
             // Associate the project to the current user
-            $user->addCareer($career);
+            $this->user->addCareer($career);
 
             $this->em->persist($career);
             $this->em->flush();
@@ -111,14 +114,12 @@ class CareerController extends AbstractController
         ]);
     }
 
-    public function delete(Career $career, Request $request, UserRepository $userRepository)
+    public function delete(Career $career, Request $request)
     {
         $csrf_token = $request->request->get('csrf_token');
         if ($this->isCsrfTokenValid('career_deletion_' . $career->getId(), $csrf_token))
         {
-            // TODO : Get the current user
-            $user = $userRepository->findAll()[0];
-            $user->removeCareer($career);
+            $this->user->removeCareer($career);
 
             $this->em->remove($career);
             $this->em->flush();

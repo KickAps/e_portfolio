@@ -69,5 +69,10 @@ app_logout:
 ### USER ###
 app_user:
     path: /user
-    controller: App\Controller\UserController::index
+    controller: App\Controller\UserController::show
     methods: GET
+
+app_user_update:
+    path: /user/update
+    controller: App\Controller\UserController::update
+    methods: GET|PUT
