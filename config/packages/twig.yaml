@@ -24,3 +24,5 @@ twig:
             about: 'Présentation'
             contact: 'Me Contacter'
             profil: 'Profil'
+            connection: 'Connexion'
+            register: 'Inscription'

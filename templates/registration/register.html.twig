@@ -1,0 +1,17 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% set title = "Register | " ~ website.name %}
+
+{% block body %}
+    {% for flashError in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+    {% endfor %}
+
+    <h1>Register</h1>
+
+    {{ form_start(registrationForm) }}
+        {{ form_widget(registrationForm) }}
+
+        <input type="submit" class="btn btn-primary block" value="{{ button.validate }}" formnovalidate>
+    {{ form_end(registrationForm) }}
+{% endblock %}

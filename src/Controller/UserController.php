@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Form\UserType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,6 +23,17 @@ class UserController extends AbstractController
     {
         return $this->render('user/show.html.twig', [
             'user' => $this->user
+        ]);
+    }
+
+    public function create(Request $request, EntityManagerInterface $em)
+    {
+        $user = new User;
+        $form = $this->createForm(UserType::class, $user);
+
+        // Template render
+        return $this->render('user/create.html.twig', [
+            'myForm' => $form->createView()
         ]);
     }
 

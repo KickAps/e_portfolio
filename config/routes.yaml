@@ -65,12 +65,18 @@ app_login:
 app_logout:
     path: /logout
     controller: App\Controller\SecurityController::logout
+    methods: GET
 
 ### USER ###
 app_user_show:
     path: /user
     controller: App\Controller\UserController::show
     methods: GET
+
+app_user_create:
+    path: /user/create
+    controller: App\Controller\UserController::create
+    methods: GET|POST
 
 app_user_update:
     path: /user/update

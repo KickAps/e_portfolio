@@ -24,10 +24,10 @@
                     <a class="nav-link" href="{{ path('app_logout') }}">Logout</i></a>
                 </li>
             {% else %}
-                <li class="{{ set_active_route('') }}">
-                    <a class="nav-link" href="">Register</a>
+                <li class="{{ set_active_route('app_user_create') }}">
+                    <a class="nav-link" href="{{ path('app_user_create') }}">Register</a>
                 </li>
-                <li class="{{ set_active_route('') }}">
+                <li class="{{ set_active_route('app_login') }}">
                     <a class="nav-link" href="{{ path('app_login') }}">Login</i></a>
                 </li>
             {% endif %}
