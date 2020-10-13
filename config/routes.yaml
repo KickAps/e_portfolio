@@ -68,15 +68,20 @@ app_logout:
     methods: GET
 
 ### USER ###
+app_register:
+    path: /register
+    controller: App\Controller\RegistrationController::register
+    methods: GET|POST
+
+app_verify_email:
+    path: /verify/email
+    controller: App\Controller\RegistrationController::verifyUserEmail
+    methods: GET
+
 app_user_show:
     path: /user
     controller: App\Controller\UserController::show
     methods: GET
-
-app_user_create:
-    path: /user/create
-    controller: App\Controller\UserController::create
-    methods: GET|POST
 
 app_user_update:
     path: /user/update

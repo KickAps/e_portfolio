@@ -26,17 +26,6 @@ class UserController extends AbstractController
         ]);
     }
 
-    public function create(Request $request, EntityManagerInterface $em)
-    {
-        $user = new User;
-        $form = $this->createForm(UserType::class, $user);
-
-        // Template render
-        return $this->render('user/create.html.twig', [
-            'myForm' => $form->createView()
-        ]);
-    }
-
     public function update(Request $request, EntityManagerInterface $em)
     {
         $form = $this->createForm(UserType::class, $this->user, [
