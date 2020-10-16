@@ -24,6 +24,9 @@ class ProjectType extends AbstractType
                 'label' => 'Description',
                 'attr' => ['rows' => 5, 'cols' => 100]
             ])
+            ->add('techno', TextType::class, [
+                'label' => 'Techno'
+            ])
             ->add('images', FileType::class, [
                 'label' => 'Images',
                 'multiple' => true,

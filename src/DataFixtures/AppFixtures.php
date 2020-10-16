@@ -26,6 +26,7 @@ class AppFixtures extends Fixture
             $project = new Project();
             $project->setTitle('Projet '.$i);
             $project->setDescription('Description du projet '.$i);
+            $project->setTechno('PHP | HTML | CSS');
             $project->setUser($user);
             $project->setMainImage('default.jpg');
             $manager->persist($project);
@@ -33,6 +34,7 @@ class AppFixtures extends Fixture
 
         $career1 = new Career();
         $career1->setTitle('ESIEA');
+        $career1->setDescription('Description du parcours');
         $career1->setStartDate(new \DateTimeImmutable('2013-09-01'));
         $career1->setEndDate(new \DateTimeImmutable('2018-06-01'));
         $career1->setUser($user);
@@ -40,6 +42,7 @@ class AppFixtures extends Fixture
 
         $career2 = new Career();
         $career2->setTitle('BAC');
+        $career2->setDescription('Description du parcours');
         $career2->setStartDate(new \DateTimeImmutable('2013-07-04'));
         $career2->setUser($user);
         $manager->persist($career2);

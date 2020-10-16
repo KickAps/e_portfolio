@@ -53,6 +53,11 @@ class Project
      */
     private $mainImage;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $techno;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
@@ -138,6 +143,18 @@ class Project
     public function setMainImage(?string $mainImage): self
     {
         $this->mainImage = $mainImage;
+
+        return $this;
+    }
+
+    public function getTechno(): ?string
+    {
+        return $this->techno;
+    }
+
+    public function setTechno(string $techno): self
+    {
+        $this->techno = $techno;
 
         return $this;
     }

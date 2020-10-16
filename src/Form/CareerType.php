@@ -6,6 +6,7 @@ use App\Entity\Career;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -17,6 +18,9 @@ class CareerType extends AbstractType
             ->add('title', TextType::class, [
                 'label' => 'Titre',
                 'attr' => ['autofocus' => true]
+            ])
+            ->add('description', TextareaType::class, [
+                'label' => 'Description'
             ])
             ->add('startDate', DateType::class, [
                 'widget' => 'single_text',

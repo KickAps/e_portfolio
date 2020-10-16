@@ -12,13 +12,22 @@
         <div class="divider-custom-line"></div>
     </div>
 
-    <article class="bg-white rounded shadow">
-        {% for image in project.images %}
-            <div class="{{ set_main_image(image.uniqueName, project.mainImage ?? '', 'show') }}">
-                <img src="{{ asset('/uploads/' ~ image.uniqueName) }}" alt="Image" height="250">
-            </div>
+    <article class="bg-white rounded shadow center-75">
+        {% for row in project.images|batch(3) %}
+        <div class="row">
+            {% for image in row %}
+                <div class="col">
+                    <div class="{{ set_main_image(image.uniqueName, project.mainImage ?? '', 'show') }}">
+                        <img src="{{ asset('/uploads/' ~ image.uniqueName) }}" alt="Image" height="250">
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
         {% endfor %}
+        <h3><span>Description</span></h3>
         <p class="p-2 text-break">{{ project.description }}</p>
+        <h3><span>Technologies</span></h3>
+        <p class="p-2 text-break">{{ project.techno }}</p>
         <div class="width-fit-content mx-auto">
             <a href="{{ path('app_project_update', {'id' : project.id}) }}" class="mb-2 btn btn-primary">{{ button.update }}</a>
             <a href="#" onclick="event.preventDefault(); confirm('Veuillez confirmer la suppression') && document.getElementById('js-project-delete-form').submit();" class="mb-2 btn btn-danger">{{ button.delete }}</a>
