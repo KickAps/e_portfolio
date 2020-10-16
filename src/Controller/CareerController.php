@@ -7,20 +7,15 @@ use App\Form\CareerType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Security;
 
 class CareerController extends AbstractController
 {
     private $em;
-    private $user;
 
-    public function __construct(EntityManagerInterface $em, Security $security)
+    public function __construct(EntityManagerInterface $em)
     {
         // Initiate the entity manager
         $this->em = $em;
-
-        // Get the current user
-        $this->user = $security->getUser();
     }
 
     public function index()
@@ -28,7 +23,7 @@ class CareerController extends AbstractController
         $range_data = [];
         $moment_data = [];
 
-        foreach ($this->user->getCareer() as $career)
+        foreach ($this->getUser()->getCareer() as $career)
         {
             if ($career->getEndDate())
             {
@@ -52,7 +47,7 @@ class CareerController extends AbstractController
 
         // Template render
         return $this->render('career/index.html.twig', [
-            'user' => $this->user, 
+            'user' => $this->getUser(),
             'json_range_data' => $json_range_data, 
             'json_moment_data' => $json_moment_data
         ]);
@@ -68,7 +63,7 @@ class CareerController extends AbstractController
         if ($form->isSubmitted() && $form->isValid())
         {
             // Associate the project to the current user
-            $this->user->addCareer($career);
+            $this->getUser()->addCareer($career);
 
             $this->em->persist($career);
             $this->em->flush();
@@ -88,6 +83,11 @@ class CareerController extends AbstractController
 
     public function update(Career $career, Request $request)
     {
+        if (!$career->isOwnedBy($this->getUser()))
+        {
+            throw $this->createNotFoundException();
+        }
+
         $form = $this->createForm(CareerType::class, $career, [
             'method' => 'PUT'
         ]);
@@ -116,10 +116,15 @@ class CareerController extends AbstractController
 
     public function delete(Career $career, Request $request)
     {
+        if (!$career->isOwnedBy($this->getUser()))
+        {
+            throw $this->createNotFoundException();
+        }
+
         $csrf_token = $request->request->get('csrf_token');
         if ($this->isCsrfTokenValid('career_deletion_' . $career->getId(), $csrf_token))
         {
-            $this->user->removeCareer($career);
+            $this->getUser()->removeCareer($career);
 
             $this->em->remove($career);
             $this->em->flush();

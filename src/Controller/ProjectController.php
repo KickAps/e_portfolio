@@ -8,12 +8,10 @@ use App\Form\ProjectType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Security;
 
 class ProjectController extends AbstractController
 {
     private $em;
-    private $user;
 
     private function addImagesToProject(array $images, Project $project)
     {
@@ -39,13 +37,10 @@ class ProjectController extends AbstractController
         }
     }
 
-    public function __construct(EntityManagerInterface $em, Security $security)
+    public function __construct(EntityManagerInterface $em)
     {
         // Initiate the entity manager
         $this->em = $em;
-
-        // Get the current user
-        $this->user = $security->getUser();
     }
 
     /**
@@ -55,7 +50,7 @@ class ProjectController extends AbstractController
     {
         // Template render
         return $this->render('project/index.html.twig', [
-            'user' => $this->user
+            'user' => $this->getUser()
         ]);
     }
 
@@ -65,6 +60,10 @@ class ProjectController extends AbstractController
      */
     public function show(Project $project)
     {
+        if (!$project->isOwnedBy($this->getUser()))
+        {
+            throw $this->createNotFoundException();
+        }
         // Template render
         return $this->render('project/show.html.twig', compact('project'));
     }
@@ -93,7 +92,7 @@ class ProjectController extends AbstractController
             $this->addImagesToProject($images, $project);
 
             // Associate the project to the current user
-            $this->user->addProject($project);
+            $this->getUser()->addProject($project);
 
             $this->em->persist($project);
             $this->em->flush();
@@ -120,6 +119,11 @@ class ProjectController extends AbstractController
      */
     public function update(Project $project, Request $request)
     {
+        if (!$project->isOwnedBy($this->getUser()))
+        {
+            throw $this->createNotFoundException();
+        }
+
         $form = $this->createForm(ProjectType::class, $project, [
             'method' => 'PUT'
         ]);
@@ -162,6 +166,11 @@ class ProjectController extends AbstractController
      */
     public function delete(Project $project, Request $request)
     {
+        if (!$project->isOwnedBy($this->getUser()))
+        {
+            throw $this->createNotFoundException();
+        }
+
         $csrf_token = $request->request->get('csrf_token');
         if ($this->isCsrfTokenValid('project_deletion_' . $project->getId(), $csrf_token))
         {
@@ -170,7 +179,7 @@ class ProjectController extends AbstractController
                 unlink($this->getParameter('images_dir') . $image->getUniqueName());
             }
 
-            $this->user->removeProject($project);
+            $this->getUser()->removeProject($project);
 
             $this->em->remove($project);
             $this->em->flush();

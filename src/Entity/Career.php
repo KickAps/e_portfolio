@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
-use Symfony\Component\Validator\Constraints as Assert;
+use App\Entity\User;
 use App\Repository\CareerRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CareerRepository::class)
@@ -110,5 +111,10 @@ class Career
         $this->description = $description;
 
         return $this;
+    }
+
+    public function isOwnedBy(User $user): bool
+    {
+        return $this->user === $user;
     }
 }

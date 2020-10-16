@@ -7,28 +7,19 @@ use App\Form\UserType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Security;
 
 class UserController extends AbstractController
 {
-    private $user;
-
-    public function __construct(Security $security)
-    {
-        // Get the current user
-        $this->user = $security->getUser();
-    }
-
     public function show()
     {
         return $this->render('user/show.html.twig', [
-            'user' => $this->user
+            'user' => $this->getUser()
         ]);
     }
 
     public function update(Request $request, EntityManagerInterface $em)
     {
-        $form = $this->createForm(UserType::class, $this->user, [
+        $form = $this->createForm(UserType::class, $this->getUser(), [
             'method' => 'PUT'
         ]);
 
@@ -48,7 +39,7 @@ class UserController extends AbstractController
         // Template render
         return $this->render('user/update.html.twig', [
             'myForm' => $form->createView(),
-            'user' => $this->user
+            'user' => $this->getUser()
         ]);
     }
 }

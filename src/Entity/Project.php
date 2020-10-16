@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Entity\Traits\Timestampable;
+use App\Entity\User;
 use App\Repository\ProjectRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -157,5 +158,10 @@ class Project
         $this->techno = $techno;
 
         return $this;
+    }
+
+    public function isOwnedBy(User $user): bool
+    {
+        return $this->user === $user;
     }
 }
