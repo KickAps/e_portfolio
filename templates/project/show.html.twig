@@ -12,11 +12,11 @@
         <div class="divider-custom-line"></div>
     </div>
 
-    <article class="bg-white rounded shadow center-75">
+    <article class="bg-white rounded shadow">
         {% for row in project.images|batch(3) %}
         <div class="row">
             {% for image in row %}
-                <div class="col">
+                <div class="col-md-4">
                     <div class="{{ set_main_image(image.uniqueName, project.mainImage ?? '', 'show') }}">
                         <img src="{{ asset('/uploads/' ~ image.uniqueName) }}" alt="Image" height="250">
                     </div>
