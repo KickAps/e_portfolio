@@ -12,7 +12,7 @@
         <div class="divider-custom-line"></div>
     </div>
 
-    {% for row in user.projects|batch(3) %}
+    {% for row in user.projects|sort((a, b) => b.createdAt <=> a.createdAt)|batch(3) %}
         <div class="row">
             {% for project in row %}
                 <div class="col-md-4">
@@ -26,7 +26,7 @@
                             </a>
                         </div>
                         <p class="p-2">{{ project.description|u.truncate(20, '...', true) }}</p>
-                        <p class="pl-1 text-muted"><small>Submitted {{ project.updatedAt|date|ago }}</small></p>
+                        <p class="p-2 text-muted"><small><b>{{ project.createdAt|date("m/Y") }}</b></small></p>
                     </article>
                 </div>
             {% endfor %}

@@ -20,7 +20,8 @@ class CareerType extends AbstractType
                 'attr' => ['autofocus' => true]
             ])
             ->add('description', TextareaType::class, [
-                'label' => 'Description'
+                'label' => 'Description',
+                'attr' => ['rows' => 5, 'cols' => 100]
             ])
             ->add('startDate', DateType::class, [
                 'widget' => 'single_text',

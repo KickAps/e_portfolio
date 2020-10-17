@@ -74,6 +74,9 @@ function imagesManager(action = null) {
     $('.project-image-update').mouseout(function(e){
         $(e.currentTarget).find('.btn').css("display", "none");
     });
+
+    // Hide the day selector
+    $('#project_createdAt_day').css("display", "none");
 }
 
 $(document).ready(function()

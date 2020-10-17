@@ -19,7 +19,16 @@ $(document).ready(function() {
 
         range.tooltip().format(function(e){
             current = e.x;
+            var elems = document.querySelectorAll( ":hover" );
+            var elem = elems[elems.length-2];
+            elem.style.cursor = "pointer";
+
+            return "Double cliquez !"
         });
+
+        // Configure tooltips of range
+        range.tooltip().title().enabled(false);
+        range.tooltip().separator().enabled(false);
 
         range.listen("dblClick", function() {
             scrollToElement(current);
@@ -27,12 +36,27 @@ $(document).ready(function() {
 
         // Moment
         var moment = chart.moment(moment_data);
+        moment.normal().stroke("#1ABC9C");
+        moment.normal().markers().fill("#1ABC9C");
 
         moment.direction("down");
 
+        var momentLabelFormat = "{%y} - {%x}{dateTimeFormat:dd/MM/yyyy}";
+        moment.labels().format(momentLabelFormat);
+
+        moment.tooltip().useHtml(true);
         moment.tooltip().format(function(e){
             current = e.value;
+            var elems = document.querySelectorAll( ":hover" );
+            var elem = elems[elems.length-3];
+            elem.style.cursor = "pointer";
+
+            return "Double cliquez !";
         });
+
+        // Configure tooltips of moment
+        moment.tooltip().title().enabled(false);
+        moment.tooltip().separator().enabled(false);
 
         moment.listen("dblClick", function() {
             scrollToElement(current);

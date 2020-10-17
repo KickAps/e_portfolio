@@ -12,8 +12,7 @@ html, body {
 
 .main-container {
     @extend .container;
-    max-width: max-content;
-    min-width: 40%;
+    max-width: 100%;
     margin-top: 100px;
 }
 
@@ -26,8 +25,19 @@ html, body {
     max-width: 40%;
 }
 
+.title {
+    color: #1abc9c;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
 .center-75 {
-    max-width: 75%;
+    width: 75%;
+    margin: auto;
+}
+
+.center-50 {
+    width: 50%;
     margin: auto;
 }
 

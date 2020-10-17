@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Entity\Traits\Timestampable;
 use App\Entity\User;
 use App\Repository\ProjectRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -12,12 +11,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ProjectRepository::class)
- * @ORM\HasLifecycleCallbacks
  */
 class Project
 {
-    use Timestampable;
-
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -58,6 +54,11 @@ class Project
      * @ORM\Column(type="string", length=255)
      */
     private $techno;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
 
     public function __construct()
     {
@@ -163,5 +164,17 @@ class Project
     public function isOwnedBy(User $user): bool
     {
         return $this->user === $user;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
     }
 }

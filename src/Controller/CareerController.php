@@ -36,8 +36,8 @@ class CareerController extends AbstractController
             else
             {
                 array_push($moment_data, [
-                    $career->getStartDate()->getTimestamp() * 1000,
-                    $career->getTitle()
+                    "x" => $career->getStartDate()->getTimestamp() * 1000,
+                    "y" => $career->getTitle()
                 ]);
             }
         }

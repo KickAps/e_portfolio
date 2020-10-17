@@ -12,7 +12,7 @@
         </div>
     {% endif %}
 
-    <input type="submit" class="btn btn-primary block" value="{{ submitButtonText ?? button.create }}" formnovalidate>
+    <input type="submit" class="btn btn-primary block" value="{{ button.validate }}" formnovalidate>
 {{ form_end(myForm) }}
 
 {% if project is defined %}

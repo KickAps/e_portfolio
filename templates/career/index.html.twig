@@ -12,6 +12,9 @@
         <div class="divider-custom-line"></div>
     </div>
 
+    <div class="text-muted text-center">
+    <span ><small>Double cliquez sur un élément pour plus d'information.</small></span>
+    </div>
 {% endblock %}
 
 {% block timeline %}
@@ -26,15 +29,25 @@
     <input type="hidden" id="json_range_data" value="{{ json_range_data }}">
     <input type="hidden" id="json_moment_data" value="{{ json_moment_data }}">
 
-    <div class="main-container unselectable">
-    {% for career in user.career %}
+    <div class="main-container unselectable center-50">
+    {% for career in user.career|sort((a, b) => a.startDate <=> b.startDate) %}
         <article id="{{ career.title|replace({' ': '-', '\'': ''}) }}" class="bg-white rounded shadow m-4 pb-2">
             <h3 class="p-4 text-center">
                 <p class="text-secondary text-decoration-none">{{ career.title }}</p>
             </h3>
-            <p class="p-2">{{ career.description }}</p>
-            <p class="p-2">{{ career.startDate|date }}</p>
-            <p class="p-2">{{ career.endDate|date }}</p>
+            <p class="p-2 text-justify">{{ career.description }}</p>
+            <p class="p-2 text-muted">
+                <small>
+                    {% if career.endDate %}
+                        {# Months between the two dates #}
+                        {% set months = date(career.endDate).diff(date(career.startDate)).days//30 %}
+                        De <b>{{ career.startDate|date("m/Y") }}</b> à <b>{{ career.endDate|date("m/Y") }}</b>
+                        - <i>{{ months//12 ~ " an(s) et " ~ months%12 ~ " mois"}}</i>
+                    {% else %}
+                    Le <b>{{ career.startDate|date("d/m/Y") }}</b>
+                    {% endif %}
+                </small>
+            </p>
 
             <div class="width-fit-content mx-auto">
                 <a href="{{ path('app_career_update', {'id' : career.id}) }}" class="mb-2 btn btn-primary">{{ button.update }}</a>
