@@ -8,27 +8,30 @@
         <div class="collapse navbar-collapse" id="navbarsExample04">
             <ul class="navbar-nav ml-auto py-2 px-0 px-lg-3 font-weight-bold text-uppercase">
             {% if app.user %}
-                <li class="{{ set_active_route('app_project_create') }}">
-                    <a class="nav-link" href="{{ path('app_project_create') }}">{{ navbar.new }}</a>
+                <li class="{{ set_active_route('app_home') }}">
+                    <a class="nav-link" href="{{ path('app_home') }}">{{ navbar.home }}</a>
+                </li>
+                <li class="{{ set_active_route('app_career') }}">
+                    <a class="nav-link" href="{{ path('app_career') }}">{{ navbar.career }}</a>
                 </li>
                 <li class="{{ set_active_route('app_project') }}">
                     <a class="nav-link" href="{{ path('app_project') }}">{{ navbar.projects }}</a>
                 </li>
-                <li class="{{ set_active_route('app_career') }}">
-                    <a class="nav-link" href="{{ path('app_career') }}">{{ navbar.career }}</a>
+                <li class="{{ set_active_route('app_project') }}">
+                    <a class="nav-link" href="{{ path('app_project') }}">{{ navbar.service }}</a>
                 </li>
                 <li class="{{ set_active_route('app_user_show') }}">
                     <a class="nav-link" href="{{ path('app_user_show') }}"><i class="fas fa-user"></i></a>
                 </li>
                 <li class="{{ set_active_route('') }}">
-                    <a class="nav-link" href="{{ path('app_logout') }}">Logout</i></a>
+                    <a class="nav-link" href="{{ path('app_logout') }}"><i class="fas fa-sign-out-alt"></i></a>
                 </li>
             {% else %}
                 <li class="{{ set_active_route('app_register') }}">
-                    <a class="nav-link" href="{{ path('app_register') }}">Register</a>
+                    <a class="nav-link" href="{{ path('app_register') }}"><i class="fas fa-user-plus"></i></a>
                 </li>
                 <li class="{{ set_active_route('app_login') }}">
-                    <a class="nav-link" href="{{ path('app_login') }}">Login</i></a>
+                    <a class="nav-link" href="{{ path('app_login') }}"><i class="fas fa-sign-in-alt"></i></i></a>
                 </li>
             {% endif %}
             </ul>

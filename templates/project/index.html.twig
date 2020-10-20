@@ -12,6 +12,10 @@
         <div class="divider-custom-line"></div>
     </div>
 
+    <div class="width-fit-content mx-auto pb-3">
+        <a href="{{ path('app_project_create') }}" class="mb-2 btn btn-primary">{{ button.add }}</a>
+    </div>
+
     {% for row in user.projects|sort((a, b) => b.createdAt <=> a.createdAt)|batch(3) %}
         <div class="row">
             {% for project in row %}
