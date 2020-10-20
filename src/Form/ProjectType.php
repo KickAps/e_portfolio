@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class ProjectType extends AbstractType
 {
@@ -27,7 +28,8 @@ class ProjectType extends AbstractType
                 'attr' => ['rows' => 5, 'cols' => 100]
             ])
             ->add('techno', TextType::class, [
-                'label' => 'Techno'
+                'label' => 'Technologies',
+                'attr' => ['placeholder' => 'PHP | HTML | CSS']
             ])
             ->add('createdAt', DateType::class, [
                 'label' => 'Date de création',
@@ -39,7 +41,8 @@ class ProjectType extends AbstractType
             ->add('images', FileType::class, [
                 'label' => 'Images',
                 'multiple' => true,
-                'mapped' => false
+                'mapped' => false,
+                'attr' => ['accept' => "image/jpeg, image/png"]
             ])
             ->add('mainImage', ChoiceType::class, [
                 'label' => 'Choix de l\'image principale',

@@ -3,7 +3,7 @@ const $ = require('jquery');
 
 $(document).ready(function() {
     // If the current page is the career page
-    if (window.location.pathname.match(/carrer$/i)) {
+    if (window.location.pathname.match(/career$/i)) {
         var current;
         // Get the career data  
         var range_data = JSON.parse($('#json_range_data')[0].value);

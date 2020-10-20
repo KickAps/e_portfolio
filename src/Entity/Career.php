@@ -21,7 +21,7 @@ class Career
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotNull
+     * @Assert\NotBlank
      * @Assert\Length(min=3, max=30)
      */
     private $title;
@@ -44,6 +44,7 @@ class Career
     private $user;
 
     /**
+     * @Assert\NotBlank
      * @ORM\Column(type="text")
      */
     private $description;

@@ -22,10 +22,10 @@ class UserType extends AbstractType
                 'label' => 'Nom'
             ])
             ->add('work', TextType::class, [
-                'label' => 'Travail'
+                'label' => 'Profession'
             ])
             ->add('description', TextareaType::class, [
-                'label' => 'Description',
+                'label' => 'Présentation',
                 'attr' => ['rows' => 5, 'cols' => 100]
             ])
         ;

@@ -6,6 +6,7 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -25,31 +26,38 @@ class RegistrationFormType extends AbstractType
             ->add('lastName', TextType::class, [
                 'label' => 'Nom'
             ])
-            ->add('email', EmailType::class, [
-                'label' => 'Email'
+            ->add('email', RepeatedType::class, [
+                'type' => EmailType::class,
+                'invalid_message' => 'Les adresses mails doivent être identiques.',
+                'first_options'  => ['label' => 'Email'],
+                'second_options' => ['label' => 'Email - confirmation']
             ])
-            ->add('plainPassword', PasswordType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
-                'label' => 'Mot de passe',
+            ->add('plainPassword', RepeatedType::class, [
+                // Instead of being set onto the object directly,
+                // This is read and encoded in the controller
                 'mapped' => false,
+                'type' => PasswordType::class,
+                'invalid_message' => 'Les mots de passe doivent être identiques.',
+                'options' => ['attr' => ['class' => 'password-field']],
+                'first_options'  => ['label' => 'Mot de passe'],
+                'second_options' => ['label' => 'Mot de passe - confirmation'],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter a password',
+                        'message' => 'Cette valeur ne doit pas être vide.',
                     ]),
                     new Length([
                         'min' => 1,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        // max length allowed by Symfony for security reasons
+                        'minMessage' => 'Votre mot de passe doit être d\'au moins {{ limit }} caractères.',
+                        // Max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),
                 ],
             ])
             ->add('work', TextType::class, [
-                'label' => 'Travail'
+                'label' => 'Profession'
             ])
             ->add('description', TextareaType::class, [
-                'label' => 'Description',
+                'label' => 'Présentation',
                 'attr' => ['rows' => 5, 'cols' => 100]
             ])
         ;

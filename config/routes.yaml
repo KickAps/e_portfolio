@@ -37,17 +37,17 @@ app_image_delete:
 
 ### CAREER ###
 app_career:
-    path: /carrer
+    path: /career
     controller: App\Controller\CareerController::index
     methods: GET
 
 app_career_create:
-    path: /carrer/create
+    path: /career/create
     controller: App\Controller\CareerController::create
     methods: GET|POST
 
 app_career_update:
-    path: /carrer/{id<[0-9]+>}/update
+    path: /career/{id<[0-9]+>}/update
     controller: App\Controller\CareerController::update
     methods: GET|PUT
 

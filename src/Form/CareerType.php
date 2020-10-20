@@ -24,10 +24,12 @@ class CareerType extends AbstractType
                 'attr' => ['rows' => 5, 'cols' => 100]
             ])
             ->add('startDate', DateType::class, [
+                'label' => 'Date de début',
                 'widget' => 'single_text',
                 'empty_data' => null
             ])
             ->add('endDate', DateType::class, [
+                'label' => 'Date de fin',
                 'widget' => 'single_text'
             ])
         ;
