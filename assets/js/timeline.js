@@ -8,22 +8,26 @@ $(document).ready(function() {
         // Get the career data  
         var range_data = JSON.parse($('#json_range_data')[0].value);
         var moment_data = JSON.parse($('#json_moment_data')[0].value);
+        var project_data = JSON.parse($('#json_project_data')[0].value);
 
         // Create a chart
         var chart = anychart.timeline();
 
-        // Range
+        // RANGE
         var range = chart.range(range_data);
         range.normal().fill("#1ABC9C");
         range.normal().stroke("#ABB2B9");
 
-        range.tooltip().format(function(e){
-            current = e.x;
+        range.tooltip().format(function(){
+            var start = new Date(this.start).toLocaleDateString();
+            var end = new Date(this.end).toLocaleDateString();
             var elems = document.querySelectorAll( ":hover" );
-            var elem = elems[elems.length-2];
+            var elem = elems[elems.length-3];
+
+            current = this.x;
             elem.style.cursor = "pointer";
 
-            return "Double cliquez !"
+            return start + " - " + end;
         });
 
         // Configure tooltips of range
@@ -34,24 +38,21 @@ $(document).ready(function() {
             scrollToElement(current);
         });
 
-        // Moment
+        // MOMENT
         var moment = chart.moment(moment_data);
         moment.normal().stroke("#1ABC9C");
+        moment.markers().type("circle");
         moment.normal().markers().fill("#1ABC9C");
 
-        moment.direction("down");
+        moment.labels().format("{%y}");
 
-        var momentLabelFormat = "{%y} - {%x}{dateTimeFormat:dd/MM/yyyy}";
-        moment.labels().format(momentLabelFormat);
-
-        moment.tooltip().useHtml(true);
-        moment.tooltip().format(function(e){
-            current = e.value;
+        moment.tooltip().format(function(){
+            current = this.value;
             var elems = document.querySelectorAll( ":hover" );
             var elem = elems[elems.length-3];
             elem.style.cursor = "pointer";
 
-            return "Double cliquez !";
+            return new Date(this.x).toLocaleDateString();
         });
 
         // Configure tooltips of moment
@@ -60,6 +61,39 @@ $(document).ready(function() {
 
         moment.listen("dblClick", function() {
             scrollToElement(current);
+        });
+
+        // PROJECT
+        var project = chart.moment(project_data);
+        project.normal().stroke("#1ABC9C");
+        project.normal().markers().fill("#1ABC9C");
+
+        project.direction("down");
+        project.labels().useHtml(true);
+        project.labels().format(
+            "<span>\
+                <b>Projet</b>\
+                <br>\
+                {%y}\
+            </span>"
+        );
+
+        project.tooltip().format(function(){
+            // Get the project id
+            current = project_data[this.index]["id"];
+            var elems = document.querySelectorAll( ":hover" );
+            var elem = elems[elems.length-3];
+            elem.style.cursor = "pointer";
+
+            return new Date(this.x).toLocaleDateString();
+        });
+
+        // Configure tooltips of project
+        project.tooltip().title().enabled(false);
+        project.tooltip().separator().enabled(false);
+
+        project.listen("dblClick", function() {
+            window.location = '/project/' + current;
         });
 
         // Set the container id

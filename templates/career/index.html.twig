@@ -12,25 +12,28 @@
         <div class="divider-custom-line"></div>
     </div>
 
-    <div class="text-muted text-center">
-    <span ><small>Double cliquez sur un élément pour plus d'information.</small></span>
+    <div class="width-fit-content mx-auto">
+        <a href="{{ path('app_career_create') }}" class="mb-2 btn btn-primary">{{ button.add }}</a>
     </div>
 {% endblock %}
 
 {% block timeline %}
     <div class="m-3 p-3 bg-white rounded shadow">
-        <div class="timeline-div" id="timeline"></div>
-
-        <div class="width-fit-content mx-auto">
-            <a href="{{ path('app_career_create') }}" class="mb-2 btn btn-primary">{{ button.add }}</a>
+        <div class="text-muted text-center">
+            <span>
+                <small>Double cliquez sur un élément pour plus d'information.</small>
+            </span>
         </div>
+
+        <div class="timeline-div" id="timeline"></div>
     </div>
 
     <input type="hidden" id="json_range_data" value="{{ json_range_data }}">
     <input type="hidden" id="json_moment_data" value="{{ json_moment_data }}">
+    <input type="hidden" id="json_project_data" value="{{ json_project_data }}">
 
     <div class="main-container unselectable center-50">
-    {% for career in user.career|sort((a, b) => a.startDate <=> b.startDate) %}
+    {% for career in user.career|sort((a, b) => b.startDate <=> a.startDate) %}
         <article id="{{ career.title|replace({' ': '-', '\'': ''}) }}" class="bg-white rounded shadow m-4 pb-2">
             <h3 class="p-4 text-center">
                 <p class="text-secondary text-decoration-none">{{ career.title }}</p>

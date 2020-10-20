@@ -22,6 +22,7 @@ class CareerController extends AbstractController
     {
         $range_data = [];
         $moment_data = [];
+        $project_data = [];
 
         foreach ($this->getUser()->getCareer() as $career)
         {
@@ -42,14 +43,25 @@ class CareerController extends AbstractController
             }
         }
 
+        foreach ($this->getUser()->getProjects() as $project)
+        {
+            array_push($project_data, [
+                "x" => $project->getCreatedAt()->getTimestamp() * 1000,
+                "y" => $project->getTitle(),
+                "id" => $project->getId()
+            ]);
+        }
+
         $json_range_data = json_encode($range_data);
         $json_moment_data = json_encode($moment_data);
+        $json_project_data = json_encode($project_data);
 
         // Template render
         return $this->render('career/index.html.twig', [
             'user' => $this->getUser(),
             'json_range_data' => $json_range_data, 
-            'json_moment_data' => $json_moment_data
+            'json_moment_data' => $json_moment_data,
+            'json_project_data' => $json_project_data
         ]);
     }
 

@@ -13,7 +13,8 @@ twig:
         navbar:
             projects: 'Projets'
             new: 'Nouveau'
-            career: 'Parcours'
+            career: 'Parcour'
+            home: 'Accueil'
         tab:
             project:
                 new: 'Créer un nouveau projet'
