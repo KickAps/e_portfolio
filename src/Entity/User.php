@@ -84,6 +84,11 @@ class User implements UserInterface
      */
     private $isVerified = false;
 
+    /**
+     * @ORM\Column(type="string", length=255, unique=true)
+     */
+    private $externalId;
+
     public function __construct()
     {
         $this->projects = new ArrayCollection();
@@ -286,6 +291,22 @@ class User implements UserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function getExternalId(): ?string
+    {
+        return $this->externalId;
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function setExternalId(): self
+    {
+        $this->externalId = strtolower($this->firstName) . "-" . strtolower($this->lastName) . "-" . hash("md5", $this->email);
 
         return $this;
     }

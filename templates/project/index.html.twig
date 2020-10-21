@@ -12,9 +12,11 @@
         <div class="divider-custom-line"></div>
     </div>
 
-    <div class="width-fit-content mx-auto pb-3">
-        <a href="{{ path('app_project_create') }}" class="mb-2 btn btn-primary">{{ button.add }}</a>
-    </div>
+    {% if not spectator %}
+        <div class="width-fit-content mx-auto pb-3">
+            <a href="{{ path('app_project_create') }}" class="mb-2 btn btn-primary">{{ button.add }}</a>
+        </div>
+    {% endif %}
 
     {% for row in user.projects|sort((a, b) => b.createdAt <=> a.createdAt)|batch(3) %}
         <div class="row">
@@ -22,10 +24,10 @@
                 <div class="col-md-4">
                     <article class="project bg-white rounded shadow">
                         <h3 class="p-4 text-center">
-                            <a href="{{ path('app_project_show', {'id' : project.id}) }}" class="text-secondary text-decoration-none">{{ project.title }}</a>
+                            <a href="{{ path('app_project_show', {'id' : project.id, 'externalId' : user.externalId}) }}" class="text-secondary text-decoration-none">{{ project.title }}</a>
                         </h3>
                         <div class="mw-100 rounded overflow-hidden">
-                            <a href="{{ path('app_project_show', {'id' : project.id}) }}">
+                            <a href="{{ path('app_project_show', {'id' : project.id, 'externalId' : user.externalId}) }}">
                                 <img src="{{ asset('/uploads/' ~ project.mainImage) }}" alt="Image" class="w-100">
                             </a>
                         </div>

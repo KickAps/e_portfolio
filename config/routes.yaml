@@ -1,17 +1,17 @@
 ### HOME ###
 app_home:
-    path: /
+    path: /{externalId<\w+-\w+-\w+>}
     controller: App\Controller\HomeController::index
     methods: GET
 
 ### PROJECT ###
 app_project:
-    path: /project
+    path: /{externalId<\w+-\w+-\w+>}/project
     controller: App\Controller\ProjectController::index
     methods: GET
 
 app_project_show:
-    path: /project/{id<[0-9]+>}
+    path: /{externalId<\w+-\w+-\w+>}/project/{id<[0-9]+>}
     controller: App\Controller\ProjectController::show
     methods: GET
 
@@ -37,7 +37,7 @@ app_image_delete:
 
 ### CAREER ###
 app_career:
-    path: /career
+    path: /{externalId<\w+-\w+-\w+>}/career
     controller: App\Controller\CareerController::index
     methods: GET
 

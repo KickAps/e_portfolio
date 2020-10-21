@@ -27,6 +27,8 @@ class AppFixtures extends Fixture
             $project->setTitle('Projet '.$i);
             $project->setDescription('Description du projet '.$i);
             $project->setTechno('PHP | HTML | CSS');
+            $randDate = rand(1262304000, 1640995200);
+            $project->setCreatedAt(new \DateTimeImmutable(date("Y-m-d",$randDate)));
             $project->setUser($user);
             $project->setMainImage('default.jpg');
             $manager->persist($project);

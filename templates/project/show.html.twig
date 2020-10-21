@@ -30,10 +30,13 @@
         <p class="text-break">{{ project.techno }}</p>
         <span class="title">Date de création</span>
         <p class="">{{ project.createdAt|date("m/Y") }}</p>
-        <div class="width-fit-content mx-auto">
-            <a href="{{ path('app_project_update', {'id' : project.id}) }}" class="mb-2 btn btn-primary">{{ button.update }}</a>
-            <a href="#" onclick="event.preventDefault(); confirm('Veuillez confirmer la suppression') && document.getElementById('js-project-delete-form').submit();" class="mb-2 btn btn-danger">{{ button.delete }}</a>
-        </div>
+
+        {% if not spectator %}
+            <div class="width-fit-content mx-auto">
+                <a href="{{ path('app_project_update', {'id' : project.id}) }}" class="mb-2 btn btn-primary">{{ button.update }}</a>
+                <a href="#" onclick="event.preventDefault(); confirm('Veuillez confirmer la suppression') && document.getElementById('js-project-delete-form').submit();" class="mb-2 btn btn-danger">{{ button.delete }}</a>
+            </div>
+        {% endif %}
     </article>
 
     <form id="js-project-delete-form" action="{{ path('app_project_delete', {'id' : project.id}) }}" method="post" style="display: none;">

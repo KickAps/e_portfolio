@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Controller\UserController;
 use App\Entity\Career;
+use App\Entity\User;
 use App\Form\CareerType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,13 +20,15 @@ class CareerController extends AbstractController
         $this->em = $em;
     }
 
-    public function index()
+    public function index(User $offlineUser, UserController $userController)
     {
         $range_data = [];
         $moment_data = [];
         $project_data = [];
 
-        foreach ($this->getUser()->getCareer() as $career)
+        list($user, $spectator) = $userController->isSpectator($offlineUser);
+
+        foreach ($user->getCareer() as $career)
         {
             if ($career->getEndDate())
             {
@@ -43,7 +47,7 @@ class CareerController extends AbstractController
             }
         }
 
-        foreach ($this->getUser()->getProjects() as $project)
+        foreach ($user->getProjects() as $project)
         {
             array_push($project_data, [
                 "x" => $project->getCreatedAt()->getTimestamp() * 1000,
@@ -58,10 +62,11 @@ class CareerController extends AbstractController
 
         // Template render
         return $this->render('career/index.html.twig', [
-            'user' => $this->getUser(),
-            'json_range_data' => $json_range_data, 
+            'user' => $user,
+            'json_range_data' => $json_range_data,
             'json_moment_data' => $json_moment_data,
-            'json_project_data' => $json_project_data
+            'json_project_data' => $json_project_data,
+            'spectator' => $spectator
         ]);
     }
 

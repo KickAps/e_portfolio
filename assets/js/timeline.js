@@ -9,6 +9,7 @@ $(document).ready(function() {
         var range_data = JSON.parse($('#json_range_data')[0].value);
         var moment_data = JSON.parse($('#json_moment_data')[0].value);
         var project_data = JSON.parse($('#json_project_data')[0].value);
+        var external_id = $('#external_id')[0].value;
 
         // Create a chart
         var chart = anychart.timeline();
@@ -93,7 +94,7 @@ $(document).ready(function() {
         project.tooltip().separator().enabled(false);
 
         project.listen("dblClick", function() {
-            window.location = '/project/' + current;
+            window.location = '/' + external_id + '/project/' + current;
         });
 
         // Set the container id

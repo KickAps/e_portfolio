@@ -34,14 +34,17 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
     private $csrfTokenManager;
     private $passwordEncoder;
     private $flashBagInterface;
+    private $security;
 
-    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder, FlashBagInterface $flashBagInterface)
+    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder, FlashBagInterface $flashBagInterface, Security $security)
     {
         $this->entityManager = $entityManager;
         $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->passwordEncoder = $passwordEncoder;
         $this->flashBagInterface = $flashBagInterface;
+        $this->security = $security;
+
     }
 
     public function supports(Request $request)
@@ -105,8 +108,8 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
             return new RedirectResponse($targetPath);
         }
 
-
-        return new RedirectResponse($this->urlGenerator->generate(self::HOME_ROUTE));
+        $externalId = $this->security->getUser()->getExternalId();
+        return new RedirectResponse($this->urlGenerator->generate(self::HOME_ROUTE, ["externalId" => $externalId]));
     }
 
     protected function getLoginUrl()

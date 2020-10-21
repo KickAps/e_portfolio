@@ -42,4 +42,15 @@ class UserController extends AbstractController
             'user' => $this->getUser()
         ]);
     }
+
+    public function isSpectator($offlineUser)
+    {
+        $spectator = false;
+        if(!$user = $this->getUser())
+        {
+            $user = $offlineUser;
+            $spectator = true;
+        }
+        return [$user, $spectator];
+    }
 }

@@ -2,10 +2,14 @@
 
 namespace App\Controller;
 
+use App\Controller\UserController;
 use App\Entity\Image;
 use App\Entity\Project;
+use App\Entity\User;
 use App\Form\ProjectType;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping\Entity;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -46,26 +50,37 @@ class ProjectController extends AbstractController
     /**
      * @return Twig template that prints all projects
      */
-    public function index()
+    public function index(User $offlineUser, UserController $userController)
     {
+        list($user, $spectator) = $userController->isSpectator($offlineUser);
+
         // Template render
         return $this->render('project/index.html.twig', [
-            'user' => $this->getUser()
+            'user' => $user,
+            'spectator' => $spectator
         ]);
     }
 
     /**
      * @param  Project
      * @return Twig template that prints the project given
+     *
+     * @ParamConverter("offlineUser", options={"mapping": {"externalId": "externalId"}})
      */
-    public function show(Project $project)
+    public function show(User $offlineUser, Project $project, UserController $userController)
     {
-        if (!$project->isOwnedBy($this->getUser()))
+        list($user, $spectator) = $userController->isSpectator($offlineUser);
+
+        if (!$project->isOwnedBy($user))
         {
             throw $this->createNotFoundException();
         }
         // Template render
-        return $this->render('project/show.html.twig', compact('project'));
+        return $this->render('project/show.html.twig', [
+            'project' => $project,
+            'user' => $user,
+            'spectator' => $spectator
+        ]);
     }
 
     /**
