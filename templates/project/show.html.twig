@@ -35,7 +35,7 @@
             <a href="#" onclick="event.preventDefault(); confirm('Veuillez confirmer la suppression') && document.getElementById('js-project-delete-form').submit();" class="mb-2 btn btn-danger">{{ button.delete }}</a>
         </div>
     </article>
-    
+
     <form id="js-project-delete-form" action="{{ path('app_project_delete', {'id' : project.id}) }}" method="post" style="display: none;">
         <input type="hidden" name="csrf_token" value="{{ csrf_token('project_deletion_' ~ project.id) }}">
         <input type="hidden" name="_method" value="DELETE">

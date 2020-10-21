@@ -5,7 +5,7 @@ $(document).ready(function() {
     // If the current page is the career page
     if (window.location.pathname.match(/career$/i)) {
         var current;
-        // Get the career data  
+        // Get the career data
         var range_data = JSON.parse($('#json_range_data')[0].value);
         var moment_data = JSON.parse($('#json_moment_data')[0].value);
         var project_data = JSON.parse($('#json_project_data')[0].value);
@@ -108,7 +108,7 @@ $(document).ready(function() {
         chart.scale().minimum(Date.UTC(2010));
         chart.scale().maximum(Date.UTC(2022));
 
-        // Initiate drawing the chart  
+        // Initiate drawing the chart
         chart.draw();
 
         $('.anychart-credits')[0].hidden = true;
