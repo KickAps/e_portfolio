@@ -25,7 +25,7 @@
             {% endif %}
             {% if app.user and not spectator %}
                 <li class="{{ set_active_route('app_user_show') }}">
-                    <a class="nav-link" href="{{ path('app_user_show') }}"><i class="fas fa-user"></i></a>
+                    <a class="nav-link" href="{{ path('app_user_show', {externalId : user.externalId}) }}"><i class="fas fa-user"></i></a>
                 </li>
                 <li class="{{ set_active_route('') }}">
                     <a class="nav-link" href="{{ path('app_logout') }}"><i class="fas fa-sign-out-alt"></i></a>

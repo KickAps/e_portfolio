@@ -16,22 +16,22 @@ app_project_show:
     methods: GET
 
 app_project_create:
-    path: /project/create
+    path: /{externalId<\w+-\w+-\w+>}/project/create
     controller: App\Controller\ProjectController::create
     methods: GET|POST
 
 app_project_update:
-    path: /project/{id<[0-9]+>}/update
+    path: /{externalId<\w+-\w+-\w+>}/project/{id<[0-9]+>}/update
     controller: App\Controller\ProjectController::update
     methods: GET|PUT
 
 app_project_delete:
-    path: /project/{id<[0-9]+>}
+    path: /{externalId<\w+-\w+-\w+>}/project/{id<[0-9]+>}
     controller: App\Controller\ProjectController::delete
     methods: DELETE
 
 app_image_delete:
-    path: /image/{id<[0-9]+>}
+    path: /{externalId<\w+-\w+-\w+>}/image/{id<[0-9]+>}
     controller: App\Controller\ProjectController::deleteImage
     methods: DELETE
 
@@ -42,17 +42,17 @@ app_career:
     methods: GET
 
 app_career_create:
-    path: /career/create
+    path: /{externalId<\w+-\w+-\w+>}/career/create
     controller: App\Controller\CareerController::create
     methods: GET|POST
 
 app_career_update:
-    path: /career/{id<[0-9]+>}/update
+    path: /{externalId<\w+-\w+-\w+>}/career/{id<[0-9]+>}/update
     controller: App\Controller\CareerController::update
     methods: GET|PUT
 
 app_career_delete:
-    path: /career/{id<[0-9]+>}
+    path: /{externalId<\w+-\w+-\w+>}/career/{id<[0-9]+>}
     controller: App\Controller\CareerController::delete
     methods: DELETE
 
@@ -79,11 +79,11 @@ app_verify_email:
     methods: GET
 
 app_user_show:
-    path: /user
+    path: /{externalId<\w+-\w+-\w+>}/user
     controller: App\Controller\UserController::show
     methods: GET
 
 app_user_update:
-    path: /user/update
+    path: /{externalId<\w+-\w+-\w+>}/user/update
     controller: App\Controller\UserController::update
     methods: GET|PUT

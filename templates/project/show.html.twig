@@ -33,13 +33,13 @@
 
         {% if not spectator %}
             <div class="width-fit-content mx-auto">
-                <a href="{{ path('app_project_update', {'id' : project.id}) }}" class="mb-2 btn btn-primary">{{ button.update }}</a>
+                <a href="{{ path('app_project_update', {'externalId' : user.externalId, 'id' : project.id}) }}" class="mb-2 btn btn-primary">{{ button.update }}</a>
                 <a href="#" onclick="event.preventDefault(); confirm('Veuillez confirmer la suppression') && document.getElementById('js-project-delete-form').submit();" class="mb-2 btn btn-danger">{{ button.delete }}</a>
             </div>
         {% endif %}
     </article>
 
-    <form id="js-project-delete-form" action="{{ path('app_project_delete', {'id' : project.id}) }}" method="post" style="display: none;">
+    <form id="js-project-delete-form" action="{{ path('app_project_delete', {'externalId' : user.externalId, 'id' : project.id}) }}" method="post" style="display: none;">
         <input type="hidden" name="csrf_token" value="{{ csrf_token('project_deletion_' ~ project.id) }}">
         <input type="hidden" name="_method" value="DELETE">
     </form>

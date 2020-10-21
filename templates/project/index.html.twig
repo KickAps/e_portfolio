@@ -14,7 +14,7 @@
 
     {% if not spectator %}
         <div class="width-fit-content mx-auto pb-3">
-            <a href="{{ path('app_project_create') }}" class="mb-2 btn btn-primary">{{ button.add }}</a>
+            <a href="{{ path('app_project_create', {'externalId' : user.externalId}) }}" class="mb-2 btn btn-primary">{{ button.add }}</a>
         </div>
     {% endif %}
 
@@ -24,10 +24,10 @@
                 <div class="col-md-4">
                     <article class="project bg-white rounded shadow">
                         <h3 class="p-4 text-center">
-                            <a href="{{ path('app_project_show', {'id' : project.id, 'externalId' : user.externalId}) }}" class="text-secondary text-decoration-none">{{ project.title }}</a>
+                            <a href="{{ path('app_project_show', {'externalId' : user.externalId, 'id' : project.id}) }}" class="text-secondary text-decoration-none">{{ project.title }}</a>
                         </h3>
                         <div class="mw-100 rounded overflow-hidden">
-                            <a href="{{ path('app_project_show', {'id' : project.id, 'externalId' : user.externalId}) }}">
+                            <a href="{{ path('app_project_show', {'externalId' : user.externalId, 'id' : project.id}) }}">
                                 <img src="{{ asset('/uploads/' ~ project.mainImage) }}" alt="Image" class="w-100">
                             </a>
                         </div>

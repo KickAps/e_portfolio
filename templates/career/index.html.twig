@@ -14,7 +14,7 @@
 
     {% if not spectator %}
         <div class="width-fit-content mx-auto">
-            <a href="{{ path('app_career_create') }}" class="mb-2 btn btn-primary">{{ button.add }}</a>
+            <a href="{{ path('app_career_create', {externalId : user.externalId}) }}" class="mb-2 btn btn-primary">{{ button.add }}</a>
         </div>
     {% endif %}
 {% endblock %}
@@ -57,14 +57,14 @@
 
             {% if not spectator %}
                 <div class="width-fit-content mx-auto">
-                    <a href="{{ path('app_career_update', {'id' : career.id}) }}" class="mb-2 btn btn-primary">{{ button.update }}</a>
+                    <a href="{{ path('app_career_update', {externalId : user.externalId, 'id' : career.id}) }}" class="mb-2 btn btn-primary">{{ button.update }}</a>
                     <a href="#" onclick="{{ 'event.preventDefault(); confirm(\'Veuillez confirmer la suppression\') && document.getElementById(\'js-career-delete-form-' ~ career.id ~ '\').submit();' }}" class="mb-2 btn btn-danger">{{ button.delete }}</a>
                 </div>
             {% endif %}
         </article>
 
         {% if not spectator %}
-            <form id="{{ 'js-career-delete-form-' ~ career.id }}" action="{{ path('app_career_delete', {'id' : career.id}) }}" method="post" class="display-none">
+            <form id="{{ 'js-career-delete-form-' ~ career.id }}" action="{{ path('app_career_delete', {externalId : user.externalId, 'id' : career.id}) }}" method="post" class="display-none">
                 <input type="hidden" name="csrf_token" value="{{ csrf_token('career_deletion_' ~ career.id) }}">
                 <input type="hidden" name="_method" value="DELETE">
             </form>

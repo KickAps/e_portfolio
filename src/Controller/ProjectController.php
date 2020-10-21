@@ -117,13 +117,16 @@ class ProjectController extends AbstractController
 
             // Redirection to the show page
             return $this->redirectToRoute('app_project_show', [
+                'externalId' => $this->getUser()->getExternalId(),
                 'id' => $project->getId()
             ]);
         }
 
         // Template render
         return $this->render('project/create.html.twig', [
-            'myForm' => $form->createView()
+            'myForm' => $form->createView(),
+            'user' => $this->getUser(),
+            'spectator' => false
         ]);
     }
 
@@ -163,6 +166,7 @@ class ProjectController extends AbstractController
 
             // Redirection
             return $this->redirectToRoute('app_project_show', [
+                'externalId' => $this->getUser()->getExternalId(),
                 'id' => $project->getId()
             ]);
         }
@@ -170,7 +174,9 @@ class ProjectController extends AbstractController
         // Template render
         return $this->render('project/update.html.twig', [
             'myForm' => $form->createView(),
-            'project' => $project
+            'project' => $project,
+            'user' => $this->getUser(),
+            'spectator' => false
         ]);
     }
 
@@ -204,7 +210,9 @@ class ProjectController extends AbstractController
         }
 
         // Redirection
-        return $this->redirectToRoute('app_project');
+        return $this->redirectToRoute('app_project', [
+            'externalId' => $this->getUser()->getExternalId()
+        ]);
     }
 
     public function deleteImage(Image $image, Request $request)
@@ -232,6 +240,7 @@ class ProjectController extends AbstractController
 
         // Redirection
         return $this->redirectToRoute('app_project_update', [
+            'externalId' => $this->getUser()->getExternalId(),
             'id' => $project->getId()
         ]);
     }

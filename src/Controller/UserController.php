@@ -13,7 +13,8 @@ class UserController extends AbstractController
     public function show()
     {
         return $this->render('user/show.html.twig', [
-            'user' => $this->getUser()
+            'user' => $this->getUser(),
+            'spectator' => false
         ]);
     }
 
@@ -33,13 +34,16 @@ class UserController extends AbstractController
             $this->addFlash('success', 'Informations modifiées avec succés !');
 
             // Redirection
-            return $this->redirectToRoute('app_user_show');
+            return $this->redirectToRoute('app_user_show', [
+                'externalId' => $this->getUser()->getExternalId()
+            ]);
         }
 
         // Template render
         return $this->render('user/update.html.twig', [
             'myForm' => $form->createView(),
-            'user' => $this->getUser()
+            'user' => $this->getUser(),
+            'spectator' => false
         ]);
     }
 

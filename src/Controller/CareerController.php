@@ -89,12 +89,16 @@ class CareerController extends AbstractController
             $this->addFlash('success', 'Parcours créé avec succés !');
 
             // Redirection to the show page
-            return $this->redirectToRoute('app_career');
+            return $this->redirectToRoute('app_career', [
+                'externalId' => $this->getUser()->getExternalId()
+            ]);
         }
 
         // Template render
         return $this->render('career/create.html.twig', [
-            'myForm' => $form->createView()
+            'myForm' => $form->createView(),
+            'user' => $this->getUser(),
+            'spectator' => false
         ]);
     }
 
@@ -120,6 +124,7 @@ class CareerController extends AbstractController
 
             // Redirection
             return $this->redirectToRoute('app_career', [
+                'externalId' => $this->getUser()->getExternalId(),
                 'id' => $career->getId()
             ]);
         }
@@ -127,7 +132,9 @@ class CareerController extends AbstractController
         // Template render
         return $this->render('career/update.html.twig', [
             'myForm' => $form->createView(),
-            'career' => $career
+            'career' => $career,
+            'user' => $this->getUser(),
+            'spectator' => false
         ]);
     }
 
@@ -151,6 +158,8 @@ class CareerController extends AbstractController
         }
 
         // Redirection
-        return $this->redirectToRoute('app_career');
+        return $this->redirectToRoute('app_career', [
+            'externalId' => $this->getUser()->getExternalId()
+        ]);
     }
 }
