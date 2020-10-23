@@ -2,19 +2,15 @@
 
 namespace App\Controller;
 
-use App\Controller\UserController;
-use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
 {
-    public function index(User $offlineUser, UserController $userController)
+    public function index()
     {
-        list($user, $spectator) = $userController->isSpectator($offlineUser);
-
         return $this->render('home/index.html.twig', [
-            'user' => $user,
-            'spectator' => $spectator
+            'spectator' => false,
+            'user' => $this->getUser()
         ]);
     }
 }

@@ -2,14 +2,28 @@
 
 namespace App\Controller;
 
+use App\Controller\UserController;
 use App\Entity\User;
 use App\Form\UserType;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 
 class UserController extends AbstractController
 {
+    public function index(string $externalId, UserController $userController, UserRepository $userRepository)
+    {
+        $offlineUser = $userRepository->findOneBy(['externalId' => $externalId]);
+
+        list($user, $spectator) = $userController->isSpectator($offlineUser);
+
+        return $this->render('user/index.html.twig', [
+            'user' => $user,
+            'spectator' => $spectator
+        ]);
+    }
+
     public function show()
     {
         return $this->render('user/show.html.twig', [

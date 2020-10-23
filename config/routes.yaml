@@ -1,58 +1,58 @@
 ### HOME ###
 app_home:
-    path: /{externalId<\w+-\w+-\w+>}
+    path: /
     controller: App\Controller\HomeController::index
     methods: GET
 
 ### PROJECT ###
 app_project:
-    path: /{externalId<\w+-\w+-\w+>}/project
+    path: /{externalId<[\w-]+>}/project
     controller: App\Controller\ProjectController::index
     methods: GET
 
 app_project_show:
-    path: /{externalId<\w+-\w+-\w+>}/project/{id<[0-9]+>}
+    path: /{externalId<[\w-]+>}/project/{id<[0-9]+>}
     controller: App\Controller\ProjectController::show
     methods: GET
 
 app_project_create:
-    path: /{externalId<\w+-\w+-\w+>}/project/create
+    path: /{externalId<[\w-]+>}/project/create
     controller: App\Controller\ProjectController::create
     methods: GET|POST
 
 app_project_update:
-    path: /{externalId<\w+-\w+-\w+>}/project/{id<[0-9]+>}/update
+    path: /{externalId<[\w-]+>}/project/{id<[0-9]+>}/update
     controller: App\Controller\ProjectController::update
     methods: GET|PUT
 
 app_project_delete:
-    path: /{externalId<\w+-\w+-\w+>}/project/{id<[0-9]+>}
+    path: /{externalId<[\w-]+>}/project/{id<[0-9]+>}
     controller: App\Controller\ProjectController::delete
     methods: DELETE
 
 app_image_delete:
-    path: /{externalId<\w+-\w+-\w+>}/image/{id<[0-9]+>}
+    path: /{externalId<[\w-]+>}/image/{id<[0-9]+>}
     controller: App\Controller\ProjectController::deleteImage
     methods: DELETE
 
 ### CAREER ###
 app_career:
-    path: /{externalId<\w+-\w+-\w+>}/career
+    path: /{externalId<[\w-]+>}/career
     controller: App\Controller\CareerController::index
     methods: GET
 
 app_career_create:
-    path: /{externalId<\w+-\w+-\w+>}/career/create
+    path: /{externalId<[\w-]+>}/career/create
     controller: App\Controller\CareerController::create
     methods: GET|POST
 
 app_career_update:
-    path: /{externalId<\w+-\w+-\w+>}/career/{id<[0-9]+>}/update
+    path: /{externalId<[\w-]+>}/career/{id<[0-9]+>}/update
     controller: App\Controller\CareerController::update
     methods: GET|PUT
 
 app_career_delete:
-    path: /{externalId<\w+-\w+-\w+>}/career/{id<[0-9]+>}
+    path: /{externalId<[\w-]+>}/career/{id<[0-9]+>}
     controller: App\Controller\CareerController::delete
     methods: DELETE
 
@@ -78,12 +78,18 @@ app_verify_email:
     controller: App\Controller\RegistrationController::verifyUserEmail
     methods: GET
 
+app_user:
+    path: /{externalId<[\w-]+>}
+    controller: App\Controller\UserController::index
+    methods: GET
+
 app_user_show:
-    path: /{externalId<\w+-\w+-\w+>}/user
+    path: /{externalId<[\w-]+>}/user
     controller: App\Controller\UserController::show
     methods: GET
 
 app_user_update:
-    path: /{externalId<\w+-\w+-\w+>}/user/update
+    path: /{externalId<[\w-]+>}/user/update
     controller: App\Controller\UserController::update
     methods: GET|PUT
+

@@ -13,7 +13,7 @@ twig:
         navbar:
             projects: 'Projets'
             new: 'Nouveau'
-            career: 'Parcour'
+            career: 'Parcours'
             home: 'Accueil'
         tab:
             project:

@@ -1,46 +1,10 @@
 {% extends 'layouts/base.html.twig' %}
 
 {% block header %}
-    <!-- Masthead-->
-    <header class="masthead bg-primary text-white text-center">
-        {{ include('layouts/partials/_flash_messages.html.twig')}}
-        <div class="container d-flex align-items-center flex-column">
-            <!-- Masthead Avatar Image-->
-            <img class="masthead-avatar mb-5" src="assets/img/avataaars.svg" alt="" />
-            <!-- Masthead Heading-->
-            <h1 class="masthead-heading text-uppercase mb-0 font-weight-bold">{{ user.firstName }} {{ user.lastName }}</h1>
-            <!-- Icon Divider-->
-            <div class="divider-custom divider-light">
-                <div class="divider-custom-line"></div>
-                <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                <div class="divider-custom-line"></div>
-            </div>
-            <!-- Masthead Subheading-->
-            <p class="masthead-subheading font-weight-bold mb-0">{{ user.work }}</p>
-        </div>
-    </header>
-    <!-- About Section-->
-    <section class="page-section">
-        <div class="container">
-            <!-- About Section Heading-->
-            <h2 class="page-section-heading text-center text-uppercase text-secondary font-weight-bold pt-5">{{ tab.about }}</h2>
-            <!-- Icon Divider-->
-            <div class="divider-custom">
-                <div class="divider-custom-line"></div>
-                <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                <div class="divider-custom-line"></div>
-            </div>
-            <!-- About Section Content-->
-            <div>
-                <p class="font-weight-light pb-5 mb-0" align="justify">{{ user.description }}</p>
-            </div>
-        </div>
-    </section>
-    <!-- Contact Section-->
-    <section class="page-section bg-primary">
+    <section class="page-section bg-primary mt-5 p-5">
         <div class="container">
             <!-- Contact Section Heading-->
-            <h2 class="page-section-heading text-center text-uppercase text-white font-weight-bold pt-5">{{ tab.contact }}</h2>
+            <h2 class="page-section-heading text-center text-uppercase text-white font-weight-bold pt-5">{{ website.name }}</h2>
             <!-- Icon Divider-->
             <div class="divider-custom divider-light">
                 <div class="divider-custom-line"></div>
@@ -48,7 +12,9 @@
                 <div class="divider-custom-line"></div>
             </div>
             <div>
-                <p class="font-weight-light text-white pb-5 mb-0" align="justify">{{ user.description }}</p>
+                <p class="font-weight-light text-white pb-5 mb-0" align="justify">
+                    ok
+                </p>
             </div>
         </div>
     </section>
