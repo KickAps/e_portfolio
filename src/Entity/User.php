@@ -30,12 +30,14 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
+     * @Assert\Regex("/^[A-Za-zÀ-ȕ\-\' ]+$/")
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
+     * @Assert\Regex("/^[A-Za-zÀ-ȕ\-\' ]+$/")
      */
     private $lastName;
 
@@ -306,8 +308,13 @@ class User implements UserInterface
      */
     public function setExternalId(): self
     {
-        $this->externalId = strtolower($this->firstName) . "-" . strtolower($this->lastName) . "-" . hash("md5", $this->email);
+        $this->externalId = $this->clean($this->firstName) . "_" . $this->clean($this->lastName) . "_" . hash("md5", $this->email);
 
         return $this;
+    }
+
+    private function clean(string $s): string
+    {
+        return strtolower(preg_replace("/[ \']/", "-", $s));
     }
 }

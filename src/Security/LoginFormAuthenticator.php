@@ -105,7 +105,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         $this->flashBagInterface->add('success', 'Connecté(e) avec succès!');
 
         $externalId = $this->security->getUser()->getExternalId();
-        return new RedirectResponse($this->urlGenerator->generate(self::HOME_ROUTE, ["externalId" => $externalId]));
+        return new RedirectResponse($this->urlGenerator->generate(self::HOME_ROUTE));
     }
 
     protected function getLoginUrl()

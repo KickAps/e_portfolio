@@ -1,7 +1,9 @@
 {% extends 'layouts/base.html.twig' %}
 
 {% block header %}
-    <section class="page-section bg-primary mt-5 p-5">
+    <!-- Masthead-->
+    <header class="masthead bg-primary text-white text-center">
+        {{ include('layouts/partials/_flash_messages.html.twig')}}
         <div class="container">
             <!-- Contact Section Heading-->
             <h2 class="page-section-heading text-center text-uppercase text-white font-weight-bold pt-5">{{ website.name }}</h2>
@@ -17,5 +19,5 @@
                 </p>
             </div>
         </div>
-    </section>
+    </header>
 {% endblock %}
