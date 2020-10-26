@@ -14,7 +14,7 @@ twig:
             projects: 'Projets'
             new: 'Nouveau'
             career: 'Parcours'
-            home: 'Accueil'
+            profile: 'Profil'
         tab:
             project:
                 new: 'Créer un nouveau projet'
@@ -24,6 +24,6 @@ twig:
             details: 'Détails'
             about: 'Présentation'
             contact: 'Me Contacter'
-            profil: 'Profil'
+            profile: 'Profil'
             connection: 'Connexion'
             register: 'Inscription'

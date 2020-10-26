@@ -4,7 +4,7 @@
 
 {% block body %}
     <!-- User Section Heading-->
-    <h2 class="page-section-heading text-center text-secondary text-uppercase font-weight-bold">{{ user.firstname ~ " ~ " ~ tab.profil }}</h2>
+    <h2 class="page-section-heading text-center text-secondary text-uppercase font-weight-bold">{{ user.firstname ~ " ~ " ~ tab.profile }}</h2>
     <!-- Icon Divider-->
     <div class="divider-custom">
         <div class="divider-custom-line"></div>
@@ -12,7 +12,7 @@
         <div class="divider-custom-line"></div>
     </div>
 
-    <div class="p-3 bg-white rounded shadow center-75">
+    <div class="p-3 bg-white rounded shadow center-50">
     {{ form_start(myForm) }}
         {{ form_widget(myForm) }}
 
