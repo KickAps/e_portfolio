@@ -9,7 +9,7 @@
             <ul class="navbar-nav ml-auto py-2 px-0 px-lg-3 font-weight-bold text-uppercase">
             {% if app.user or spectator %}
                 <li class="{{ set_active_route('app_user') }}">
-                    <a class="nav-link" href="{{ path('app_user', {externalId : user.externalId}) }}">{{ navbar.home }}</a>
+                    <a class="nav-link" href="{{ path('app_user', {externalId : user.externalId}) }}">{{ navbar.profile }}</a>
                 </li>
                 <li class="{{ set_active_route('app_career') }}">
                     <a class="nav-link" href="{{ path('app_career', {externalId : user.externalId})  }}">{{ navbar.career }}</a>

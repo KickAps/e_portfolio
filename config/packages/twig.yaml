@@ -3,7 +3,7 @@ twig:
     form_themes: ['bootstrap_4_layout.html.twig']
     globals:
         website:
-            name: 'E-Porfolio'
+            name: 'E-PØrtfolio+'
         button:
             create: 'Créer'
             update: 'Modifier'
