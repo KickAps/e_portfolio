@@ -61,6 +61,13 @@ class Project
      */
     private $createdAt;
 
+    /**
+     * @ORM\Column(type="text")
+     * @Assert\NotBlank
+     * @Assert\Length(max=255)
+     */
+    private $summary;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
@@ -175,6 +182,18 @@ class Project
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getSummary(): ?string
+    {
+        return $this->summary;
+    }
+
+    public function setSummary(string $summary): self
+    {
+        $this->summary = $summary;
 
         return $this;
     }

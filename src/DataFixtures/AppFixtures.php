@@ -25,7 +25,8 @@ class AppFixtures extends Fixture
         for ($i = 0; $i < 5; $i++) {
             $project = new Project();
             $project->setTitle('Projet '.$i);
-            $project->setDescription('Description du projet '.$i);
+            $project->setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+            $project->setSummary("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.");
             $project->setTechno('PHP | HTML | CSS');
             $randDate = rand(1262304000, 1640995200);
             $project->setCreatedAt(new \DateTimeImmutable(date("Y-m-d",$randDate)));

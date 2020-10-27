@@ -23,6 +23,11 @@ class ProjectType extends AbstractType
                 'label' => 'Titre',
                 'attr' => ['autofocus' => true]
             ])
+            ->add('summary', TextareaType::class, [
+                'label' => 'Résumé',
+                'attr' => ['rows' => 2, 'cols' => 100],
+                'help' => 'Le résumé sera affiché sur la page principale des projects.'
+            ])
             ->add('description', TextareaType::class, [
                 'label' => 'Description',
                 'attr' => ['rows' => 5, 'cols' => 100]
@@ -42,7 +47,8 @@ class ProjectType extends AbstractType
                 'label' => 'Images',
                 'multiple' => true,
                 'mapped' => false,
-                'attr' => ['accept' => "image/jpeg, image/png"]
+                'attr' => ['accept' => "image/jpeg, image/png"],
+                'help' => 'Pour un meilleur rendu, assurez de choisir un ensemble d\'images de même résolution (16/9).'
             ])
             ->add('mainImage', ChoiceType::class, [
                 'label' => 'Choix de l\'image principale',
