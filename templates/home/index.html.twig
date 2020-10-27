@@ -6,7 +6,9 @@
         {{ include('layouts/partials/_flash_messages.html.twig')}}
         <div class="container">
             <!-- Presentation Section Heading-->
-            <h2 class="page-section-heading text-center text-uppercase text-white font-weight-bold word-spacing-large pt-5">Bienvenue sur {{ website.name }}</h2>
+            <h2 class="page-section-heading text-center text-uppercase text-white font-weight-bold word-spacing-large pt-5">
+                Bienvenue sur <b><i>{{ website.name }}</i></b>
+            </h2>
             <!-- Icon Divider-->
             <div class="divider-custom divider-light pb-4">
                 <div class="divider-custom-line"></div>
@@ -15,17 +17,17 @@
             </div>
             <div>
                 <div class="text-white pb-4 mb-0 text-justify font-size-18">
-                    Que ce soit pour présenter <b>votre parcours</b> à des recruteurs, partager <b>vos réalisations</b> à des potentiels clients ou encore simplement rassembler <b>vos informations professionnelles</b>, la solution <span class="text-uppercase font-weight-bold">{{ website.name }}</span> peut répondre à <b>votre besoin</b>.
+                    Que ce soit pour présenter <b>votre parcours</b> à des recruteurs, partager <b>vos réalisations</b> à des potentiels clients ou encore simplement rassembler <b>vos informations professionnelles</b>, la solution <span class="font-weight-bold"><b><i>{{ website.name }}</i></b></span> peut répondre à <b>votre besoin</b>.
                 </div>
                 <div class="text-white pb-4 mb-0 text-justify font-size-18">
-                    Ici vous pouvez constituer <b>votre profil</b> en quelques clics et de manière visuelle avec les informations suivantes :<br>
+                    Ici vous pouvez constituer <b>votre profil</b> de manière visuelle en quelques clics avec les informations suivantes :<br>
                     <i class="fas fa-arrow-right tab"></i><i>Votre présentation technique</i><br>
                     <i class="fas fa-arrow-right tab"></i><i>Le détails des projets que vous avez réalisés</i><br>
                     <i class="fas fa-arrow-right tab"></i><i>Votre parcours de manière générale</i><br>
                     <i class="fas fa-arrow-right tab"></i><i>Vos expériences professionnelles</i><br>
                 </div>
                 <div class="text-white pb-5 mb-0 text-justify font-size-18">
-                    Ensuite, vous pouvez partager <b>votre lien personnel</b> disponible une fois connecté dans l'onglet <i class="fas fa-user"></i> ou directement dans la barre d'adresse. Les personnes ayant accés à ce lien pourront alors visualiser toutes les informations présentes sur votre profil.
+                    Ensuite, vous n'avez qu'à partager <b>votre lien personnel</b> disponible une fois connecté dans l'onglet <i class="fas fa-user"></i> ou directement dans la barre d'adresse. Les personnes ayant accés à ce lien pourront alors visualiser toutes les informations présentes sur votre profil.
                 </div>
                 <table class="table table-bordered text-white fit-content bg-secondary mb-4">
                     <thead>

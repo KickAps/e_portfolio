@@ -6,14 +6,33 @@
 
 @import "~bootstrap";
 
-html, body {
+html {
     font-family: $primary-font, sans-serif;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin-top: 80px;
+    height: calc(100% - 80px - 30px);
 }
 
 .main-container {
     @extend .container;
     max-width: 100%;
-    margin-top: 100px;
+    padding-top: 30px;
+    margin-bottom: 30px;
+    min-height: calc(100% - 70px);
+}
+
+.container-profile {
+    @extend .container;
+    padding: 5%;
+}
+
+#footer {
+    height: 70px;
 }
 
 .alert {
@@ -155,9 +174,21 @@ li.active {
 }
 
 /* Bootstrap Template */
+nav {
+    height: 80px;
+}
+
+.navbar-brand {
+    @extend .navbar-brand;
+    font-size: 1.5rem;
+}
+
+#navbarsExample04 {
+    font-size: 1.25rem;
+}
+
 .masthead {
-    padding-top: 6rem;
-    padding-bottom: 6rem;
+    min-height: calc(100% - 40px);
 
     & .masthead-heading {
         font-size: 2.75rem;

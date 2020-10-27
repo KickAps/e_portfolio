@@ -11,3 +11,9 @@ import '../scss/app.scss';
 // Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
 import $ from 'jquery';
 import 'bootstrap';
+
+// Hide the main container if empty (length = 1 is a false positive)
+var mainContainer = $('.main-container')[0];
+if (mainContainer.childNodes.length === 1) {
+    mainContainer.style.display = "none";
+}

@@ -12,7 +12,7 @@
         {% endblock %}
     </head>
 
-    <body id="page-top">
+    <body>
         {{ include('layouts/partials/_navbar.html.twig')}}
 
         {% block header %}{% endblock %}
@@ -21,8 +21,6 @@
             {{ include('layouts/partials/_flash_messages.html.twig')}}
             {% block body %}{% endblock %}
         </main>
-
-        {% block timeline %}{% endblock %}
 
         {{ include('layouts/partials/_footer.html.twig')}}
 
