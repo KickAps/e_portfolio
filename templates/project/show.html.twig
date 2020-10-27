@@ -12,18 +12,38 @@
         <div class="divider-custom-line"></div>
     </div>
 
-    <article class="p-3 bg-white rounded shadow center-75">
-        {% for row in project.images|batch(3) %}
-        <div class="row">
-            {% for image in row %}
-                <div class="col-md-4">
-                    <div class="{{ set_main_image(image.uniqueName, project.mainImage ?? '', 'show') }}">
-                        <img src="{{ asset('/uploads/' ~ image.uniqueName) }}" alt="Image" height="250">
-                    </div>
-                </div>
+    <article class="p-3 bg-white rounded shadow center-50">
+        <div id="carouselExampleIndicators" class="carousel slide mb-3" data-ride="carousel">
+            <ol class="carousel-indicators">
+            {% for image in project.images %}
+                {% set class = "" %}
+                {% if loop.first %}
+                    {% set class = "active" %}
+                {% endif %}
+                <li data-target="#carouselExampleIndicators" data-slide-to="{{ loop.index0 }}" class="{{ class }}"></li>
             {% endfor %}
+            </ol>
+            <div class="carousel-inner">
+                {% for image in project.images %}
+                    {% set class = "carousel-item" %}
+                    {% if loop.first %}
+                        {% set class = "carousel-item active" %}
+                    {% endif %}
+                    <div class="{{ class }}">
+                        <img src="{{ asset('/uploads/' ~ image.uniqueName) }}" class="d-block w-100" alt="...">
+                    </div>
+                {% endfor %}
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
         </div>
-        {% endfor %}
+
         <span class="title">Description</span>
         <p class="text-break text-justify">{{ project.description }}</p>
         <span class="title">Technologies</span>
