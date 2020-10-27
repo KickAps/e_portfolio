@@ -1,6 +1,6 @@
 {% extends 'layouts/base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% set title = tab.connection ~ " | " ~ website.name %}
 
 {% block body %}
 <form method="post">
