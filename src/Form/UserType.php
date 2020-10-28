@@ -15,20 +15,20 @@ class UserType extends AbstractType
     {
         $builder
             ->add('firstName', TextType::class, [
-                'label' => 'Prénom',
+                'label' => 'Prénom *',
                 'label_attr' => ['class' => 'title'],
                 'attr' => ['autofocus' => true]
             ])
             ->add('lastName', TextType::class, [
-                'label' => 'Nom',
+                'label' => 'Nom *',
                 'label_attr' => ['class' => 'title']
             ])
             ->add('work', TextType::class, [
-                'label' => 'Profession',
+                'label' => 'Profession *',
                 'label_attr' => ['class' => 'title']
             ])
             ->add('description', TextareaType::class, [
-                'label' => 'Présentation',
+                'label' => 'Présentation *',
                 'label_attr' => ['class' => 'title'],
                 'attr' => ['rows' => 5, 'cols' => 100]
             ])

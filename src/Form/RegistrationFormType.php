@@ -20,19 +20,23 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('firstName', TextType::class, [
-                'label' => 'Prénom',
+                'label' => 'Prénom *',
                 'label_attr' => ['class' => 'title'],
                 'attr' => ['autofocus' => true]
             ])
             ->add('lastName', TextType::class, [
-                'label' => 'Nom',
+                'label' => 'Nom *',
+                'label_attr' => ['class' => 'title']
+            ])
+            ->add('work', TextType::class, [
+                'label' => 'Profession *',
                 'label_attr' => ['class' => 'title']
             ])
             ->add('email', RepeatedType::class, [
                 'type' => EmailType::class,
                 'invalid_message' => 'Les adresses mails doivent être identiques.',
-                'first_options'  => ['label' => 'Email', 'label_attr' => ['class' => 'title']],
-                'second_options' => ['label' => 'Email - confirmation', 'label_attr' => ['class' => 'title']]
+                'first_options'  => ['label' => 'Email *', 'label_attr' => ['class' => 'title']],
+                'second_options' => ['label' => 'Email - confirmation *', 'label_attr' => ['class' => 'title']]
             ])
             ->add('plainPassword', RepeatedType::class, [
                 // Instead of being set onto the object directly,
@@ -41,8 +45,8 @@ class RegistrationFormType extends AbstractType
                 'type' => PasswordType::class,
                 'invalid_message' => 'Les mots de passe doivent être identiques.',
                 'options' => ['attr' => ['class' => 'password-field']],
-                'first_options'  => ['label' => 'Mot de passe', 'label_attr' => ['class' => 'title']],
-                'second_options' => ['label' => 'Mot de passe - confirmation', 'label_attr' => ['class' => 'title']],
+                'first_options'  => ['label' => 'Mot de passe *', 'label_attr' => ['class' => 'title']],
+                'second_options' => ['label' => 'Mot de passe - confirmation *', 'label_attr' => ['class' => 'title']],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Cette valeur ne doit pas être vide.',
@@ -54,15 +58,6 @@ class RegistrationFormType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
-            ])
-            ->add('work', TextType::class, [
-                'label' => 'Profession',
-                'label_attr' => ['class' => 'title']
-            ])
-            ->add('description', TextareaType::class, [
-                'label' => 'Présentation',
-                'label_attr' => ['class' => 'title'],
-                'attr' => ['rows' => 5, 'cols' => 100]
             ])
         ;
     }
