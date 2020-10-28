@@ -309,12 +309,11 @@ class User implements UserInterface
     public function setExternalId(): self
     {
         $this->externalId = $this->clean($this->firstName) . "_" . $this->clean($this->lastName) . "_" . hash("md5", $this->email);
-
         return $this;
     }
 
     private function clean(string $s): string
     {
-        return strtolower(preg_replace("/[ \']/", "-", $s));
+        return lcfirst(preg_replace("/[ \']/", "-", $s));
     }
 }
