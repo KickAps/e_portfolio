@@ -105,9 +105,8 @@ $(document).ready(function() {
         chart.axis().stroke("#ABB2B9");
         chart.axis().ticks().stroke("#ABB2B9", 2);
 
-        // Define the timeline start / end
-        chart.scale().minimum(Date.UTC(2010));
-        chart.scale().maximum(Date.UTC(2022));
+        // Define the gap after timeline max
+        chart.scale().maximumGap(0.1);
 
         // Initiate drawing the chart
         chart.draw();
