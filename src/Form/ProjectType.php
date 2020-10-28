@@ -20,24 +20,29 @@ class ProjectType extends AbstractType
         $current_year = intval(date('Y'));
         $builder
             ->add('title', TextType::class, [
-                'label' => 'Titre',
+                'label' => 'Titre *',
+                'label_attr' => ['class' => 'title'],
                 'attr' => ['autofocus' => true]
             ])
             ->add('summary', TextareaType::class, [
-                'label' => 'Résumé',
+                'label' => 'Résumé *',
+                'label_attr' => ['class' => 'title'],
                 'attr' => ['rows' => 2, 'cols' => 100],
                 'help' => 'Le résumé sera affiché sur la page principale des projects.'
             ])
             ->add('description', TextareaType::class, [
-                'label' => 'Description',
+                'label' => 'Description *',
+                'label_attr' => ['class' => 'title'],
                 'attr' => ['rows' => 5, 'cols' => 100]
             ])
             ->add('techno', TextType::class, [
-                'label' => 'Technologies',
-                'attr' => ['placeholder' => 'PHP | HTML | CSS']
+                'label' => 'Technologies utilisées',
+                'label_attr' => ['class' => 'title'],
+                'help' => 'Les technologies peuvent être séparées par des barres verticales, ex: "PHP | HTML | CSS".'
             ])
             ->add('createdAt', DateType::class, [
-                'label' => 'Date de création',
+                'label' => 'Date de création *',
+                'label_attr' => ['class' => 'title'],
                 'widget' => 'choice',
                 'format' => 'MM yyyy d',
                 'years' => range($current_year-10, $current_year),
@@ -45,6 +50,7 @@ class ProjectType extends AbstractType
             ])
             ->add('images', FileType::class, [
                 'label' => 'Images',
+                'label_attr' => ['class' => 'title'],
                 'multiple' => true,
                 'mapped' => false,
                 'attr' => ['accept' => "image/jpeg, image/png"],
@@ -52,6 +58,7 @@ class ProjectType extends AbstractType
             ])
             ->add('mainImage', ChoiceType::class, [
                 'label' => 'Choix de l\'image principale',
+                'label_attr' => ['class' => 'title'],
                 'choices' => []
             ])
         ;

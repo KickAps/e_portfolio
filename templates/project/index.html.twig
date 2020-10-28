@@ -18,13 +18,13 @@
         </div>
     {% endif %}
 
-    {% for row in user.projects|sort((a, b) => b.createdAt <=> a.createdAt)|batch(3) %}
+    {% for row in user.projects|sort((a, b) => b.createdAt <=> a.createdAt)|batch(2) %}
         <div class="row">
             {% for project in row %}
-                <div class="col-md-4 mb-4">
-                    <article class="project bg-white rounded shadow">
+                <div class="col-md-6 mb-4">
+                    <article class="project bg-white rounded shadow p-3">
                         <div class="article">
-                            <h3 class="text-center p-3 m-0">
+                            <h3 class="text-center text-secondary text-uppercase font-weight-bold pb-3 m-0">
                                 <a href="{{ path('app_project_show', {'externalId' : user.externalId, 'id' : project.id}) }}" class="text-secondary text-decoration-none">{{ project.title }}</a>
                             </h3>
                             <div class="mw-100 rounded overflow-hidden mb-3">
@@ -32,10 +32,10 @@
                                     <img src="{{ asset('/uploads/' ~ project.mainImage) }}" alt="Image" class="w-100">
                                 </a>
                             </div>
-                            <span class="title p-2">Résumé</span>
-                            <p class="p-2 text-justify">{{ project.summary }}</p>
+                            <span class="title p-1">Résumé</span>
+                            <p class="p-1 text-justify">{{ project.summary }}</p>
                         </div>
-                        <div class="p-2 text-muted">
+                        <div class="text-muted">
                             <small><b>{{ project.createdAt|date("m/Y") }}</b></small>
                         </div>
                     </article>

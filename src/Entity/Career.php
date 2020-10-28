@@ -22,6 +22,7 @@ class Career
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
+     * @Assert\Regex("/^[A-Za-zÀ-ȕ\-\' ]+$/")
      * @Assert\Length(min=3, max=30)
      */
     private $title;

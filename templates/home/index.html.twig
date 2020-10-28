@@ -1,12 +1,11 @@
 {% extends 'layouts/base.html.twig' %}
 
-{% block header %}
-    <!-- Masthead-->
-    <header class="masthead bg-primary text-white pb-0 mb-0">
+{% block body %}
+    <header class="text-white pb-0 mb-0">
         {{ include('layouts/partials/_flash_messages.html.twig')}}
         <div class="container">
             <!-- Presentation Section Heading-->
-            <h2 class="page-section-heading text-center text-uppercase text-white font-weight-bold word-spacing-large pt-5">
+            <h2 class="page-section-heading text-center text-uppercase text-white font-weight-bold word-spacing-large">
                 Bienvenue sur <b><i>{{ website.name }}</i></b>
             </h2>
             <!-- Icon Divider-->

@@ -16,21 +16,26 @@ class CareerType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, [
-                'label' => 'Titre',
+                'label' => 'Titre *',
+                'label_attr' => ['class' => 'title'],
                 'attr' => ['autofocus' => true]
             ])
             ->add('description', TextareaType::class, [
-                'label' => 'Description',
+                'label' => 'Description *',
+                'label_attr' => ['class' => 'title'],
                 'attr' => ['rows' => 5, 'cols' => 100]
             ])
             ->add('startDate', DateType::class, [
-                'label' => 'Date de début',
+                'label' => 'Date de début *',
+                'label_attr' => ['class' => 'title'],
                 'widget' => 'single_text',
                 'empty_data' => null
             ])
             ->add('endDate', DateType::class, [
                 'label' => 'Date de fin',
-                'widget' => 'single_text'
+                'label_attr' => ['class' => 'title'],
+                'widget' => 'single_text',
+                'help' => 'Champ optionnel pour la création d\'un événement ponctuel.'
             ])
         ;
     }

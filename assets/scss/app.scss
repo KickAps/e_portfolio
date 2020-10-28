@@ -36,7 +36,7 @@ body {
 }
 
 .article {
-    min-height: calc(100% - 50px);
+    min-height: calc(100% - 33px);
 }
 
 .alert {
@@ -164,7 +164,7 @@ li.active {
 }
 
 .timeline-div {
-    height: 300px;
+    height: 400px;
 }
 
 .display-none {
@@ -193,21 +193,6 @@ nav {
 
 #navbarsExample04 {
     font-size: 1.25rem;
-}
-
-.masthead {
-    min-height: calc(100% - 40px);
-
-    & .masthead-heading {
-        font-size: 2.75rem;
-        line-height: 2.75rem;
-    }
-    & .masthead-subheading {
-        font-size: 1.5rem;
-    }
-    & .masthead-avatar {
-        width: 15rem;
-    }
 }
 
 .divider-custom {
