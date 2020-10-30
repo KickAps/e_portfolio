@@ -71,12 +71,12 @@ class User implements UserInterface
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity=Project::class, mappedBy="user", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Project::class, mappedBy="user", orphanRemoval=true, cascade={"persist"})
      */
     private $projects;
 
     /**
-     * @ORM\OneToMany(targetEntity=Career::class, mappedBy="user", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Career::class, mappedBy="user", orphanRemoval=true, cascade={"persist"})
      */
     private $career;
 
@@ -322,6 +322,38 @@ class User implements UserInterface
     public function setDefaultDescription(): self
     {
         $this->description = "Bonjour, je m'appelle " . $this->firstName . " " . $this->lastName . " et je suis " . $this->work . " !";
+        return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setExampleCareer(): self
+    {
+        $career = new Career;
+        $career->setTitle("E-Portfolio+");
+        $career->setDescription('Inscription à E-Portfolio+');
+        $career->setStartDate(new \DateTimeImmutable);
+        $career->setUser($this);
+        $this->addCareer($career);
+
+        return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setExampleProject(): self
+    {
+        $project = new Project;
+        $project->setTitle('Projet exemple');
+        $project->setDescription("Celui est la description complète du project exemple.");
+        $project->setSummary("Celui est le résumé du project exemple.");
+        $project->setCreatedAt(new \DateTimeImmutable("2020-10-06"));
+        $project->setUser($this);
+        $project->setMainImage('default.jpg');
+        $this->addProject($project);
+
         return $this;
     }
 }
