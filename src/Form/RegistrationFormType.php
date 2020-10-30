@@ -35,8 +35,15 @@ class RegistrationFormType extends AbstractType
             ->add('email', RepeatedType::class, [
                 'type' => EmailType::class,
                 'invalid_message' => 'Les adresses mails doivent être identiques.',
-                'first_options'  => ['label' => 'Email *', 'label_attr' => ['class' => 'title']],
-                'second_options' => ['label' => 'Email - confirmation *', 'label_attr' => ['class' => 'title']]
+                'first_options'  => [
+                    'label' => 'Email *',
+                    'label_attr' => ['class' => 'title'],
+                    'help' => "Un mail de confirmation vous sera envoyé."
+                ],
+                'second_options' => [
+                    'label' => 'Email - confirmation *',
+                    'label_attr' => ['class' => 'title']
+                ]
             ])
             ->add('plainPassword', RepeatedType::class, [
                 // Instead of being set onto the object directly,
