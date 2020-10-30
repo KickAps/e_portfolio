@@ -19,7 +19,7 @@
         <span class="title">Contacts</span>
         <p><a class="secondary-color" href="mailto:{{ user.email }}">{{ user.email }}<a></p>
         <span class="title">Lien personnel</span>
-        <p><input name="personnal-link-input" type="text" value="{{ url('app_home') ~ user.externalId }}" data-toggle="tooltip" title="Copié!"><p>
+        <p><input name="personnal-link-input" type="text" value="{{ url('app_home') ~ user.externalId }}" readonly data-toggle="tooltip" title="Copié!"><p>
         <span class="title">Description</span>
         <p class="text-break text-justify">{{ user.description|nl2br }}</p>
 
