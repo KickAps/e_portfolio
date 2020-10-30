@@ -27,7 +27,9 @@
             <input type="password" name="password" id="password" class="form-control" required>
         </div>
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-        <input type="submit" class="btn btn-primary block mt-3" value="{{ button.validate }}" formnovalidate>
+        <div class="width-fit-content mx-auto">
+            <input type="submit" class="btn btn-primary block mt-3" value="{{ button.validate }}" formnovalidate>
+        </div>
     </div>
 </form>
 {% endblock %}

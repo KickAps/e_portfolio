@@ -250,39 +250,11 @@ nav {
 }
 
 .btn-primary {
-    color: #fff;
-    background-color: $primary-color;
-    border-color: $primary-color;
-    margin: auto;
-    padding-left: 50px;
-    padding-right: 50px;
+    @include button-variant($primary-color, darken($primary-color, 7.5%), darken($primary-color, 10%), lighten($primary-color,5%), lighten($primary-color, 10%), darken($primary-color,30%));
+    @extend .btn-danger;
+}
 
-    &.block {
-        display: block;
-    }
-
-    &:hover {
-        color: #fff;
-        background-color: #159a80;
-        border-color: #148f77;
-    }
-    &:focus, &.focus {
-        color: #fff;
-        background-color: #159a80;
-        border-color: #148f77;
-        box-shadow: 0 0 0 0.2rem rgba(60, 198, 171, 0.5);
-    }
-    &.disabled, &:disabled {
-        color: #fff;
-        background-color: $primary-color;
-        border-color: $primary-color;
-    }
-    &:not(:disabled):not(.disabled):active, &:not(:disabled):not(.disabled).active, .show > &.dropdown-toggle {
-        color: #fff;
-        background-color: #148f77;
-        border-color: #12846e;
-    }
-    &:not(:disabled):not(.disabled):active:focus, &:not(:disabled):not(.disabled).active:focus, .show > &.dropdown-toggle:focus {
-        box-shadow: 0 0 0 0.2rem rgba(60, 198, 171, 0.5);
-    }
+.btn-primary-secondary {
+    @include button-variant($secondary-color, darken($secondary-color, 7.5%), darken($secondary-color, 10%), lighten($secondary-color,5%), lighten($secondary-color, 10%), darken($secondary-color,30%));
+    @extend .btn-danger;
 }
