@@ -1,21 +1,32 @@
 {% extends 'layouts/base.html.twig' %}
 
 {% block body %}
-    <header class="bg-primary text-white text-center">
-        {{ include('layouts/partials/_flash_messages.html.twig')}}
-        <div class="container-profile d-flex align-items-center flex-column">
-            <!-- Avatar Image-->
-            <img class="mb-5" src="" alt="avatar" />
-            <!-- User Heading-->
-            <h1 class="text-uppercase mb-0 font-weight-bold">{{ user.firstName }} {{ user.lastName }}</h1>
-            <!-- Icon Divider-->
-            <div class="divider-custom divider-light">
-                <div class="divider-custom-line"></div>
-                <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-                <div class="divider-custom-line"></div>
-            </div>
-            <!-- Masthead Subheading-->
-            <p class="font-weight-bold mb-0">{{ user.work }}</p>
+    <!-- User Section Heading-->
+    <h2 class="page-section-heading text-center text-secondary text-uppercase font-weight-bold">{{ user.firstName ~ " " ~ user.lastName }}</h2>
+    <!-- Icon Divider-->
+    <div class="divider-custom">
+        <div class="divider-custom-line"></div>
+        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+        <div class="divider-custom-line"></div>
+    </div>
+    <!-- Avatar Image-->
+    <img class="mb-5" src="" alt="avatar" />
+    <div class="p-3 bg-white rounded shadow center-50">
+        <span class="title">Profession</span>
+        <p>{{ user.work }}</p>
+        <span class="title">Contact</span>
+        <p><a class="secondary-color" href="mailto:{{ user.email }}">{{ user.email }}<a></p>
+        {% if not spectator %}
+        <span class="title">Lien personnel</span>
+        <p><input name="personnal-link-input" type="text" value="{{ url('app_home') ~ user.externalId }}" readonly data-toggle="tooltip" title="Copié!"><p>
+        {% endif %}
+        <span class="title">Description</span>
+        <p class="text-break text-justify">{{ user.description|nl2br }}</p>
+
+        {% if not spectator %}
+        <div class="width-fit-content mx-auto">
+            <a href="{{ path('app_user_update', {externalId : user.externalId}) }}" class="mb-2 btn btn-primary">{{ button.update }}</a>
         </div>
-    </header>
+        {% endif %}
+    </div>
 {% endblock %}

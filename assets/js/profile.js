@@ -2,9 +2,9 @@ const $ = require('jquery');
 
 $(document).ready(function()
 {
+    var copyLinkInput = $('input[name ="personnal-link-input"]');
     // If the current page is the profile page
-    if (window.location.pathname.match(/\/user$/i)) {
-        var copyLinkInput = $('input[name ="personnal-link-input"]');
+    if (copyLinkInput.length !== 0) {
 
         // Set input width based on characters count
         var width = copyLinkInput[0].value.length;

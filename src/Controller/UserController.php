@@ -24,14 +24,6 @@ class UserController extends AbstractController
         ]);
     }
 
-    public function show()
-    {
-        return $this->render('user/show.html.twig', [
-            'user' => $this->getUser(),
-            'spectator' => false
-        ]);
-    }
-
     public function update(Request $request, EntityManagerInterface $em)
     {
         $form = $this->createForm(UserType::class, $this->getUser(), [
@@ -48,7 +40,7 @@ class UserController extends AbstractController
             $this->addFlash('success', 'Informations modifiées avec succés !');
 
             // Redirection
-            return $this->redirectToRoute('app_user_show', [
+            return $this->redirectToRoute('app_user', [
                 'externalId' => $this->getUser()->getExternalId()
             ]);
         }
