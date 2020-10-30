@@ -39,7 +39,7 @@
         <div class="row">
             {% for career in row %}
             <div class="col-md-6 mb-4">
-                <article id="{{ career.title|replace({' ': '-', '\'': ''}) }}" class="bg-white rounded shadow h-100 p-3">
+                <article id="{{ career.id }}" class="bg-white rounded shadow h-100 p-3">
                     <div class="article">
                         <h3 class="text-center text-secondary text-uppercase font-weight-bold pb-3 m-0">{{ career.title }}</h3>
 
