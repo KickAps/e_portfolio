@@ -25,7 +25,7 @@ $(document).ready(function() {
             var elems = document.querySelectorAll( ":hover" );
             var elem = elems[elems.length-3];
 
-            current = this.x;
+            current = range_data[this.index]["id"]
             elem.style.cursor = "pointer";
 
             return start + " - " + end;
@@ -48,7 +48,7 @@ $(document).ready(function() {
         moment.labels().format("{%y}");
 
         moment.tooltip().format(function(){
-            current = this.value;
+            current = moment_data[this.index]["id"];
             var elems = document.querySelectorAll( ":hover" );
             var elem = elems[elems.length-3];
             elem.style.cursor = "pointer";
@@ -115,9 +115,8 @@ $(document).ready(function() {
     }
 });
 
-function scrollToElement(element) {
-    var id = element.replace(' ', '-').replace('\'', '');
-    var pos = $('#'+id)[0].getBoundingClientRect();
+function scrollToElement(id) {
+    var pos = $('#'+id.toString())[0].getBoundingClientRect();
     window.scrollTo(0, pos.top-100);
 
     $('#'+id)[0].animate (
