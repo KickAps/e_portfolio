@@ -313,7 +313,7 @@ class User implements UserInterface
 
     private function clean(string $s): string
     {
-        return lcfirst(preg_replace("/[ \']/", "-", $s));
+        return mb_strtolower(preg_replace("/[ \']/", "-", $s), 'UTF-8');
     }
 
     /**
