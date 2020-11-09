@@ -53,7 +53,10 @@ class ProjectType extends AbstractType
                 'label_attr' => ['class' => 'title'],
                 'multiple' => true,
                 'mapped' => false,
-                'attr' => ['accept' => "image/jpeg, image/png"],
+                'attr' => [
+                    'class' => 'no-title',
+                    'accept' => "image/jpeg, image/png"
+                ],
                 'help' => 'Pour un meilleur rendu, assurez de choisir un ensemble d\'images de même résolution (16/9).'
             ])
             ->add('mainImage', ChoiceType::class, [

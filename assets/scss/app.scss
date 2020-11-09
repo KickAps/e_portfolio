@@ -54,6 +54,13 @@ body {
     text-transform: uppercase;
 }
 
+.no-title + .title {
+    color: #495057;
+    font-weight: 400;
+    text-transform: none;
+    overflow: hidden;
+}
+
 .center-75 {
     width: 75%;
     margin: auto;
