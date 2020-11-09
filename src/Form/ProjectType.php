@@ -11,7 +11,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\All;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\Image;
 
 class ProjectType extends AbstractType
 {
@@ -56,6 +58,24 @@ class ProjectType extends AbstractType
                 'attr' => [
                     'class' => 'no-title',
                     'accept' => "image/jpeg, image/png"
+                ],
+                'constraints' => [
+                    new All([
+                        'constraints' => [
+                            new File([
+                                'maxSize' => '1024k',
+                                'mimeTypes' => [
+                                    'image/jpeg',
+                                    'image/png',
+                                ],
+                                'mimeTypesMessage' => 'Veuillez choisir une/des image(s) valide(s)',
+                            ]),
+                            new Image([
+                                'minRatio' => 1,
+                                'maxRatio' => 3
+                            ])
+                        ]
+                    ])
                 ],
                 'help' => 'Pour un meilleur rendu, assurez de choisir un ensemble d\'images de même résolution (16/9).'
             ])
