@@ -1,4 +1,4 @@
-{% for type, messages in app.flashes(['success', 'info', 'error']) %}
+{% for type, messages in app.flashes(['success', 'info', 'warning']) %}
     {% for message in messages %}
         <div class="alert alert-{{ type }} rounded mb-3" role="alert">
             {{ message }}

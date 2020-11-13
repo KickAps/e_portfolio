@@ -54,6 +54,8 @@ class ProjectController extends AbstractController
     {
         list($user, $spectator) = $userController->isSpectator($offlineUser);
 
+        $userController->isVerified();
+
         // Template render
         return $this->render('project/index.html.twig', [
             'user' => $user,
@@ -75,6 +77,9 @@ class ProjectController extends AbstractController
         {
             throw $this->createNotFoundException();
         }
+
+        $userController->isVerified();
+
         // Template render
         return $this->render('project/show.html.twig', [
             'project' => $project,
@@ -88,7 +93,7 @@ class ProjectController extends AbstractController
      * @param  EntityManagerInterface
      * @return Twig template
      */
-    public function create(Request $request)
+    public function create(Request $request, UserController $userController)
     {
         $project = new Project;
 
@@ -113,7 +118,7 @@ class ProjectController extends AbstractController
             $this->em->flush();
 
             // Flash message
-            $this->addFlash('success', 'Projet créé avec succés !');
+            $this->addFlash('success', 'Projet créé avec succès !');
 
             // Redirection to the show page
             return $this->redirectToRoute('app_project_show', [
@@ -121,6 +126,8 @@ class ProjectController extends AbstractController
                 'id' => $project->getId()
             ]);
         }
+
+        $userController->isVerified();
 
         // Template render
         return $this->render('project/create.html.twig', [
@@ -135,7 +142,7 @@ class ProjectController extends AbstractController
      * @param  Request
      * @return Twig template
      */
-    public function update(Project $project, Request $request)
+    public function update(Project $project, Request $request, UserController $userController)
     {
         if (!$project->isOwnedBy($this->getUser()))
         {
@@ -162,7 +169,7 @@ class ProjectController extends AbstractController
             $this->em->flush();
 
             // Flash message
-            $this->addFlash('success', 'Projet modifié avec succés !');
+            $this->addFlash('success', 'Projet modifié avec succès !');
 
             // Redirection
             return $this->redirectToRoute('app_project_show', [
@@ -170,6 +177,8 @@ class ProjectController extends AbstractController
                 'id' => $project->getId()
             ]);
         }
+
+        $userController->isVerified();
 
         // Template render
         return $this->render('project/update.html.twig', [
@@ -206,7 +215,7 @@ class ProjectController extends AbstractController
             $this->em->flush();
 
             // Flash message
-            $this->addFlash('info', 'Projet supprimé avec succés !');
+            $this->addFlash('info', 'Projet supprimé avec succès !');
         }
 
         // Redirection
@@ -235,7 +244,7 @@ class ProjectController extends AbstractController
             $this->em->flush();
 
             // Flash message
-            $this->addFlash('info', 'Image supprimée avec succés !');
+            $this->addFlash('info', 'Image supprimée avec succès !');
         }
 
         // Redirection

@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Controller\UserController;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
@@ -12,12 +11,15 @@ use Symfony\Component\HttpFoundation\Request;
 
 class UserController extends AbstractController
 {
-    public function index(string $externalId, UserController $userController, UserRepository $userRepository)
+    public function index(string $externalId, UserRepository $userRepository)
     {
         $offlineUser = $userRepository->findOneBy(['externalId' => $externalId]);
 
-        list($user, $spectator) = $userController->isSpectator($offlineUser);
+        list($user, $spectator) = $this->isSpectator($offlineUser);
 
+        $this->isVerified();
+
+        // Template render
         return $this->render('user/index.html.twig', [
             'user' => $user,
             'spectator' => $spectator
@@ -37,13 +39,15 @@ class UserController extends AbstractController
             $em->flush();
 
             // Flash message
-            $this->addFlash('success', 'Informations modifiées avec succés !');
+            $this->addFlash('success', 'Informations modifiées avec succès !');
 
             // Redirection
             return $this->redirectToRoute('app_user', [
                 'externalId' => $this->getUser()->getExternalId()
             ]);
         }
+
+        $this->isVerified();
 
         // Template render
         return $this->render('user/update.html.twig', [
@@ -56,11 +60,20 @@ class UserController extends AbstractController
     public function isSpectator($offlineUser)
     {
         $spectator = false;
-        if(!$user = $this->getUser())
+        if (!$user = $this->getUser())
         {
             $user = $offlineUser;
             $spectator = true;
         }
         return [$user, $spectator];
+    }
+
+    public function isVerified()
+    {
+        if ($this->getUser() and !$this->getUser()->isVerified())
+        {
+            // Flash message
+            $this->addFlash('warning', 'Veuillez vérifier votre adresse mail.');
+        }
     }
 }

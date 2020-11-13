@@ -62,6 +62,8 @@ class CareerController extends AbstractController
         $json_moment_data = json_encode($moment_data);
         $json_project_data = json_encode($project_data);
 
+        $userController->isVerified();
+
         // Template render
         return $this->render('career/index.html.twig', [
             'user' => $user,
@@ -72,7 +74,7 @@ class CareerController extends AbstractController
         ]);
     }
 
-    public function create(Request $request)
+    public function create(Request $request, UserController $userController)
     {
         $career = new Career;
 
@@ -88,13 +90,15 @@ class CareerController extends AbstractController
             $this->em->flush();
 
             // Flash message
-            $this->addFlash('success', 'Parcours créé avec succés !');
+            $this->addFlash('success', 'Parcours créé avec succès !');
 
             // Redirection to the show page
             return $this->redirectToRoute('app_career', [
                 'externalId' => $this->getUser()->getExternalId()
             ]);
         }
+
+        $userController->isVerified();
 
         // Template render
         return $this->render('career/create.html.twig', [
@@ -104,7 +108,7 @@ class CareerController extends AbstractController
         ]);
     }
 
-    public function update(Career $career, Request $request)
+    public function update(Career $career, Request $request, UserController $userController)
     {
         if (!$career->isOwnedBy($this->getUser()))
         {
@@ -122,7 +126,7 @@ class CareerController extends AbstractController
             $this->em->flush();
 
             // Flash message
-            $this->addFlash('success', 'Parcours modifié avec succés !');
+            $this->addFlash('success', 'Parcours modifié avec succès !');
 
             // Redirection
             return $this->redirectToRoute('app_career', [
@@ -130,6 +134,8 @@ class CareerController extends AbstractController
                 'id' => $career->getId()
             ]);
         }
+
+        $userController->isVerified();
 
         // Template render
         return $this->render('career/update.html.twig', [
@@ -140,7 +146,7 @@ class CareerController extends AbstractController
         ]);
     }
 
-    public function delete(Career $career, Request $request)
+    public function delete(Career $career, Request $request, UserController $userController)
     {
         if (!$career->isOwnedBy($this->getUser()))
         {
@@ -156,7 +162,7 @@ class CareerController extends AbstractController
             $this->em->flush();
 
             // Flash message
-            $this->addFlash('info', 'Parcours supprimé avec succés !');
+            $this->addFlash('info', 'Parcours supprimé avec succès !');
         }
 
         // Redirection
