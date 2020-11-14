@@ -26,6 +26,35 @@ class RegistrationController extends AbstractController
         $this->emailVerifier = $emailVerifier;
     }
 
+    public function sendVerificationEmail($user = null)
+    {
+        $redirect = false;
+
+        if (!$user)
+        {
+            $user = $this->getUser();
+            if (!$user || $user->isVerified())
+            {
+                return $this->redirectToRoute('app_home');
+            }
+            $redirect = true;
+        }
+
+        // generate a signed url and email it to the user
+        $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+            (new TemplatedEmail())
+                ->from(new Address('noreply-e-porfolio-plus@gmail.com', 'E-Portfolio+'))
+                ->to($user->getEmail())
+                ->subject('Merci de confirmer votre adresse mail')
+                ->htmlTemplate('registration/confirmation_email.html.twig')
+        );
+
+        if ($redirect)
+        {
+            return $this->redirectToRoute('app_home');
+        }
+    }
+
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator, EntityManagerInterface $em): Response
     {
         if ($this->getUser()) {
@@ -50,15 +79,7 @@ class RegistrationController extends AbstractController
 
             if ($_ENV['MAILER_DSN'] !== "" and $_ENV['MAILER_DSN'] !== "smtp://localhost")
             {
-                // generate a signed url and email it to the user
-                $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
-                    (new TemplatedEmail())
-                        ->from(new Address('noreply-e-porfolio-plus@gmail.com', 'E-Portfolio+'))
-                        ->to($user->getEmail())
-                        ->subject('Merci de confirmer votre adresse mail')
-                        ->htmlTemplate('registration/confirmation_email.html.twig')
-                );
-                // do anything else you need here, like send an email
+                $this->sendVerificationEmail($user);
             }
 
             return $guardHandler->authenticateUserAndHandleSuccess(

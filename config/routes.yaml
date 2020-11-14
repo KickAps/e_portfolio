@@ -73,6 +73,11 @@ app_register:
     controller: App\Controller\RegistrationController::register
     methods: GET|POST
 
+app_resend:
+    path: /resend
+    controller: App\Controller\RegistrationController::sendVerificationEmail
+    methods: GET
+
 app_verify_email:
     path: /verify/email
     controller: App\Controller\RegistrationController::verifyUserEmail

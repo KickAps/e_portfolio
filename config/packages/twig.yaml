@@ -10,6 +10,7 @@ twig:
             delete: 'Supprimer'
             validate: 'Valider'
             add: 'Ajouter'
+            resend: 'Renvoyer'
         navbar:
             projects: 'Projets'
             new: 'Nouveau'

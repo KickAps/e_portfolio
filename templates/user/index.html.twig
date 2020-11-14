@@ -15,7 +15,14 @@
         <span class="title">Profession</span>
         <p>{{ user.work }}</p>
         <span class="title">Contact</span>
-        <p><a class="secondary-color" href="mailto:{{ user.email }}">{{ user.email }}<a></p>
+        <p>
+            <a class="secondary-color" href="mailto:{{ user.email }}">{{ user.email }}<a><br>
+            {% if not user.isVerified and not spectator %}
+            <small>
+                Pour renvoyer le mail de vérification, veuillez cliquer sur <a href="{{ path('app_resend') }}">{{ button.resend }}</a>.
+            </small>
+            {% endif %}
+        </p>
         {% if not spectator %}
         <span class="title">Lien personnel</span>
         <p><input name="personnal-link-input" type="text" value="{{ url('app_home') ~ user.externalId }}" readonly data-toggle="tooltip" title="Copié!"><p>
