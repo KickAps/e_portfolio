@@ -90,10 +90,16 @@ class User implements UserInterface
      */
     private $externalId;
 
-    public function __construct()
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $avatar;
+
+    public function __construct($defaultAvatar)
     {
         $this->projects = new ArrayCollection();
         $this->career = new ArrayCollection();
+        $this->avatar = $defaultAvatar;
     }
 
     public function getId(): ?int
@@ -299,6 +305,18 @@ class User implements UserInterface
     public function getExternalId(): ?string
     {
         return $this->externalId;
+    }
+
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(string $avatar): self
+    {
+        $this->avatar = $avatar;
+
+        return $this;
     }
 
     /**

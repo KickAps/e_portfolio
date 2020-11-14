@@ -12,7 +12,7 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        $user = new User();
+        $user = new User('default.jpg');
         $user->setFirstName('Florian');
         $user->setLastName('Berson');
         $user->setEmail('florian.berson@gmx.fr');

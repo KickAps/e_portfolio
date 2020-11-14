@@ -5,7 +5,7 @@
         <div class="mb-3">
         {% for image in project.images %}
             <div class="{{ set_main_image(image.uniqueName, project.mainImage ?? '', 'update') }}">
-                <img src="{{ asset('/uploads/' ~ image.uniqueName) }}" name="{{ image.name }}" alt="Image" height="250">
+                <img src="{{ asset('/uploads/project/' ~ image.uniqueName) }}" name="{{ image.name }}" alt="Image" height="250">
                 <a href="#" type="button" class="btn" onclick="{{ 'event.preventDefault(); confirm(\'Veuillez confirmer la suppression\') && document.getElementById(\'js-image-delete-form-' ~ image.id ~ '\').submit();' }}">&#10006;</a>
             </div>
         {% endfor %}

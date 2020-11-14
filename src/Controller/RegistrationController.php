@@ -61,7 +61,7 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
 
-        $user = new User();
+        $user = new User($this->getParameter('default_jpg'));
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
