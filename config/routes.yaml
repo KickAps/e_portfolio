@@ -93,3 +93,8 @@ app_user_update:
     controller: App\Controller\UserController::update
     methods: GET|PUT
 
+app_avatar_upload:
+    path: /avatar/upload
+    controller: App\Controller\UserController::avatarUpload
+    methods: POST
+

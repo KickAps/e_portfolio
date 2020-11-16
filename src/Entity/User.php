@@ -136,6 +136,11 @@ class User implements UserInterface
         return $this->email;
     }
 
+    public function getHashEmail(): ?string
+    {
+        return hash("md5", $this->email);
+    }
+
     public function setEmail(string $email): self
     {
         $this->email = $email;
@@ -325,7 +330,7 @@ class User implements UserInterface
      */
     public function setExternalId(): self
     {
-        $this->externalId = $this->clean($this->firstName) . "_" . $this->clean($this->lastName) . "_" . hash("md5", $this->email);
+        $this->externalId = $this->clean($this->firstName) . "_" . $this->clean($this->lastName) . "_" . $this->getHashEmail();
         return $this;
     }
 

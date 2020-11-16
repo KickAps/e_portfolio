@@ -7,10 +7,20 @@ use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends AbstractController
 {
+    private $em;
+
+    public function __construct(EntityManagerInterface $em)
+    {
+        // Initiate the entity manager
+        $this->em = $em;
+    }
+
     public function index(string $externalId, UserRepository $userRepository)
     {
         $offlineUser = $userRepository->findOneBy(['externalId' => $externalId]);
@@ -26,7 +36,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    public function update(Request $request, EntityManagerInterface $em)
+    public function update(Request $request)
     {
         $form = $this->createForm(UserType::class, $this->getUser(), [
             'method' => 'PUT'
@@ -36,7 +46,7 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid())
         {
-            $em->flush();
+            $this->em->flush();
 
             // Flash message
             $this->addFlash('success', 'Informations modifiées avec succès !');
@@ -75,5 +85,16 @@ class UserController extends AbstractController
             // Flash message
             $this->addFlash('warning', 'Veuillez vérifier votre adresse mail.');
         }
+    }
+
+    public function avatarUpload(Request $request)
+    {
+        $filename = $this->getUser()->getHashEmail() . '.jpg';
+        $request->files->get('croppedImage')->move($this->getParameter('avatars_dir'), $filename);
+
+        $this->getUser()->setAvatar($filename);
+        $this->em->flush();
+
+        return new Response();
     }
 }
