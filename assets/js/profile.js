@@ -41,14 +41,28 @@ $(document).ready(function()
     // If the current page is the profile update page
     if (window.location.pathname.match(/user\/update$/i)) {
 
-        var image = $('#image')[0];
+        $('.avatar-update').mouseover(function(e){
+            $(e.currentTarget).find('.btn').css("display", "block");
+        });
+
+        $('.avatar-update').mouseout(function(e){
+            $(e.currentTarget).find('.btn').css("display", "none");
+        });
+
+        var canvas = $('#cropCanvas')[0];
+        var originalAvatar = $('#avatar');
 
         // Cropper init
-        var cropper = new Cropper(image, {
+        var cropper = new Cropper(canvas, {
             aspectRatio: 1/1,
             movable: false,
             minContainerWidth: 250,
-            minContainerHeight: 250
+            minContainerHeight: 250,
+            preview: '.preview'
+        });
+
+        $('#cropModal').on('shown.bs.modal', function () {
+            cropper.replace(originalAvatar.attr('src'));
         });
 
         $("input[name='img']").on("change", function(){
@@ -78,5 +92,17 @@ $(document).ready(function()
                 });
             }, 'image/jpeg');
         });
+
+        $('#cropModal').on('hidden.bs.modal', function () {
+            cropper.destroy();
+            // Cropper init
+            cropper = new Cropper(canvas, {
+                preview: '.preview',
+                aspectRatio: 1/1,
+                movable: false,
+                minContainerWidth: 250,
+                minContainerHeight: 250
+            });
+        })
     }
 });

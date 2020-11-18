@@ -12,14 +12,13 @@
         <div class="divider-custom-line"></div>
     </div>
 
-    <img class="mb-5 avatar" src="{{ asset('/uploads/avatar/' ~ user.avatar) }}" alt="avatar" width="250" height="250" />
+    <div class="avatar-update">
+        <img id="avatar" class="avatar" src="{{ asset('/uploads/avatar/' ~ user.avatar) ~ "?" ~ "now"|date("s") }}" alt="avatar" width="250" height="250" />
+        <!-- Button trigger modal -->
+        <a id="modalButton" type="hidden" class="btn" data-toggle="modal" data-target="#cropModal"><i class="fas fa-edit"></i></a>
+    </div>
 
-    <!-- Button trigger modal -->
-    <button id="modal" type="button" class="btn btn-primary-custom" data-toggle="modal" data-target="#cropModal">
-      Launch demo modal
-    </button>
-
-    <div class="p-3 bg-white rounded shadow center-50">
+    <div class="mt-5 p-3 bg-white rounded shadow center-50">
     {{ form_start(myForm) }}
         {{ form_widget(myForm) }}
         <div class="width-fit-content mx-auto">
@@ -30,28 +29,40 @@
 
     <!-- Modal -->
     <div class="modal fade" id="cropModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div>
-              <img id="image" width="250px" src="{{ asset('/uploads/avatar/' ~ user.avatar) }}">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title title" id="exampleModalLabel">Choix de l'avatar</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row mb-2">
+                        <div class="col col-6 text-center">
+                            <span class="title">Recadrage</span>
+                        </div>
+                        <div class="col col-6 text-center">
+                            <span class="title">Aperçu</span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col col-6">
+                            <canvas id="cropCanvas"></canvas>
+                        </div>
+                        <div class="col col-6">
+                            <div class="avatar-update preview"></div>
+                        </div>
+                    </div>
+                    <form>
+                        <input type="file" name="img" id="img" accept="image/*">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary m-0 mr-auto" data-dismiss="modal">{{ button.close }}</button>
+                    <button id="crop" type="button" class="btn btn-primary-custom m-0" data-dismiss="modal">{{ button.validate }}</button>
+                </div>
             </div>
-            <br>
-            <form>
-                <input type="file" name="img" id="img">
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary m-0 mr-auto" data-dismiss="modal">{{ button.close }}</button>
-            <button id="crop" type="button" class="btn btn-primary-custom m-0" data-dismiss="modal">{{ button.validate }}</button>
-          </div>
         </div>
-      </div>
     </div>
 {% endblock %}
