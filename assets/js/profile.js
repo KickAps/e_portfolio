@@ -38,12 +38,23 @@ $(document).ready(function()
     }
 
 
-    $("input[name='img']").on("change", function(){
+    // If the current page is the profile update page
+    if (window.location.pathname.match(/user\/update$/i)) {
+
         var image = $('#image')[0];
-        var file = $(this)[0].files[0];
-        $("#image").attr("src", window.URL.createObjectURL(file));
+
+        // Cropper init
         var cropper = new Cropper(image, {
             aspectRatio: 1/1,
+            movable: false,
+            minContainerWidth: 250,
+            minContainerHeight: 250
+        });
+
+        $("input[name='img']").on("change", function(){
+            var file = $(this)[0].files[0];
+            // Replace the cropper src image
+            cropper.replace(window.URL.createObjectURL(file));
         });
 
         $("#crop").click(function(){
@@ -67,5 +78,5 @@ $(document).ready(function()
                 });
             }, 'image/jpeg');
         });
-    });
+    }
 });
