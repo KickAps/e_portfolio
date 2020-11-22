@@ -119,13 +119,17 @@ img.avatar {
     display: block;
 }
 
-.avatar-update {
+.avatar-index {
     position: relative;
     margin: auto;
     width: fit-content;
     background-color: $secondary-color;
     border-radius: 50%;
     border: 3px solid $secondary-color;
+}
+
+.avatar-update {
+    @extend .avatar-index;
 
     & img {
         opacity: 1;

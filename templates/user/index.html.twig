@@ -9,9 +9,11 @@
         <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
         <div class="divider-custom-line"></div>
     </div>
-    <!-- Avatar Image-->
-    <img class="mb-5 avatar" src="{{ asset('/uploads/avatar/' ~ user.avatar) }}" alt="avatar" width="250" height="250" />
-    <div class="p-3 bg-white rounded shadow center-50">
+    <div class="avatar-index">
+        <!-- Avatar Image-->
+        <img class="avatar" src="{{ asset('/uploads/avatar/' ~ user.avatar) }}" alt="avatar" width="250" height="250" />
+    </div>
+    <div class="mt-5 p-3 bg-white rounded shadow center-50">
         <span class="title">Profession</span>
         <p>{{ user.work }}</p>
         <span class="title">Contact</span>
