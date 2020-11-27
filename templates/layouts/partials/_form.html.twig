@@ -26,4 +26,6 @@
     {% endfor %}
 
     <input type="hidden" id="main-image" value="{{ project.mainImage }}">
+    <input type="hidden" id="images-limit" value="{{ project.imagesLimit }}">
+    <input type="hidden" id="images-count" value="{{ project.images|length }}">
 {% endif %}

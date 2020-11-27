@@ -51,7 +51,7 @@ class ProjectType extends AbstractType
                 'empty_data' => null
             ])
             ->add('images', FileType::class, [
-                'label' => 'Images',
+                'label' => 'Images ~ $c',
                 'label_attr' => ['class' => 'title'],
                 'multiple' => true,
                 'mapped' => false,
@@ -71,13 +71,13 @@ class ProjectType extends AbstractType
                                 'mimeTypesMessage' => 'Veuillez choisir une/des image(s) valide(s)',
                             ]),
                             new Image([
-                                'minRatio' => 1,
-                                'maxRatio' => 2
+                                'minRatio' => 1.2,
+                                'maxRatio' => 2.3
                             ])
                         ]
                     ])
                 ],
-                'help' => 'Maximum 5 images (1Mo) - Résolution entre 1/1 et 2/1'
+                'help' => 'Maximum $l images (1Mo) - Ratio résolution entre 1.2 et 2.3 (idéal 16/9)'
             ])
             ->add('mainImage', ChoiceType::class, [
                 'label' => 'Choix de l\'image principale',

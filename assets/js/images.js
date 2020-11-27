@@ -38,6 +38,21 @@ function initSelectMainImage() {
 
 function imagesManager(action = null) {
     $('#project_mainImage')[0].disabled = true;
+
+    // Get the images limit
+    var imagesLimit = $('#images-limit')[0].value;
+    var imagesCount = $('#images-count')[0].value;
+
+    // Set the images current count
+    $('label[for="project_images"]')[0].innerHTML = $('label[for="project_images"]')[0].innerHTML.replace("$c", imagesCount);
+
+    // Set the helper
+    $('#project_images_help')[0].innerHTML = $('#project_images_help')[0].innerHTML.replace("$l", imagesLimit);
+
+    if (imagesLimit - imagesCount < 1) {
+        $('.custom-file-input')[0].disabled = true;
+    }
+
     $('.custom-file-input').on('change', function(e) {
         var images = e.currentTarget.files;
         var imagesName = [];
@@ -64,7 +79,7 @@ function imagesManager(action = null) {
             $('#project_mainImage')[0].disabled = true;
         }
 
-        $('.custom-file-label').html(imagesName.join(' - '));
+        $('.custom-file-label').html(imagesName.join(' / '));
     });
 
     $('.project-image-update').mouseover(function(e){

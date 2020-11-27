@@ -21,23 +21,31 @@ class ProjectController extends AbstractController
     {
         foreach ($images as $image)
         {
-            $i = new Image;
-            $filename = $image->getClientOriginalName();
-            $uniqueFilename = md5(uniqid()). "-" . $filename;
-
-            if ($filename === $project->getMainImage())
+            if (!$project->isImagesLimitReached())
             {
-                $project->setMainImage($uniqueFilename);
+                $i = new Image;
+                $filename = $image->getClientOriginalName();
+                $uniqueFilename = md5(uniqid()). "-" . $filename;
+
+                if ($filename === $project->getMainImage())
+                {
+                    $project->setMainImage($uniqueFilename);
+                }
+
+                $i->setName($filename);
+                $i->setUniqueName($uniqueFilename);
+
+                // Move to uplaods folder
+                $image->move($this->getParameter('images_dir'), $uniqueFilename);
+
+                // Associate the image to the project
+                $project->addImage($i);
             }
-
-            $i->setName($filename);
-            $i->setUniqueName($uniqueFilename);
-
-            // Move to uplaods folder
-            $image->move($this->getParameter('images_dir'), $uniqueFilename);
-
-            // Associate the image to the project
-            $project->addImage($i);
+            else
+            {
+                // Flash message
+                $this->addFlash('info', 'Cependant certaines images n\'ont pas pu être ajoutées (maximum ' . $project->getImagesLimit() . ').');
+            }
         }
     }
 

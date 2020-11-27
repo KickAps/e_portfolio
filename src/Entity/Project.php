@@ -67,9 +67,15 @@ class Project
      */
     private $summary;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $imagesLimit;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
+        $this->imagesLimit = 7;
     }
 
     public function getId(): ?int
@@ -195,5 +201,22 @@ class Project
         $this->summary = $summary;
 
         return $this;
+    }
+
+    public function getImagesLimit(): ?int
+    {
+        return $this->imagesLimit;
+    }
+
+    public function setImagesLimit(int $imagesLimit): self
+    {
+        $this->imagesLimit = $imagesLimit;
+
+        return $this;
+    }
+
+    public function isImagesLimitReached(): bool
+    {
+        return sizeof($this->images) === $this->imagesLimit;
     }
 }
