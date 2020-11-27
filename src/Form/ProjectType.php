@@ -30,7 +30,7 @@ class ProjectType extends AbstractType
                 'label' => 'Résumé *',
                 'label_attr' => ['class' => 'title'],
                 'attr' => ['rows' => 2, 'cols' => 100],
-                'help' => 'Le résumé sera affiché sur la page principale des projects.'
+                'help' => 'Le résumé sera affiché sur la page principale des projects'
             ])
             ->add('description', TextareaType::class, [
                 'label' => 'Description *',
@@ -40,7 +40,7 @@ class ProjectType extends AbstractType
             ->add('techno', TextType::class, [
                 'label' => 'Technologies utilisées',
                 'label_attr' => ['class' => 'title'],
-                'help' => 'Les technologies peuvent être séparées par des barres verticales, ex: "PHP | HTML | CSS".'
+                'help' => 'Les technologies peuvent être séparées par des barres verticales, ex: "PHP | HTML | CSS"'
             ])
             ->add('createdAt', DateType::class, [
                 'label' => 'Date de création *',
@@ -72,17 +72,18 @@ class ProjectType extends AbstractType
                             ]),
                             new Image([
                                 'minRatio' => 1,
-                                'maxRatio' => 3
+                                'maxRatio' => 2
                             ])
                         ]
                     ])
                 ],
-                'help' => 'Pour un meilleur rendu, assurez de choisir un ensemble d\'images de même résolution (16/9).'
+                'help' => 'Maximum 5 images (1Mo) - Résolution entre 1/1 et 2/1'
             ])
             ->add('mainImage', ChoiceType::class, [
                 'label' => 'Choix de l\'image principale',
                 'label_attr' => ['class' => 'title'],
-                'choices' => []
+                'choices' => [],
+                'help' => 'Reconnaissable par un cadre doré lors de la modification du projet'
             ])
         ;
 

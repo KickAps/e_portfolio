@@ -13,16 +13,22 @@
     </div>
 
     <article class="p-3 bg-white rounded shadow center-50">
-        <div id="carouselIndicators" class="carousel slide mb-3" data-ride="carousel">
+        <div id="carouselIndicators" class="carousel slide mb-3" data-interval="false">
             <ol class="carousel-indicators">
-            {% for image in project.images %}
-                {% set class = "" %}
-                {% if loop.first %}
-                    {% set class = "active" %}
-                {% endif %}
-                <li data-target="#carouselIndicators" data-slide-to="{{ loop.index0 }}" class="{{ class }}"></li>
-            {% endfor %}
+                {% set index = 0 %}
+                <li data-target="#carouselIndicators" data-slide-to="{{ index }}" class="active">
+                    <img class="d-block w-100 rounded" src="{{ asset('/uploads/project/' ~ project.mainImage) }}" class="img-fluid">
+                </li>
+                {% for image in project.images %}
+                    {% if image.uniqueName != project.mainImage %}
+                        {% set index = index + 1 %}
+                        <li data-target="#carouselIndicators" data-slide-to="{{ index }}">
+                            <img class="d-block w-100 rounded" src="{{ asset('/uploads/project/' ~ image.uniqueName) }}" class="img-fluid">
+                        </li>
+                    {% endif %}
+                {% endfor %}
             </ol>
+            <!--Slides-->
             <div class="carousel-inner">
                 <div class="carousel-item active">
                     <img src="{{ asset('/uploads/project/' ~ project.mainImage) }}" class="d-block w-100 rounded" alt="...">
@@ -35,12 +41,13 @@
                     {% endif %}
                 {% endfor %}
             </div>
+            <!--Controls-->
             <a class="carousel-control-prev" href="#carouselIndicators" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <i class="fas fa-chevron-left title"></i>
                 <span class="sr-only">Previous</span>
             </a>
             <a class="carousel-control-next" href="#carouselIndicators" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <i class="fas fa-chevron-right title"></i>
                 <span class="sr-only">Next</span>
             </a>
         </div>

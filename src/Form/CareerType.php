@@ -35,7 +35,7 @@ class CareerType extends AbstractType
                 'label' => 'Date de fin',
                 'label_attr' => ['class' => 'title'],
                 'widget' => 'single_text',
-                'help' => 'Champ optionnel pour la création d\'un événement ponctuel.'
+                'help' => 'Champ optionnel pour la création d\'un événement ponctuel'
             ])
         ;
     }

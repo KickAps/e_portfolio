@@ -42,17 +42,9 @@ class AppExtension extends AbstractExtension
         return $currentRoute === $route ? $class . ' active' : $class;
     }
 
-    public function setMainImage(string $currentImage, string $mainImage, string $action) : string
+    public function setMainImage(string $currentImage, string $mainImage) : string
     {
-        $class = "";
-        if ($action === "show")
-        {
-            $class = "project-image-show mb-3";
-        }
-        else if ($action === "update")
-        {
-            $class = "project-image-update mb-3";
-        }
-        return $mainImage === $currentImage ? $class . " main-image" : $class . " secondary-image";
+        $class = "project-image-update mb-3";
+        return $mainImage === $currentImage ? $class . " main-image" : $class;
     }
 }

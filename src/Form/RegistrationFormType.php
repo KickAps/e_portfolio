@@ -34,11 +34,11 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('email', RepeatedType::class, [
                 'type' => EmailType::class,
-                'invalid_message' => 'Les adresses mails doivent être identiques.',
+                'invalid_message' => 'Les adresses mails doivent être identiques',
                 'first_options'  => [
                     'label' => 'Email *',
                     'label_attr' => ['class' => 'title'],
-                    'help' => "Un mail de confirmation vous sera envoyé."
+                    'help' => "Un mail de confirmation vous sera envoyé"
                 ],
                 'second_options' => [
                     'label' => 'Email - confirmation *',

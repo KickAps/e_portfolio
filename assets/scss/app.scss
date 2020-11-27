@@ -94,15 +94,6 @@ body {
     width: fit-content;
 }
 
-.project-image-show {
-    display: inline-block;
-    position: relative;
-
-    & img {
-        @extend .rounded;
-    }
-}
-
 .secondary-color {
     color: $secondary-color;
 }
@@ -213,6 +204,26 @@ img.avatar {
             transform: scale(1.075);
         }
     }
+}
+
+.carousel-indicators {
+    @extend .carousel-indicators;
+    position: relative;
+    height: 75px;
+}
+
+.carousel-indicators li {
+    width: 100px;
+}
+
+.carousel-control-next {
+    @extend .carousel-control-next;
+    height: 75px;
+}
+
+.carousel-control-prev {
+    @extend .carousel-control-prev;
+    height: 75px;
 }
 
 li.active {
