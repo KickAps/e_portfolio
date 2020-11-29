@@ -95,11 +95,17 @@ class User implements UserInterface
      */
     private $avatar;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $imagesLimit;
+
     public function __construct($defaultAvatar)
     {
         $this->projects = new ArrayCollection();
         $this->career = new ArrayCollection();
         $this->avatar = $defaultAvatar;
+        $this->imagesLimit = 3;
     }
 
     public function getId(): ?int
@@ -322,6 +328,23 @@ class User implements UserInterface
         $this->avatar = $avatar;
 
         return $this;
+    }
+
+    public function getImagesLimit(): ?int
+    {
+        return $this->imagesLimit;
+    }
+
+    public function setImagesLimit(int $imagesLimit): self
+    {
+        $this->imagesLimit = $imagesLimit;
+
+        return $this;
+    }
+
+    public function isImagesLimitReached($project): bool
+    {
+        return sizeof($project->getImages()) === $this->imagesLimit;
     }
 
     /**

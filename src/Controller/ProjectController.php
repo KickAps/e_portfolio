@@ -21,7 +21,7 @@ class ProjectController extends AbstractController
     {
         foreach ($images as $image)
         {
-            if (!$project->isImagesLimitReached())
+            if (!$this->getUser()->isImagesLimitReached($project))
             {
                 $i = new Image;
                 $filename = $image->getClientOriginalName();
@@ -44,7 +44,11 @@ class ProjectController extends AbstractController
             else
             {
                 // Flash message
-                $this->addFlash('info', 'Cependant certaines images n\'ont pas pu être ajoutées (maximum ' . $project->getImagesLimit() . ').');
+                $this->addFlash(
+                    'info',
+                    'Cependant certaines images n\'ont pas pu être ajoutées (maximum ' . $this->getUser()->getImagesLimit() . ').'
+                );
+                break;
             }
         }
     }
