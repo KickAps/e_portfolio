@@ -54,16 +54,7 @@
                         <p class="text-justify text-break">{{ career.description|nl2br }}</p>
                     </div>
                     <div class="text-muted">
-                        <small>
-                            {% if career.endDate %}
-                                {# Months between the two dates #}
-                                {% set months = date(career.endDate).diff(date(career.startDate)).days//30 %}
-                                De <b>{{ career.startDate|date("m/Y") }}</b> à <b>{{ career.endDate|date("m/Y") }}</b>
-                                - <i>{{ months//12 ~ " an(s) et " ~ months%12 ~ " mois"}}</i>
-                            {% else %}
-                            Le <b>{{ career.startDate|date("d/m/Y") }}</b>
-                            {% endif %}
-                        </small>
+                        <small>{{ print_dates(career)|raw }}</small>
                     </div>
                 </article>
 
