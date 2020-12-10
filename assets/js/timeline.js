@@ -19,16 +19,17 @@ $(document).ready(function() {
         range.normal().fill("#1ABC9C");
         range.normal().stroke("#ABB2B9");
 
+        range.labels().useHtml(true);
+        range.labels().format("<b>{%x}</b>");
+
         range.tooltip().format(function(){
-            var start = new Date(this.start).toLocaleDateString();
-            var end = new Date(this.end).toLocaleDateString();
             var elems = document.querySelectorAll( ":hover" );
             var elem = elems[elems.length-3];
 
             current = range_data[this.index]["id"];
             elem.style.cursor = "pointer";
 
-            return start + " - " + end;
+            return this.x;
         });
 
         // Configure tooltips of range
@@ -45,7 +46,8 @@ $(document).ready(function() {
         moment.markers().type("circle");
         moment.normal().markers().fill("#1ABC9C");
 
-        moment.labels().format("{%y}");
+        moment.labels().useHtml(true);
+        moment.labels().format("<b>{%y}</b>");
 
         moment.tooltip().format(function(){
             current = moment_data[this.index]["id"];
@@ -53,7 +55,7 @@ $(document).ready(function() {
             var elem = elems[elems.length-3];
             elem.style.cursor = "pointer";
 
-            return new Date(this.x).toLocaleDateString();
+            return this.value;
         });
 
         // Configure tooltips of moment
@@ -86,8 +88,9 @@ $(document).ready(function() {
             var elem = elems[elems.length-3];
             elem.style.cursor = "pointer";
 
-            return new Date(this.x).toLocaleDateString();
+            return this.value;
         });
+
 
         // Configure tooltips of project
         project.tooltip().title().enabled(false);

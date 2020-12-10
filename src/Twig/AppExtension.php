@@ -2,6 +2,7 @@
 
 namespace App\Twig;
 
+use App\Entity\Career;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -30,7 +31,8 @@ class AppExtension extends AbstractExtension
     {
         return [
             new TwigFunction('set_active_route', [$this, 'setActiveRoute']),
-            new TwigFunction('set_main_image', [$this, 'setMainImage'])
+            new TwigFunction('set_main_image', [$this, 'setMainImage']),
+            new TwigFunction('print_dates', [$this, 'printDates'])
         ];
     }
 
@@ -46,5 +48,32 @@ class AppExtension extends AbstractExtension
     {
         $class = "project-image-update mb-3";
         return $mainImage === $currentImage ? $class . " main-image" : $class;
+    }
+
+    public function printDates(Career $career)
+    {
+        $and = "";
+        if ($career->getEndDate())
+        {
+            $interval = date_diff($career->getStartDate(), $career->getEndDate());
+
+            $years = $interval->y ? $interval->y === 1 ? "1 an" : $interval->y . " ans" : "";
+            $months = $interval->m ? $interval->m . " mois" : "";
+
+            if ($years !== "" and $months !== "")
+            {
+                $and = " et ";
+            }
+
+            $intervalStr = " - " . $years . $and . $months;
+
+            $dates = "Du <b>" . $career->getStartDate()->format('m/y') . "</b> au <b>" . $career->getEndDate()->format('m/y') . "</b><i>". $intervalStr . "</i>";
+        }
+        else
+        {
+            $dates = "Le <b>" . $career->getStartDate()->format('d/m/y') . "</b>";
+        }
+
+        return $dates;
     }
 }

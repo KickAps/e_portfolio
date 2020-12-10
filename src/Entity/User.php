@@ -377,8 +377,8 @@ class User implements UserInterface
     public function setExampleCareer(): self
     {
         $career = new Career;
-        $career->setTitle("E-Portfolio+");
-        $career->setDescription('Inscription à E-Portfolio+');
+        $career->setTitle("ePortfolio+");
+        $career->setDescription('Inscription à ePortfolio+');
         $career->setStartDate(new \DateTimeImmutable);
         $career->setUser($this);
         $this->addCareer($career);
@@ -393,8 +393,8 @@ class User implements UserInterface
     {
         $project = new Project;
         $project->setTitle('Projet exemple');
-        $project->setDescription("Celui est la description complète du project exemple.");
-        $project->setSummary("Celui est le résumé du project exemple.");
+        $project->setDescription("Ceci est la description complète du project exemple.");
+        $project->setSummary("Ceci est le résumé du project exemple.");
         $project->setCreatedAt(new \DateTimeImmutable("2020-10-06"));
         $project->setUser($this);
         $project->setMainImage('default.jpg');
