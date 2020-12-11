@@ -35,7 +35,7 @@
 
 
     <div class="unselectable">
-        {% for row in user.career|sort((a, b) => b.startDate <=> a.startDate)|batch(2) %}
+        {% for row in sort_career(user.career)|batch(2) %}
         <div class="row">
             {% for career in row %}
             <div class="col-md-6 mb-4">
