@@ -75,7 +75,7 @@ $(document).ready(function() {
         project.labels().useHtml(true);
         project.labels().format(
             "<span>\
-                <b>Projet</b>\
+                <b>Projet {%tag}</b>\
                 <br>\
                 {%y}\
             </span>"

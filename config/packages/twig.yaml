@@ -12,6 +12,8 @@ twig:
             add: 'Ajouter'
             resend: 'Renvoyer'
             close: 'Fermer'
+            hide: 'Masquer'
+            unhide: 'Démasquer'
         navbar:
             projects: 'Projets'
             new: 'Nouveau'

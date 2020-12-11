@@ -25,6 +25,11 @@ app_project_update:
     controller: App\Controller\ProjectController::update
     methods: GET|PUT
 
+app_project_hide:
+    path: /{externalId<[0-9A-Za-zÀ-ȕ_-]+>}/project/{id<[0-9]+>}/hide
+    controller: App\Controller\ProjectController::hide
+    methods: GET
+
 app_project_delete:
     path: /{externalId<[0-9A-Za-zÀ-ȕ_-]+>}/project/{id<[0-9]+>}
     controller: App\Controller\ProjectController::delete
