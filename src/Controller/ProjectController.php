@@ -7,6 +7,7 @@ use App\Entity\Image;
 use App\Entity\Project;
 use App\Entity\User;
 use App\Form\ProjectType;
+use App\Repository\ProjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -62,14 +63,17 @@ class ProjectController extends AbstractController
     /**
      * @return Twig template that prints all projects
      */
-    public function index(User $offlineUser, UserController $userController)
+    public function index(User $offlineUser, ProjectRepository $projectRepository, UserController $userController)
     {
         list($user, $spectator) = $userController->isSpectator($offlineUser);
+
+        $projects = $spectator ? $projectRepository->findBy(["isVisible" => true]) : $user->getProjects();
 
         $userController->isVerified();
 
         // Template render
         return $this->render('project/index.html.twig', [
+            'projects' => $projects,
             'user' => $user,
             'spectator' => $spectator
         ]);
@@ -85,7 +89,7 @@ class ProjectController extends AbstractController
     {
         list($user, $spectator) = $userController->isSpectator($offlineUser);
 
-        if (!$project->isOwnedBy($user))
+        if (!$project->isOwnedBy($user) or $spectator and !$project->isVisible())
         {
             throw $this->createNotFoundException();
         }
@@ -198,6 +202,19 @@ class ProjectController extends AbstractController
             'project' => $project,
             'user' => $this->getUser(),
             'spectator' => false
+        ]);
+    }
+
+    public function hide(Project $project)
+    {
+        $project->setVisible(!$project->isVisible());
+
+        $this->em->flush();
+
+        // Redirection
+        return $this->redirectToRoute('app_project_show', [
+            'externalId' => $this->getUser()->getExternalId(),
+            'id' => $project->getId()
         ]);
     }
 

@@ -51,11 +51,15 @@ class CareerController extends AbstractController
 
         foreach ($user->getProjects() as $project)
         {
-            array_push($project_data, [
-                "x" => $project->getCreatedAt()->getTimestamp() * 1000,
-                "y" => $project->getTitle(),
-                "id" => $project->getId()
-            ]);
+            if (!$spectator or $project->isVisible())
+            {
+                array_push($project_data, [
+                    "x" => $project->getCreatedAt()->getTimestamp() * 1000,
+                    "y" => $project->getTitle(),
+                    "id" => $project->getId(),
+                    "tag" => $project->isVisible() ? "" : "masqué"
+                ]);
+            }
         }
 
         $json_range_data = json_encode($range_data);

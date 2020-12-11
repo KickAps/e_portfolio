@@ -67,9 +67,15 @@ class Project
      */
     private $summary;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isVisible;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
+        $this->isVisible = true;
     }
 
     public function getId(): ?int
@@ -193,6 +199,18 @@ class Project
     public function setSummary(string $summary): self
     {
         $this->summary = $summary;
+
+        return $this;
+    }
+
+    public function isVisible(): ?bool
+    {
+        return $this->isVisible;
+    }
+
+    public function setVisible(bool $isVisible): self
+    {
+        $this->isVisible = $isVisible;
 
         return $this;
     }
