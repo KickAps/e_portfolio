@@ -67,7 +67,7 @@ class ProjectController extends AbstractController
     {
         list($user, $spectator) = $userController->isSpectator($offlineUser);
 
-        $projects = $spectator ? $projectRepository->findBy(["isVisible" => true]) : $user->getProjects();
+        $projects = $spectator ? $projectRepository->findBy(["user" => $user, "isVisible" => true]) : $user->getProjects();
 
         $userController->isVerified();
 
