@@ -123,7 +123,7 @@ function scrollToElement(id) {
     window.scrollTo(0, pos.top-100);
 
     $('#'+id)[0].animate (
-        [{ backgroundColor: 'black' },{ backgroundColor: 'white' }],
+        [{ backgroundColor: '#1abc9c' },{ backgroundColor: 'white' }],
         { duration: 750 }
     );
 }
