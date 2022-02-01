@@ -22,4 +22,8 @@ npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 
+### Avatar & Image
 /public/uploads/
+
+### PHPStorm
+.idea/
