@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Entity\Traits\Timestampable;
+use App\Entity\Traits\Timestamp;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -16,9 +16,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\HasLifecycleCallbacks
  * @UniqueEntity(fields={"email"}, message="Un compte lié à cette adresse mail existe déjà")
  */
-class User implements UserInterface
-{
-    use Timestampable;
+class User implements UserInterface {
+    use Timestamp;
 
     /**
      * @ORM\Id
@@ -100,57 +99,45 @@ class User implements UserInterface
      */
     private $imagesLimit;
 
-    public function __construct($defaultAvatar)
-    {
+    public function __construct($defaultAvatar) {
         $this->projects = new ArrayCollection();
         $this->career = new ArrayCollection();
         $this->avatar = $defaultAvatar;
         $this->imagesLimit = 3;
     }
 
-    public function getId(): ?int
-    {
+    public function getId(): ?int {
         return $this->id;
     }
 
-    public function getFirstName(): ?string
-    {
+    public function getFirstName(): ?string {
         return $this->firstName;
     }
 
-    public function setFirstName(string $firstName): self
-    {
+    public function setFirstName(string $firstName): self {
         $this->firstName = $firstName;
-
         return $this;
     }
 
-    public function getLastName(): ?string
-    {
+    public function getLastName(): ?string {
         return $this->lastName;
     }
 
-    public function setLastName(string $lastName): self
-    {
+    public function setLastName(string $lastName): self {
         $this->lastName = $lastName;
-
         return $this;
     }
 
-    public function getEmail(): ?string
-    {
+    public function getEmail(): ?string {
         return $this->email;
     }
 
-    public function getHashEmail(): ?string
-    {
+    public function getHashEmail(): ?string {
         return hash("md5", $this->email);
     }
 
-    public function setEmail(string $email): self
-    {
+    public function setEmail(string $email): self {
         $this->email = $email;
-
         return $this;
     }
 
@@ -159,16 +146,14 @@ class User implements UserInterface
      *
      * @see UserInterface
      */
-    public function getUsername(): string
-    {
-        return (string) $this->email;
+    public function getUsername(): string {
+        return (string)$this->email;
     }
 
     /**
      * @see UserInterface
      */
-    public function getRoles(): array
-    {
+    public function getRoles(): array {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
@@ -176,62 +161,49 @@ class User implements UserInterface
         return array_unique($roles);
     }
 
-    public function setRoles(array $roles): self
-    {
+    public function setRoles(array $roles): self {
         $this->roles = $roles;
-
         return $this;
     }
 
     /**
      * @see UserInterface
      */
-    public function getPassword(): string
-    {
-        return (string) $this->password;
+    public function getPassword(): string {
+        return (string)$this->password;
     }
 
-    public function setPassword(string $password): self
-    {
+    public function setPassword(string $password): self {
         $this->password = $password;
-
         return $this;
     }
 
-    public function getWork(): ?string
-    {
+    public function getWork(): ?string {
         return $this->work;
     }
 
-    public function setWork(string $work): self
-    {
+    public function setWork(string $work): self {
         $this->work = $work;
-
         return $this;
     }
 
-    public function getDescription(): ?string
-    {
+    public function getDescription(): ?string {
         return $this->description;
     }
 
-    public function setDescription(string $description): self
-    {
+    public function setDescription(string $description): self {
         $this->description = $description;
-
         return $this;
     }
 
     /**
      * @return Collection|project[]
      */
-    public function getProjects(): Collection
-    {
+    public function getProjects(): Collection {
         return $this->projects;
     }
 
-    public function addProject(project $project): self
-    {
+    public function addProject(project $project): self {
         if (!$this->projects->contains($project)) {
             $this->projects[] = $project;
             $project->setUser($this);
@@ -240,8 +212,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function removeProject(project $project): self
-    {
+    public function removeProject(project $project): self {
         if ($this->projects->contains($project)) {
             $this->projects->removeElement($project);
             // set the owning side to null (unless already changed)
@@ -256,13 +227,11 @@ class User implements UserInterface
     /**
      * @return Collection|career[]
      */
-    public function getCareer(): Collection
-    {
+    public function getCareer(): Collection {
         return $this->career;
     }
 
-    public function addCareer(career $career): self
-    {
+    public function addCareer(career $career): self {
         if (!$this->career->contains($career)) {
             $this->career[] = $career;
             $career->setUser($this);
@@ -271,8 +240,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function removeCareer(career $career): self
-    {
+    public function removeCareer(career $career): self {
         if ($this->career->contains($career)) {
             $this->career->removeElement($career);
             // set the owning side to null (unless already changed)
@@ -287,63 +255,50 @@ class User implements UserInterface
     /**
      * @see UserInterface
      */
-    public function getSalt()
-    {
+    public function getSalt() {
         // not needed when using the "bcrypt" algorithm in security.yaml
     }
 
     /**
      * @see UserInterface
      */
-    public function eraseCredentials()
-    {
+    public function eraseCredentials() {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
 
-    public function isVerified(): bool
-    {
+    public function isVerified(): bool {
         return $this->isVerified;
     }
 
-    public function setIsVerified(bool $isVerified): self
-    {
+    public function setIsVerified(bool $isVerified): self {
         $this->isVerified = $isVerified;
-
         return $this;
     }
 
-    public function getExternalId(): ?string
-    {
+    public function getExternalId(): ?string {
         return $this->externalId;
     }
 
-    public function getAvatar(): ?string
-    {
+    public function getAvatar(): ?string {
         return $this->avatar;
     }
 
-    public function setAvatar(string $avatar): self
-    {
+    public function setAvatar(string $avatar): self {
         $this->avatar = $avatar;
-
         return $this;
     }
 
-    public function getImagesLimit(): ?int
-    {
+    public function getImagesLimit(): ?int {
         return $this->imagesLimit;
     }
 
-    public function setImagesLimit(int $imagesLimit): self
-    {
+    public function setImagesLimit(int $imagesLimit): self {
         $this->imagesLimit = $imagesLimit;
-
         return $this;
     }
 
-    public function isImagesLimitReached($project): bool
-    {
+    public function isImagesLimitReached($project): bool {
         return sizeof($project->getImages()) === $this->imagesLimit;
     }
 
@@ -351,22 +306,19 @@ class User implements UserInterface
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
-    public function setExternalId(): self
-    {
+    public function setExternalId(): self {
         $this->externalId = $this->clean($this->firstName) . "_" . $this->clean($this->lastName) . "_" . $this->getHashEmail();
         return $this;
     }
 
-    private function clean(string $s): string
-    {
+    private function clean(string $s): string {
         return mb_strtolower(preg_replace("/[ \']/", "-", $s), 'UTF-8');
     }
 
     /**
      * @ORM\PrePersist
      */
-    public function setDefaultDescription(): self
-    {
+    public function setDefaultDescription(): self {
         $this->description = "Bonjour, je m'appelle " . $this->firstName . " " . $this->lastName . " et je suis " . $this->work . " !";
         return $this;
     }
@@ -374,8 +326,7 @@ class User implements UserInterface
     /**
      * @ORM\PrePersist
      */
-    public function setExampleCareer(): self
-    {
+    public function setExampleCareer(): self {
         $career = new Career;
         $career->setTitle("ePortfolio+");
         $career->setDescription('Inscription à ePortfolio+');
@@ -389,8 +340,7 @@ class User implements UserInterface
     /**
      * @ORM\PrePersist
      */
-    public function setExampleProject(): self
-    {
+    public function setExampleProject(): self {
         $project = new Project;
         $project->setTitle('Projet exemple');
         $project->setDescription("Ceci est la description complète du project exemple.");
