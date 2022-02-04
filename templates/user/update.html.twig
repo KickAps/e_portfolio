@@ -13,18 +13,18 @@
     </div>
 
     <div class="avatar-update">
-        <img id="avatar" class="avatar" src="{{ asset('/uploads/avatar/' ~ user.avatar) ~ "?" ~ "now"|date("U") }}" alt="avatar" width="250" height="250" />
+        <img id="avatar" class="avatar" src="{{ asset('/uploads/avatar/' ~ user.avatar) ~ "?" ~ "now"|date("U") }}" alt="avatar" width="250" height="250"/>
         <!-- Button trigger modal -->
-        <a id="modalButton" type="hidden" class="btn" data-toggle="modal" data-target="#cropModal"><i class="fas fa-edit"></i></a>
+        <a id="modalButton" class="btn" data-toggle="modal" data-target="#cropModal"><i class="fas fa-edit"></i></a>
     </div>
 
     <div class="mt-5 p-3 bg-white rounded shadow center-50">
-    {{ form_start(myForm) }}
+        {{ form_start(myForm) }}
         {{ form_widget(myForm) }}
         <div class="width-fit-content mx-auto">
             <input type="submit" class="btn btn-primary-custom block" value="{{ button.validate }}" formnovalidate>
         </div>
-    {{ form_end(myForm) }}
+        {{ form_end(myForm) }}
     </div>
 
     <!-- Modal -->
