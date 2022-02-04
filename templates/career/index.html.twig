@@ -36,33 +36,60 @@
 
     <div class="unselectable">
         <div class="center-50">
-        {% for career in sort_career(user.career) %}
-        <article id="{{ career.id }}" class="bg-white-custom rounded shadow p-3 mb-4">
-            <div>
-                <h3 class="text-center text-secondary font-weight-bold pb-3 m-0">{{ career.title }}</h3>
+            {% for career in sort_career(user.career) %}
+                <article id="{{ career.id }}" class="bg-white-custom rounded shadow p-3 mb-4">
+                    <div>
+                        <h3 class="text-center text-secondary font-weight-bold pb-3 m-0">{{ career.title }}</h3>
+
+                        {% if not spectator %}
+                            <div class="width-fit-content mx-auto">
+                                <a href="{{ path('app_career_update', {externalId : user.externalId, 'id' : career.id}) }}" class="mb-2 btn btn-primary-custom">{{ button.update }}</a>
+                                <a class="btn btn-info mb-2 " data-toggle="modal" data-target="#review_modal" data-href="{{ url('app_career_review', {externalId : user.externalId, 'id' : career.id}) }}">{{ 'Demander un avis' }}</a>
+                                <a href="#" onclick="{{ 'event.preventDefault(); confirm(\'Veuillez confirmer la suppression\') && document.getElementById(\'js-career-delete-form-' ~ career.id ~ '\').submit();' }}" class="mb-2 btn btn-danger">{{ button.delete }}</a>
+                            </div>
+                        {% endif %}
+
+                        <span class="title">Description</span>
+                        <p class="text-justify text-break">{{ career.description|nl2br }}</p>
+                    </div>
+                    <div class="text-muted">
+                        <small>{{ print_dates(career)|raw }}</small>
+                    </div>
+                </article>
 
                 {% if not spectator %}
-                <div class="width-fit-content mx-auto">
-                    <a href="{{ path('app_career_update', {externalId : user.externalId, 'id' : career.id}) }}" class="mb-2 btn btn-primary-custom">{{ button.update }}</a>
-                    <a href="#" onclick="{{ 'event.preventDefault(); confirm(\'Veuillez confirmer la suppression\') && document.getElementById(\'js-career-delete-form-' ~ career.id ~ '\').submit();' }}" class="mb-2 btn btn-danger">{{ button.delete }}</a>
-                </div>
+                    <form id="{{ 'js-career-delete-form-' ~ career.id }}" action="{{ path('app_career_delete', {externalId : user.externalId, 'id' : career.id}) }}" method="post" class="display-none">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token('career_deletion_' ~ career.id) }}">
+                        <input type="hidden" name="_method" value="DELETE">
+                    </form>
                 {% endif %}
+            {% endfor %}
+        </div>
+    </div>
 
-                <span class="title">Description</span>
-                <p class="text-justify text-break">{{ career.description|nl2br }}</p>
+    <!-- Modal -->
+    <div class="modal fade" id="review_modal" tabindex="-1" role="dialog" aria-labelledby="modal_label" data-backdrop="static" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title title" id="modal_label">Demander un avis</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <span class="title">Lien pour une demande d'avis</span>
+                    <p>
+                        <input id="review_link" class="w-100" name="personnal-link-input" type="text" value="" readonly data-toggle="tooltip" title="Copié!">
+                        <small>
+                            Toutes les personnes recevant ce lien pourront laisser un avis sur l'expérience concernées.
+                        </small>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary m-0 mr-auto" data-dismiss="modal">{{ button.close }}</button>
+                </div>
             </div>
-            <div class="text-muted">
-                <small>{{ print_dates(career)|raw }}</small>
-            </div>
-        </article>
-
-        {% if not spectator %}
-        <form id="{{ 'js-career-delete-form-' ~ career.id }}" action="{{ path('app_career_delete', {externalId : user.externalId, 'id' : career.id}) }}" method="post" class="display-none">
-            <input type="hidden" name="csrf_token" value="{{ csrf_token('career_deletion_' ~ career.id) }}">
-            <input type="hidden" name="_method" value="DELETE">
-        </form>
-        {% endif %}
-        {% endfor %}
         </div>
     </div>
 {% endblock %}

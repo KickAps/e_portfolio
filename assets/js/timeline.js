@@ -115,15 +115,45 @@ $(document).ready(function() {
         chart.draw();
 
         $('.anychart-credits')[0].hidden = true;
+
+        handleReviewLink();
     }
 });
 
 function scrollToElement(id) {
-    var pos = $('#'+id.toString())[0].getBoundingClientRect();
-    window.scrollTo(0, pos.top-100);
+    var pos = $('#' + id.toString())[0].getBoundingClientRect();
+    window.scrollTo(0, pos.top - 100);
 
-    $('#'+id)[0].animate (
-        [{ backgroundColor: '#1abc9c' },{ backgroundColor: 'white' }],
-        { duration: 750 }
+    $('#' + id)[0].animate(
+        [{backgroundColor: '#1abc9c'}, {backgroundColor: 'white'}],
+        {duration: 750}
     );
+}
+
+function handleReviewLink() {
+    var review_link_input = $('a#review_link');
+    review_link_input.on('click', function(e) {
+        e.preventDefault();
+        navigator.clipboard.writeText($(this).attr('href')).then();
+    });
+
+    // Show tooltip
+    review_link_input.tooltip({
+        animated: 'fade',
+        placement: 'bottom',
+        trigger: 'click'
+    });
+
+    // Hide tooltip
+    review_link_input.mouseout(function() {
+        review_link_input.tooltip('hide');
+    });
+
+    $('#review_modal').on('shown.bs.modal', function(e) {
+        $('input#review_link').attr('value', $(e.relatedTarget).data('href'));
+    });
+
+    $('#review_modal').on('hidden.bs.modal', function() {
+        $('input#review_link').attr('value', "");
+    })
 }
