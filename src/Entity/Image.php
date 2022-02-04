@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=ImageRepository::class)
+ * @ORM\HasLifecycleCallbacks
  */
 class Image {
     use Timestamp;

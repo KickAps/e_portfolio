@@ -13,6 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CareerRepository::class)
+ * @ORM\HasLifecycleCallbacks
  */
 class Career {
     use Timestamp;
@@ -61,6 +62,10 @@ class Career {
 
     public function __construct() {
         $this->reviews = new ArrayCollection();
+    }
+
+    public function getId(): ?int {
+        return $this->id;
     }
 
     public function getTitle(): ?string {
