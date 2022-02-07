@@ -15,6 +15,14 @@
     </div>
     <div class="mt-5 p-3 bg-white rounded shadow center-50">
         <span class="title">Profession</span>
+        <div class="d-inline float-right">
+            {% if user.getReviewsAverageMark != 0.0 %}
+                <small>
+                    {{ include('layouts/partials/_stars.html.twig', {mark: user.getReviewsAverageMark}) }}
+                    {{ '(' ~ user.getReviewsCount ~ ' avis)' }}
+                </small>
+            {% endif %}
+        </div>
         <p>{{ user.work }}</p>
         <span class="title">Contact</span>
         <p>

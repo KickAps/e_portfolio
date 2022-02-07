@@ -64,7 +64,7 @@ app_career_delete:
 app_career_review:
     path: /{externalId<[0-9A-Za-zÀ-ȕ_-]+>}/career/{id<[0-9]+>}/review
     controller: App\Controller\CareerController::review
-    methods: GET|PUT
+    methods: GET|POST
 
 ### LOGIN ###
 app_login:

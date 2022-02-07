@@ -52,8 +52,16 @@
                         <span class="title">Description</span>
                         <p class="text-justify text-break">{{ career.description|nl2br }}</p>
                     </div>
-                    <div class="text-muted">
+                    <div class="text-muted d-inline-block w-50">
                         <small>{{ print_dates(career)|raw }}</small>
+                    </div>
+                    <div class="d-inline float-right">
+                        {% if career.reviews|length != 0 %}
+                            <small>
+                                {{ include('layouts/partials/_stars.html.twig', {mark: career.getReviewsAverageMark}) }}
+                                {{ '(' ~ career.reviews|length ~ ' avis)' }}
+                            </small>
+                        {% endif %}
                     </div>
                 </article>
 

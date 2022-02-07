@@ -227,7 +227,7 @@ class User implements UserInterface {
     /**
      * @return Collection|career[]
      */
-    public function getCareer(): Collection {
+    public function getCareer(): Collection|career {
         return $this->career;
     }
 
@@ -351,5 +351,33 @@ class User implements UserInterface {
         $this->addProject($project);
 
         return $this;
+    }
+
+    public function getReviewsAverageMark(): float {
+        $reviewsAverageMark = 0.0;
+        $careerReviewed = 0;
+
+        if(count($this->getCareer()) === 0) {
+            return $reviewsAverageMark;
+        }
+
+        foreach($this->getCareer() as $career) {
+            if($career->getReviewsAverageMark() !== 0.0) {
+                $reviewsAverageMark += $career->getReviewsAverageMark();
+                $careerReviewed++;
+            }
+        }
+
+        return round($reviewsAverageMark / $careerReviewed * 2) / 2;
+    }
+
+    public function getReviewsCount(): int {
+        $reviewsCount = 0;
+
+        foreach($this->getCareer() as $career) {
+            $reviewsCount += count($career->getReviews());
+        }
+
+        return $reviewsCount;
     }
 }

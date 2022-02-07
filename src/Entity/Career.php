@@ -118,9 +118,9 @@ class Career {
     }
 
     /**
-     * @return Collection
+     * @return Collection|review[]
      */
-    public function getReviews(): Collection {
+    public function getReviews(): Collection|review {
         return $this->reviews;
     }
 
@@ -134,13 +134,27 @@ class Career {
     }
 
     public function removeReview(Review $review): self {
-        if ($this->reviews->removeElement($review)) {
+        if($this->reviews->removeElement($review)) {
             // set the owning side to null (unless already changed)
-            if ($review->getCareer() === $this) {
+            if($review->getCareer() === $this) {
                 $review->setCareer(null);
             }
         }
 
         return $this;
+    }
+
+    public function getReviewsAverageMark(): float {
+        $reviewsAverageMark = 0.0;
+
+        if(count($this->getReviews()) === 0) {
+            return $reviewsAverageMark;
+        }
+
+        foreach($this->getReviews() as $review) {
+            $reviewsAverageMark += $review->getAverageMark();
+        }
+
+        return round($reviewsAverageMark / count($this->getReviews()) * 2) / 2;
     }
 }
