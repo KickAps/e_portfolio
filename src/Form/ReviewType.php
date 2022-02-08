@@ -14,7 +14,7 @@ class ReviewType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options): void {
         $builder
             ->add('reviewer', TextType::class, [
-                'label' => 'Nom / Prénom *',
+                'label' => 'Nom / Prénom',
                 'label_attr' => ['class' => 'title'],
                 'attr' => ['autofocus' => true]
             ])
@@ -25,18 +25,18 @@ class ReviewType extends AbstractType {
             ])
             ->add('markOne', IntegerType::class, [
                 'label' => 'Qualité du travail',
-                'label_attr' => ['class' => 'title']
+                'label_attr' => ['class' => 'title mark-one']
             ])
             ->add('markTwo', IntegerType::class, [
                 'label' => 'Communication',
-                'label_attr' => ['class' => 'title']
+                'label_attr' => ['class' => 'title mark-two']
             ])
             ->add('markThree', IntegerType::class, [
                 'label' => 'Autonomie',
-                'label_attr' => ['class' => 'title']
+                'label_attr' => ['class' => 'title mark-three']
             ])
             ->add('text', TextareaType::class, [
-                'label' => 'Description *',
+                'label' => 'Description',
                 'label_attr' => ['class' => 'title'],
                 'attr' => ['rows' => 5, 'cols' => 100]
             ]);

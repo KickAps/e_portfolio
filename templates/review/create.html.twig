@@ -16,11 +16,33 @@
 
     <div class="p-3 bg-white rounded shadow center-50">
         {{ form_start(form) }}
-        {{ form_widget(form) }}
+
+        {{ form_row(form.reviewer) }}
+        {{ form_row(form.contact) }}
+        {{ form_label(form.markOne) }}
+        <div class="stars mb-3">
+            {{ include('layouts/partials/_stars.html.twig', {mark: 0}) }}
+        </div>
+        {{ form_label(form.markTwo) }}
+        <div class="stars mb-3">
+            {{ include('layouts/partials/_stars.html.twig', {mark: 0}) }}
+        </div>
+        {{ form_label(form.markThree) }}
+        <div class="stars mb-3">
+            {{ include('layouts/partials/_stars.html.twig', {mark: 0}) }}
+        </div>
+        {{ form_row(form.text) }}
 
         <div class="width-fit-content mx-auto">
             <input type="submit" class="btn btn-primary-custom block" value="{{ button.validate }}" formnovalidate>
         </div>
+
+        <div class="d-none">
+            {{ form_widget(form.markOne) }}
+            {{ form_widget(form.markTwo) }}
+            {{ form_widget(form.markThree) }}
+        </div>
+
         {{ form_end(form) }}
     </div>
 {% endblock %}
