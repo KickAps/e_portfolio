@@ -10,10 +10,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CareerType extends AbstractType
-{
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+class CareerType extends AbstractType {
+    public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
             ->add('title', TextType::class, [
                 'label' => 'Titre *',
@@ -36,12 +34,10 @@ class CareerType extends AbstractType
                 'label_attr' => ['class' => 'title'],
                 'widget' => 'single_text',
                 'help' => 'Champ optionnel pour la création d\'un événement ponctuel'
-            ])
-        ;
+            ]);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
-    {
+    public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults([
             'data_class' => Career::class,
         ]);

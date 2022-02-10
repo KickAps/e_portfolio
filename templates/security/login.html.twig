@@ -3,33 +3,33 @@
 {% set title = tab.connection ~ " | " ~ website.name %}
 
 {% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger rounded mb-3">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+    <form method="post">
+        {% if error %}
+            <div class="alert alert-danger rounded mb-3">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
 
-    <!-- New Career Section Heading-->
-    <h2 class="page-section-heading text-center text-secondary font-weight-bold"> {{ tab.connection }}</h2>
-    <!-- Icon Divider-->
-    <div class="divider-custom">
-        <div class="divider-custom-line"></div>
-        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
-        <div class="divider-custom-line"></div>
-    </div>
+        <!-- New Career Section Heading-->
+        <h2 class="page-section-heading text-center text-secondary font-weight-bold"> {{ tab.connection }}</h2>
+        <!-- Icon Divider-->
+        <div class="divider-custom">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+            <div class="divider-custom-line"></div>
+        </div>
 
-    <div class="p-3 bg-white rounded shadow center-25">
-        <div class="group-form">
-            <label class="title" for="email">Email</label>
-            <input type="email" value="{{ last_username }}" name="email" id="email" class="form-control" required autofocus>
+        <div class="p-3 bg-white rounded shadow center-25">
+            <div class="group-form">
+                <label class="title" for="email">Email</label>
+                <input type="email" value="{{ last_username }}" name="email" id="email" class="form-control" required autofocus>
+            </div>
+            <div class="group-form">
+                <label class="title mt-3" for="password">Mot de passe</label>
+                <input type="password" name="password" id="password" class="form-control" required>
+            </div>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            <div class="width-fit-content mx-auto">
+                <input type="submit" class="btn btn-primary-custom block mt-3" value="{{ button.validate }}" formnovalidate>
+            </div>
         </div>
-        <div class="group-form">
-            <label class="title mt-3" for="password">Mot de passe</label>
-            <input type="password" name="password" id="password" class="form-control" required>
-        </div>
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-        <div class="width-fit-content mx-auto">
-            <input type="submit" class="btn btn-primary-custom block mt-3" value="{{ button.validate }}" formnovalidate>
-        </div>
-    </div>
-</form>
+    </form>
 {% endblock %}

@@ -3,7 +3,7 @@ const $ = require('jquery');
 
 $(document).ready(function() {
     // If the current page is the career page
-    if (window.location.pathname.match(/career$/i)) {
+    if(window.location.pathname.match(/career$/i)) {
         var current;
         // Get the career data
         var range_data = JSON.parse($('#json_range_data')[0].value);
@@ -22,9 +22,9 @@ $(document).ready(function() {
         range.labels().useHtml(true);
         range.labels().format("<b>{%x}</b>");
 
-        range.tooltip().format(function(){
-            var elems = document.querySelectorAll( ":hover" );
-            var elem = elems[elems.length-3];
+        range.tooltip().format(function() {
+            var elems = document.querySelectorAll(":hover");
+            var elem = elems[elems.length - 3];
 
             current = range_data[this.index]["id"];
             elem.style.cursor = "pointer";
@@ -49,10 +49,10 @@ $(document).ready(function() {
         moment.labels().useHtml(true);
         moment.labels().format("<b>{%y}</b>");
 
-        moment.tooltip().format(function(){
+        moment.tooltip().format(function() {
             current = moment_data[this.index]["id"];
-            var elems = document.querySelectorAll( ":hover" );
-            var elem = elems[elems.length-3];
+            var elems = document.querySelectorAll(":hover");
+            var elem = elems[elems.length - 3];
             elem.style.cursor = "pointer";
 
             return this.value;
@@ -81,11 +81,11 @@ $(document).ready(function() {
             </span>"
         );
 
-        project.tooltip().format(function(){
+        project.tooltip().format(function() {
             // Get the project id
             current = project_data[this.index]["id"];
-            var elems = document.querySelectorAll( ":hover" );
-            var elem = elems[elems.length-3];
+            var elems = document.querySelectorAll(":hover");
+            var elem = elems[elems.length - 3];
             elem.style.cursor = "pointer";
 
             return this.value;

@@ -125,7 +125,7 @@ class Career {
     }
 
     public function addReview(Review $review): self {
-        if (!$this->reviews->contains($review)) {
+        if(!$this->reviews->contains($review)) {
             $this->reviews[] = $review;
             $review->setCareer($this);
         }

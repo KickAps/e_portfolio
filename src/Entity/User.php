@@ -204,7 +204,7 @@ class User implements UserInterface {
     }
 
     public function addProject(project $project): self {
-        if (!$this->projects->contains($project)) {
+        if(!$this->projects->contains($project)) {
             $this->projects[] = $project;
             $project->setUser($this);
         }
@@ -213,10 +213,10 @@ class User implements UserInterface {
     }
 
     public function removeProject(project $project): self {
-        if ($this->projects->contains($project)) {
+        if($this->projects->contains($project)) {
             $this->projects->removeElement($project);
             // set the owning side to null (unless already changed)
-            if ($project->getUser() === $this) {
+            if($project->getUser() === $this) {
                 $project->setUser(null);
             }
         }
@@ -232,7 +232,7 @@ class User implements UserInterface {
     }
 
     public function addCareer(career $career): self {
-        if (!$this->career->contains($career)) {
+        if(!$this->career->contains($career)) {
             $this->career[] = $career;
             $career->setUser($this);
         }
@@ -241,10 +241,10 @@ class User implements UserInterface {
     }
 
     public function removeCareer(career $career): self {
-        if ($this->career->contains($career)) {
+        if($this->career->contains($career)) {
             $this->career->removeElement($career);
             // set the owning side to null (unless already changed)
-            if ($career->getUser() === $this) {
+            if($career->getUser() === $this) {
                 $career->setUser(null);
             }
         }

@@ -248,13 +248,14 @@ li.active {
 }
 
 .unselectable {
-  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Old versions of Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome, Edge, Opera and Firefox */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
+                                     supported by Chrome, Edge, Opera and Firefox */
 }
 
 nav {
@@ -288,6 +289,7 @@ nav {
         &:first-child {
             margin-right: 1rem;
         }
+
         &:last-child {
             margin-left: 1rem;
         }
@@ -301,6 +303,7 @@ nav {
     &.divider-light .divider-custom-line {
         background-color: #fff;
     }
+
     &.divider-light .divider-custom-icon {
         color: #fff !important;
     }

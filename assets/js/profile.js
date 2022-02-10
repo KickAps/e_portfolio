@@ -1,18 +1,17 @@
 const $ = require('jquery');
 import Cropper from 'cropperjs';
 
-$(document).ready(function()
-{
+$(document).ready(function() {
     var copyLinkInput = $('input[name ="personnal-link-input"]');
     // If the current page is the profile page
-    if (copyLinkInput.length !== 0) {
+    if(copyLinkInput.length !== 0) {
         // Change cursor
-        copyLinkInput.mouseover(function(e){
+        copyLinkInput.mouseover(function(e) {
             copyLinkInput[0].style.cursor = "pointer";
         });
 
         // Copy to clipboard
-        copyLinkInput.on("click", function(e){
+        copyLinkInput.on("click", function(e) {
             copyLinkInput[0].select();
             copyLinkInput[0].setSelectionRange(0, 99999)
 
@@ -27,20 +26,20 @@ $(document).ready(function()
         });
 
         // Hide tooltip
-        copyLinkInput.mouseout(function(e){
+        copyLinkInput.mouseout(function(e) {
             copyLinkInput.tooltip('hide');
         });
     }
 
 
     // If the current page is the profile update page
-    if (window.location.pathname.match(/user\/update$/i)) {
+    if(window.location.pathname.match(/user\/update$/i)) {
 
-        $('.avatar-update').mouseover(function(e){
+        $('.avatar-update').mouseover(function(e) {
             $(e.currentTarget).find('.btn').css("display", "block");
         });
 
-        $('.avatar-update').mouseout(function(e){
+        $('.avatar-update').mouseout(function(e) {
             $(e.currentTarget).find('.btn').css("display", "none");
         });
 
@@ -49,24 +48,24 @@ $(document).ready(function()
 
         // Cropper init
         var cropper = new Cropper(canvas, {
-            aspectRatio: 1/1,
+            aspectRatio: 1 / 1,
             movable: false,
             minContainerWidth: 250,
             minContainerHeight: 250,
             preview: '.preview'
         });
 
-        $('#cropModal').on('shown.bs.modal', function () {
+        $('#cropModal').on('shown.bs.modal', function() {
             cropper.replace(originalAvatar.attr('src'));
         });
 
-        $("input[name='img']").on("change", function(){
+        $("input[name='img']").on("change", function() {
             var file = $(this)[0].files[0];
             // Replace the cropper src image
             cropper.replace(window.URL.createObjectURL(file));
         });
 
-        $("#crop").click(function(){
+        $("#crop").click(function() {
             cropper.getCroppedCanvas().toBlob((blob) => {
                 // Form
                 const formData = new FormData();
@@ -78,22 +77,22 @@ $(document).ready(function()
                     data: formData,
                     processData: false,
                     contentType: false,
-                    success: function(response){
+                    success: function(response) {
                         document.location.reload(true);
                     },
-                    error: function(response){
+                    error: function(response) {
                         console.log(response['responseText']);
                     }
                 });
             }, 'image/jpeg');
         });
 
-        $('#cropModal').on('hidden.bs.modal', function () {
+        $('#cropModal').on('hidden.bs.modal', function() {
             cropper.destroy();
             // Cropper init
             cropper = new Cropper(canvas, {
                 preview: '.preview',
-                aspectRatio: 1/1,
+                aspectRatio: 1 / 1,
                 movable: false,
                 minContainerWidth: 250,
                 minContainerHeight: 250

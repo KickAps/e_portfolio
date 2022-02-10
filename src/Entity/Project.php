@@ -120,7 +120,7 @@ class Project {
     }
 
     public function addImage(Image $image): self {
-        if (!$this->images->contains($image)) {
+        if(!$this->images->contains($image)) {
             $this->images[] = $image;
             $image->setProject($this);
         }
@@ -129,10 +129,10 @@ class Project {
     }
 
     public function removeImage(Image $image): self {
-        if ($this->images->contains($image)) {
+        if($this->images->contains($image)) {
             $this->images->removeElement($image);
             // set the owning side to null (unless already changed)
-            if ($image->getProject() === $this) {
+            if($image->getProject() === $this) {
                 $image->setProject(null);
             }
         }
@@ -188,7 +188,7 @@ class Project {
     }
 
     public function addReview(Review $review): self {
-        if (!$this->reviews->contains($review)) {
+        if(!$this->reviews->contains($review)) {
             $this->reviews[] = $review;
             $review->setProject($this);
         }
@@ -197,9 +197,9 @@ class Project {
     }
 
     public function removeReview(Review $review): self {
-        if ($this->reviews->removeElement($review)) {
+        if($this->reviews->removeElement($review)) {
             // set the owning side to null (unless already changed)
-            if ($review->getProject() === $this) {
+            if($review->getProject() === $this) {
                 $review->setProject(null);
             }
         }

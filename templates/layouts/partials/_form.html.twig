@@ -3,18 +3,18 @@
 
     {% if project is defined %}
         <div class="mb-3">
-        {% for image in project.images %}
-            <div class="{{ set_main_image(image.uniqueName, project.mainImage ?? '') }}">
-                <img src="{{ asset('/uploads/project/' ~ image.uniqueName) }}" name="{{ image.name }}" alt="Image" height="250">
-                <a href="#" type="button" class="btn" onclick="{{ 'event.preventDefault(); confirm(\'Veuillez confirmer la suppression\') && document.getElementById(\'js-image-delete-form-' ~ image.id ~ '\').submit();' }}">&#10006;</a>
-            </div>
-        {% endfor %}
+            {% for image in project.images %}
+                <div class="{{ set_main_image(image.uniqueName, project.mainImage ?? '') }}">
+                    <img src="{{ asset('/uploads/project/' ~ image.uniqueName) }}" name="{{ image.name }}" alt="Image" height="250">
+                    <a href="#" type="button" class="btn" onclick="{{ 'event.preventDefault(); confirm(\'Veuillez confirmer la suppression\') && document.getElementById(\'js-image-delete-form-' ~ image.id ~ '\').submit();' }}">&#10006;</a>
+                </div>
+            {% endfor %}
         </div>
     {% endif %}
 
-    <div class="width-fit-content mx-auto">
-        <input type="submit" class="btn btn-primary-custom block" value="{{ button.validate }}" formnovalidate>
-    </div>
+<div class="width-fit-content mx-auto">
+    <input type="submit" class="btn btn-primary-custom block" value="{{ button.validate }}" formnovalidate>
+</div>
 {{ form_end(myForm) }}
 
 {% if project is defined %}

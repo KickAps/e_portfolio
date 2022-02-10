@@ -18,21 +18,21 @@ import 'bootstrap';
 noReturnOnLogout();
 
 function noReturnOnLogout() {
-    if (window.location.href.match(/\/login$/i)) {
+    if(window.location.href.match(/\/login$/i)) {
         drownHistory();
         window.location = window.location.href + "?logout";
     }
 
-    if (window.location.href.match(/\/login\?logout$/i)) {
+    if(window.location.href.match(/\/login\?logout$/i)) {
         drownHistory();
     }
 }
 
 function drownHistory() {
-    for (var i = 0; i < 15; i++) {
+    for(var i = 0; i < 15; i++) {
         window.history.pushState(null, "", window.location.href);
     }
-    window.onpopstate = function () {
+    window.onpopstate = function() {
         document.location.reload(true);
         window.history.pushState(null, "", window.location.href);
     };
