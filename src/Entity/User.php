@@ -380,6 +380,10 @@ class User implements UserInterface {
             }
         }
 
+        if($careerReviewed === 0) {
+            return $reviewsAverageMark;
+        }
+
         return round($reviewsAverageMark / $careerReviewed * 2) / 2;
     }
 
