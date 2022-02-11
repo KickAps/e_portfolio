@@ -28,7 +28,7 @@ class Career {
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
-     * @Assert\Length(min=3, max=30)
+     * @Assert\Length(min=3, max=50)
      */
     private $title;
 

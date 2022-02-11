@@ -29,12 +29,13 @@ $(document).ready(function() {
         copyLinkInput.mouseout(function(e) {
             copyLinkInput.tooltip('hide');
         });
+
+        handleReviewsListModal();
     }
 
 
     // If the current page is the profile update page
     if(window.location.pathname.match(/user\/update$/i)) {
-
         $('.avatar-update').mouseover(function(e) {
             $(e.currentTarget).find('.btn').css("display", "block");
         });
@@ -97,6 +98,6 @@ $(document).ready(function() {
                 minContainerWidth: 250,
                 minContainerHeight: 250
             });
-        })
+        });
     }
 });

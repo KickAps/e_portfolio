@@ -1,4 +1,5 @@
 import 'anychart';
+
 const $ = require('jquery');
 
 $(document).ready(function() {
@@ -117,6 +118,8 @@ $(document).ready(function() {
         $('.anychart-credits')[0].hidden = true;
 
         handleReviewLink();
+
+        handleReviewsListModal();
     }
 });
 
@@ -130,30 +133,4 @@ function scrollToElement(id) {
     );
 }
 
-function handleReviewLink() {
-    var review_link_input = $('a#review_link');
-    review_link_input.on('click', function(e) {
-        e.preventDefault();
-        navigator.clipboard.writeText($(this).attr('href')).then();
-    });
 
-    // Show tooltip
-    review_link_input.tooltip({
-        animated: 'fade',
-        placement: 'bottom',
-        trigger: 'click'
-    });
-
-    // Hide tooltip
-    review_link_input.mouseout(function() {
-        review_link_input.tooltip('hide');
-    });
-
-    $('#review_modal').on('shown.bs.modal', function(e) {
-        $('input#review_link').attr('value', $(e.relatedTarget).data('href'));
-    });
-
-    $('#review_modal').on('hidden.bs.modal', function() {
-        $('input#review_link').attr('value', "");
-    })
-}

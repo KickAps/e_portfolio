@@ -66,6 +66,11 @@ app_career_review:
     controller: App\Controller\CareerController::review
     methods: GET|POST
 
+app_career_reviews_list:
+    path: /{externalId<[0-9A-Za-zÀ-ȕ_-]+>}/career/{id<[0-9]+>}/review
+    controller: App\Controller\CareerController::review
+    methods: GET
+
 ### LOGIN ###
 app_login:
     path: /login
@@ -110,9 +115,10 @@ app_avatar_upload:
 
 ### REVIEW ###
 app_review:
-    path: /{externalId<[0-9A-Za-zÀ-ȕ_-]+>}/review
+    path: /{externalId<[0-9A-Za-zÀ-ȕ_-]+>}/review/{id<[0-9]+>}
     controller: App\Controller\ReviewController::index
     methods: GET
+    defaults: { id: null }
 
 app_review_create:
     path: /{externalId<[0-9A-Za-zÀ-ȕ_-]+>}/review/create

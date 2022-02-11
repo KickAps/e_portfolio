@@ -18,8 +18,10 @@
         <div class="d-inline float-right">
             {% if user.getReviewsAverageMark != 0.0 %}
                 <small>
-                    {{ include('layouts/partials/_stars.html.twig', {mark: user.getReviewsAverageMark}) }}
-                    {{ '(' ~ user.getReviewsCount ~ ' avis)' }}
+                    {{ include('review/_stars.html.twig', {mark: user.getReviewsAverageMark}) }}
+                    <a class="link" data-toggle="modal" data-target="#reviews_list_modal" data-title="{{ "Avis sur " ~  user.firstName ~ " " ~ user.lastName }}" data-href="{{ path('app_review', {externalId : user.externalId}) }}">
+                        {{ '(' ~ user.getReviewsCount ~ ' avis)' }}
+                    </a>
                 </small>
             {% endif %}
         </div>
@@ -48,4 +50,7 @@
             </div>
         {% endif %}
     </div>
+
+    <!-- Modal Reviews List -->
+    {{ include('review/_modal_list.html.twig') }}
 {% endblock %}

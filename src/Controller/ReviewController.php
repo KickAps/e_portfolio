@@ -2,13 +2,15 @@
 
 namespace App\Controller;
 
+use App\Entity\Career;
 use App\Entity\Review;
+use App\Entity\User;
 use App\Form\ReviewType;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class ReviewController extends AbstractController {
 
@@ -19,42 +21,33 @@ class ReviewController extends AbstractController {
         $this->em = $em;
     }
 
-    public function index(): Response {
-        return $this->render('review/index.html.twig', [
-            'controller_name' => 'ReviewController',
-        ]);
-    }
-
-    public function create(Request $request, UserController $userController): RedirectResponse|Response {
-        $review = new Review();
-
-        $form = $this->createForm(ReviewType::class, $review);
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()) {
-            // Associate the project to the current user
-            $this->getUser()->addProject($project);
-
-            $this->em->persist($review);
-            $this->em->flush();
-
-            // Flash message
-            $this->addFlash('success', 'Votre avis a bien été enregistré, merci !');
-
-            // Redirection to the show page
-            return $this->redirectToRoute('app_project_show', [
-                'externalId' => $this->getUser()->getExternalId(),
-                'id' => $project->getId()
-            ]);
+    /**
+     * @param User $offlineUser
+     * @param UserController $userController
+     * @param Career|null $career
+     * @return Response
+     *
+     * @ParamConverter("offlineUser", options={"mapping": {"externalId": "externalId"}})
+     * @ParamConverter("career", options={"mapping": {"id": "id"}}, isOptional="true")
+     */
+    public function index(User $offlineUser, UserController $userController, Career $career = null): Response {
+        list($user, $spectator) = $userController->isSpectator($offlineUser);
+        if($career) {
+            $reviews = $career->getReviews();
+        } else {
+            $reviews = $user->getReviews();
         }
 
-        $userController->isVerified();
+
+        $form = $this->createForm(ReviewType::class);
 
         // Template render
-        return $this->render('project/create.html.twig', [
-            'myForm' => $form->createView(),
-            'user' => $this->getUser(),
-            'spectator' => false
+        return $this->render('review/index.html.twig', [
+            'form' => $form->createView(),
+            'reviews' => $reviews,
+            'global' => $career === null,
+            'user' => $user,
+            'spectator' => $spectator
         ]);
     }
 }

@@ -33,7 +33,6 @@
     <input type="hidden" id="json_project_data" value="{{ json_project_data }}">
     <input type="hidden" id="external_id" value="{{ user.externalId }}">
 
-
     <div class="unselectable">
         <div class="center-50">
             {% for career in sort_career(user.career) %}
@@ -44,7 +43,7 @@
                         {% if not spectator %}
                             <div class="width-fit-content mx-auto">
                                 <a href="{{ path('app_career_update', {externalId : user.externalId, 'id' : career.id}) }}" class="mb-2 btn btn-primary-custom">{{ button.update }}</a>
-                                <a class="btn btn-info mb-2 " data-toggle="modal" data-target="#review_modal" data-href="{{ url('app_career_review', {externalId : user.externalId, 'id' : career.id}) }}">{{ 'Demander un avis' }}</a>
+                                <a class="btn btn-info mb-2 " data-toggle="modal" data-target="#review_link_modal" data-href="{{ url('app_career_review', {externalId : user.externalId, 'id' : career.id}) }}">{{ 'Demander un avis' }}</a>
                                 <a href="#" onclick="{{ 'event.preventDefault(); confirm(\'Veuillez confirmer la suppression\') && document.getElementById(\'js-career-delete-form-' ~ career.id ~ '\').submit();' }}" class="mb-2 btn btn-danger">{{ button.delete }}</a>
                             </div>
                         {% endif %}
@@ -55,14 +54,16 @@
                     <div class="text-muted d-inline-block w-50">
                         <small>{{ print_dates(career)|raw }}</small>
                     </div>
-                    <div class="d-inline float-right">
-                        {% if career.reviews|length != 0 %}
+                    {% if career.reviews|length != 0 %}
+                        <div class="d-inline float-right">
                             <small>
-                                {{ include('layouts/partials/_stars.html.twig', {mark: career.getReviewsAverageMark}) }}
-                                {{ '(' ~ career.reviews|length ~ ' avis)' }}
+                                {{ include('review/_stars.html.twig', {mark: career.getReviewsAverageMark}) }}
+                                <a class="link" data-toggle="modal" data-target="#reviews_list_modal" data-title="{{ "Avis sur " ~ career.title }}" data-href="{{ path('app_review', {externalId : user.externalId, 'id' : career.id}) }}">
+                                    {{ '(' ~ career.reviews|length ~ ' avis)' }}
+                                </a>
                             </small>
-                        {% endif %}
-                    </div>
+                        </div>
+                    {% endif %}
                 </article>
 
                 {% if not spectator %}
@@ -75,8 +76,8 @@
         </div>
     </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="review_modal" tabindex="-1" role="dialog" aria-labelledby="modal_label" data-backdrop="static" aria-hidden="true">
+    <!-- Modal Review Link -->
+    <div class="modal fade" id="review_link_modal" tabindex="-1" role="dialog" aria-labelledby="modal_label" data-backdrop="static" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -88,7 +89,7 @@
                 <div class="modal-body">
                     <span class="title">Lien pour une demande d'avis</span>
                     <p>
-                        <input id="review_link" class="w-100" name="personnal-link-input" type="text" value="" readonly data-toggle="tooltip" title="Copié!">
+                        <input id="review_link" class="w-100" type="text" value="" readonly data-toggle="tooltip" title="Copié!">
                         <small>
                             Toutes les personnes recevant ce lien pourront laisser un avis sur l'expérience concernées.
                         </small>
@@ -100,4 +101,7 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal Reviews List -->
+    {{ include('review/_modal_list.html.twig') }}
 {% endblock %}

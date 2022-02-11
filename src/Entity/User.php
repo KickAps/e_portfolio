@@ -353,6 +353,18 @@ class User implements UserInterface {
         return $this;
     }
 
+    public function getReviews(): ArrayCollection {
+        $reviews = new ArrayCollection();
+
+        foreach($this->getCareer() as $career) {
+            foreach($career->getReviews() as $review) {
+                $reviews->add($review);
+            }
+        }
+
+        return $reviews;
+    }
+
     public function getReviewsAverageMark(): float {
         $reviewsAverageMark = 0.0;
         $careerReviewed = 0;

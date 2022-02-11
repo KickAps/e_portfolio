@@ -349,3 +349,17 @@ nav {
 .stars {
     cursor: pointer;
 }
+
+a.link {
+    color: black;
+
+    &:hover {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+}
+
+div.grid {
+    display: grid;
+    grid-template-columns: auto auto auto;
+}

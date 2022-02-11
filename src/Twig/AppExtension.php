@@ -30,7 +30,8 @@ class AppExtension extends AbstractExtension {
             new TwigFunction('set_active_route', [$this, 'setActiveRoute']),
             new TwigFunction('set_main_image', [$this, 'setMainImage']),
             new TwigFunction('print_dates', [$this, 'printDates']),
-            new TwigFunction('sort_career', [$this, 'sortCareer'])
+            new TwigFunction('sort_career', [$this, 'sortCareer']),
+            new TwigFunction('sort_reviews', [$this, 'sortReviews'])
         ];
     }
 
@@ -71,8 +72,13 @@ class AppExtension extends AbstractExtension {
     }
 
     private function sort($a, $b) {
-        $date1 = $a->getEndDate() ? $a->getEndDate() : $a->getStartDate();
-        $date2 = $b->getEndDate() ? $b->getEndDate() : $b->getStartDate();
+        if(method_exists($a, "getDate")) {
+            $date1 = $a->getDate();
+            $date2 = $b->getDate();
+        } else {
+            $date1 = $a->getEndDate() ? $a->getEndDate() : $a->getStartDate();
+            $date2 = $b->getEndDate() ? $b->getEndDate() : $b->getStartDate();
+        }
 
         if($date1 == $date2) {
             return 0;
@@ -80,8 +86,15 @@ class AppExtension extends AbstractExtension {
         return ($date1 > $date2) ? -1 : 1;
     }
 
-    public function sortCareer(Collection $career) {
+    public function sortCareer(Collection $career): array {
         $array = $career->toArray();
+        usort($array, array($this, "sort"));
+
+        return $array;
+    }
+
+    public function sortReviews(Collection $reviews): array {
+        $array = $reviews->toArray();
         usort($array, array($this, "sort"));
 
         return $array;

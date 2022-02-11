@@ -1,3 +1,5 @@
+// TODO : retirer bootstrap/jquery
+const $ = require("jquery");
 document.addEventListener("DOMContentLoaded", function() {
     // If the current page is the profile page
     if(window.location.pathname.match(/review$/i)) {
@@ -55,4 +57,63 @@ function updateInput(x, y) {
             break;
     }
     document.querySelector(selector).setAttribute('value', y + 1);
+}
+
+window.handleReviewLink = function() {
+    let review_link_input = $('a#review_link');
+    review_link_input.on('click', function(e) {
+        e.preventDefault();
+        navigator.clipboard.writeText($(this).attr('href')).then();
+    });
+
+    // Show tooltip
+    review_link_input.tooltip({
+        animated: 'fade',
+        placement: 'bottom',
+        trigger: 'click'
+    });
+
+    // Hide tooltip
+    review_link_input.mouseout(function() {
+        review_link_input.tooltip('hide');
+    });
+
+    $('#review_link_modal').on('shown.bs.modal', function(e) {
+        $('input#review_link').attr('value', $(e.relatedTarget).data('href'));
+    });
+
+    $('#review_link_modal').on('hidden.bs.modal', function() {
+        $('input#review_link').attr('value', "");
+    });
+}
+
+function showReviews(url) {
+    let request = new XMLHttpRequest();
+    request.open('GET', url, true);
+
+    request.onload = function() {
+        if(this.status >= 200 && this.status < 400) {
+            document.querySelector("#reviews_list_modal_body").insertAdjacentHTML("beforeend", this.response);
+        } else {
+            // We reached our target server, but it returned an error
+
+        }
+    };
+
+    request.onerror = function() {
+        // There was a connection error of some sort
+    };
+
+    request.send();
+}
+
+window.handleReviewsListModal = function() {
+    $('#reviews_list_modal').on('shown.bs.modal', function(e) {
+        document.querySelector("#reviews_list_modal_title").innerHTML = $(e.relatedTarget).data('title');
+        showReviews($(e.relatedTarget).data('href'));
+    });
+    $('#reviews_list_modal').on('hidden.bs.modal', function() {
+        document.querySelector("#reviews_list_modal_title").innerHTML = "";
+        document.querySelector("#reviews_list_modal_body").innerHTML = "";
+    });
 }
