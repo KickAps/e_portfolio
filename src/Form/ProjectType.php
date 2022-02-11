@@ -15,10 +15,8 @@ use Symfony\Component\Validator\Constraints\All;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\Image;
 
-class ProjectType extends AbstractType
-{
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+class ProjectType extends AbstractType {
+    public function buildForm(FormBuilderInterface $builder, array $options) {
         $current_year = intval(date('Y'));
         $builder
             ->add('title', TextType::class, [
@@ -47,7 +45,7 @@ class ProjectType extends AbstractType
                 'label_attr' => ['class' => 'title'],
                 'widget' => 'choice',
                 'format' => 'MM yyyy d',
-                'years' => range($current_year-10, $current_year),
+                'years' => range($current_year - 10, $current_year),
                 'empty_data' => null
             ])
             ->add('images', FileType::class, [
@@ -84,14 +82,12 @@ class ProjectType extends AbstractType
                 'label_attr' => ['class' => 'title'],
                 'choices' => [],
                 'help' => 'Reconnaissable par un cadre doré lors de la modification du projet'
-            ])
-        ;
+            ]);
 
         $builder->get('mainImage')->resetViewTransformers();
     }
 
-    public function configureOptions(OptionsResolver $resolver)
-    {
+    public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults([
             'data_class' => Project::class,
         ]);

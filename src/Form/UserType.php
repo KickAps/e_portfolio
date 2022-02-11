@@ -9,10 +9,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class UserType extends AbstractType
-{
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+class UserType extends AbstractType {
+    public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
             ->add('firstName', TextType::class, [
                 'label' => 'Prénom *',
@@ -31,12 +29,10 @@ class UserType extends AbstractType
                 'label' => 'Présentation *',
                 'label_attr' => ['class' => 'title'],
                 'attr' => ['rows' => 5, 'cols' => 100]
-            ])
-        ;
+            ]);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
-    {
+    public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults([
             'data_class' => User::class,
         ]);

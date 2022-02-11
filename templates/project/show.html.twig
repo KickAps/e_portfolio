@@ -57,8 +57,8 @@
         <span class="title">Description</span>
         <p class="text-break text-justify">{{ project.description|nl2br }}</p>
         {% if project.techno %}
-        <span class="title">Technologies</span>
-        <p class="text-break">{{ project.techno }}</p>
+            <span class="title">Technologies</span>
+            <p class="text-break">{{ project.techno }}</p>
         {% endif %}
         <span class="title">Date de création</span>
         <p class="">{{ project.createdAt|date("m/Y") }}</p>

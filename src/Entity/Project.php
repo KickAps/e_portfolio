@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\Timestamp;
 use App\Entity\User;
 use App\Repository\ProjectRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -11,9 +12,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ProjectRepository::class)
+ * @ORM\HasLifecycleCallbacks
  */
-class Project
-{
+class Project {
+    use Timestamp;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -56,11 +59,6 @@ class Project
     private $techno;
 
     /**
-     * @ORM\Column(type="datetime")
-     */
-    private $createdAt;
-
-    /**
      * @ORM\Column(type="text")
      * @Assert\NotBlank
      * @Assert\Length(max=255)
@@ -72,64 +70,57 @@ class Project
      */
     private $isVisible;
 
-    public function __construct()
-    {
+    /**
+     * @ORM\OneToMany(targetEntity=Review::class, mappedBy="project")
+     */
+    private $reviews;
+
+    public function __construct() {
         $this->images = new ArrayCollection();
         $this->isVisible = true;
+        $this->reviews = new ArrayCollection();
     }
 
-    public function getId(): ?int
-    {
+    public function getId(): ?int {
         return $this->id;
     }
 
-    public function getTitle(): ?string
-    {
+    public function getTitle(): ?string {
         return $this->title;
     }
 
-    public function setTitle(?string $title): self
-    {
+    public function setTitle(?string $title): self {
         $this->title = $title;
-
         return $this;
     }
 
-    public function getDescription(): ?string
-    {
+    public function getDescription(): ?string {
         return $this->description;
     }
 
-    public function setDescription(?string $description): self
-    {
+    public function setDescription(?string $description): self {
         $this->description = $description;
-
         return $this;
     }
 
-    public function getUser(): ?User
-    {
+    public function getUser(): ?User {
         return $this->user;
     }
 
-    public function setUser(?User $user): self
-    {
+    public function setUser(?User $user): self {
         $this->user = $user;
-
         return $this;
     }
 
     /**
      * @return Collection|Image[]
      */
-    public function getImages(): Collection
-    {
+    public function getImages(): Collection {
         return $this->images;
     }
 
-    public function addImage(Image $image): self
-    {
-        if (!$this->images->contains($image)) {
+    public function addImage(Image $image): self {
+        if(!$this->images->contains($image)) {
             $this->images[] = $image;
             $image->setProject($this);
         }
@@ -137,12 +128,11 @@ class Project
         return $this;
     }
 
-    public function removeImage(Image $image): self
-    {
-        if ($this->images->contains($image)) {
+    public function removeImage(Image $image): self {
+        if($this->images->contains($image)) {
             $this->images->removeElement($image);
             // set the owning side to null (unless already changed)
-            if ($image->getProject() === $this) {
+            if($image->getProject() === $this) {
                 $image->setProject(null);
             }
         }
@@ -150,67 +140,69 @@ class Project
         return $this;
     }
 
-    public function getMainImage(): ?string
-    {
+    public function getMainImage(): ?string {
         return $this->mainImage;
     }
 
-    public function setMainImage(?string $mainImage): self
-    {
+    public function setMainImage(?string $mainImage): self {
         $this->mainImage = $mainImage;
-
         return $this;
     }
 
-    public function getTechno(): ?string
-    {
+    public function getTechno(): ?string {
         return $this->techno;
     }
 
-    public function setTechno(string $techno): self
-    {
+    public function setTechno(string $techno): self {
         $this->techno = $techno;
-
         return $this;
     }
 
-    public function isOwnedBy(User $user): bool
-    {
+    public function isOwnedBy(User $user): bool {
         return $this->user === $user;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function getSummary(): ?string
-    {
+    public function getSummary(): ?string {
         return $this->summary;
     }
 
-    public function setSummary(string $summary): self
-    {
+    public function setSummary(string $summary): self {
         $this->summary = $summary;
+        return $this;
+    }
+
+    public function isVisible(): ?bool {
+        return $this->isVisible;
+    }
+
+    public function setVisible(bool $isVisible): self {
+        $this->isVisible = $isVisible;
+        return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getReviews(): Collection {
+        return $this->reviews;
+    }
+
+    public function addReview(Review $review): self {
+        if(!$this->reviews->contains($review)) {
+            $this->reviews[] = $review;
+            $review->setProject($this);
+        }
 
         return $this;
     }
 
-    public function isVisible(): ?bool
-    {
-        return $this->isVisible;
-    }
-
-    public function setVisible(bool $isVisible): self
-    {
-        $this->isVisible = $isVisible;
+    public function removeReview(Review $review): self {
+        if($this->reviews->removeElement($review)) {
+            // set the owning side to null (unless already changed)
+            if($review->getProject() === $this) {
+                $review->setProject(null);
+            }
+        }
 
         return $this;
     }

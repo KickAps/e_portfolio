@@ -1,0 +1,48 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% set title = navbar.new ~ " | " ~ website.name %}
+
+{% block body %}
+    <!-- New Review Section Heading-->
+    <h2 class="page-section-heading text-center text-secondary font-weight-bold">
+        {{ 'Laisser un avis : ' }} <a href="{{ url('app_career', {externalId : user.externalId, 'id' : career.id}) }}">{{ career.title }}</a>
+    </h2>
+    <!-- Icon Divider-->
+    <div class="divider-custom">
+        <div class="divider-custom-line"></div>
+        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+        <div class="divider-custom-line"></div>
+    </div>
+
+    <div class="p-3 bg-white rounded shadow center-50">
+        {{ form_start(form) }}
+
+        {{ form_row(form.reviewer) }}
+        {{ form_row(form.contact) }}
+        {{ form_label(form.markOne) }}
+        <div class="stars mb-3">
+            {{ include('review/_stars.html.twig', {mark: 0}) }}
+        </div>
+        {{ form_label(form.markTwo) }}
+        <div class="stars mb-3">
+            {{ include('review/_stars.html.twig', {mark: 0}) }}
+        </div>
+        {{ form_label(form.markThree) }}
+        <div class="stars mb-3">
+            {{ include('review/_stars.html.twig', {mark: 0}) }}
+        </div>
+        {{ form_row(form.text) }}
+
+        <div class="width-fit-content mx-auto">
+            <input type="submit" class="btn btn-primary-custom block" value="{{ button.validate }}" formnovalidate>
+        </div>
+
+        <div class="d-none">
+            {{ form_widget(form.markOne) }}
+            {{ form_widget(form.markTwo) }}
+            {{ form_widget(form.markThree) }}
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

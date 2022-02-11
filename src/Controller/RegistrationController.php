@@ -17,24 +17,19 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 
-class RegistrationController extends AbstractController
-{
+class RegistrationController extends AbstractController {
     private $emailVerifier;
 
-    public function __construct(EmailVerifier $emailVerifier)
-    {
+    public function __construct(EmailVerifier $emailVerifier) {
         $this->emailVerifier = $emailVerifier;
     }
 
-    public function sendVerificationEmail($user = null)
-    {
+    public function sendVerificationEmail($user = null) {
         $redirect = false;
 
-        if (!$user)
-        {
+        if(!$user) {
             $user = $this->getUser();
-            if (!$user || $user->isVerified())
-            {
+            if(!$user || $user->isVerified()) {
                 return $this->redirectToRoute('app_home');
             }
             $redirect = true;
@@ -49,15 +44,13 @@ class RegistrationController extends AbstractController
                 ->htmlTemplate('registration/confirmation_email.html.twig')
         );
 
-        if ($redirect)
-        {
+        if($redirect) {
             return $this->redirectToRoute('app_home');
         }
     }
 
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator, EntityManagerInterface $em): Response
-    {
-        if ($this->getUser()) {
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator, EntityManagerInterface $em): Response {
+        if($this->getUser()) {
             return $this->redirectToRoute('app_home');
         }
 
@@ -65,7 +58,7 @@ class RegistrationController extends AbstractController
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
             $user->setPassword(
                 $passwordEncoder->encodePassword(
@@ -77,8 +70,7 @@ class RegistrationController extends AbstractController
             $em->persist($user);
             $em->flush();
 
-            if ($_ENV['MAILER_DSN'] !== "" and $_ENV['MAILER_DSN'] !== "smtp://localhost")
-            {
+            if($_ENV['MAILER_DSN'] !== "" and $_ENV['MAILER_DSN'] !== "smtp://localhost") {
                 $this->sendVerificationEmail($user);
             }
 
@@ -96,14 +88,13 @@ class RegistrationController extends AbstractController
         ]);
     }
 
-    public function verifyUserEmail(Request $request): Response
-    {
+    public function verifyUserEmail(Request $request): Response {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         // validate email confirmation link, sets User::isVerified=true and persists
         try {
             $this->emailVerifier->handleEmailConfirmation($request, $this->getUser());
-        } catch (VerifyEmailExceptionInterface $exception) {
+        } catch(VerifyEmailExceptionInterface $exception) {
             $this->addFlash('verify_email_error', $exception->getReason());
 
             return $this->redirectToRoute('app_register');

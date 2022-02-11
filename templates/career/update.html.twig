@@ -13,13 +13,13 @@
     </div>
 
     <div class="p-3 bg-white rounded shadow center-50">
-    {{ form_start(myForm) }}
+        {{ form_start(myForm) }}
         {{ form_widget(myForm) }}
 
         <div class="width-fit-content mx-auto">
             <input type="submit" class="btn btn-primary-custom block" value="{{ button.validate }}" formnovalidate>
         </div>
-    {{ form_end(myForm) }}
+        {{ form_end(myForm) }}
     </div>
 
 {% endblock %}

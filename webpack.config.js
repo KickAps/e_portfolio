@@ -27,6 +27,7 @@ Encore
     .addEntry('images', './assets/js/images.js')
     .addEntry('timeline', './assets/js/timeline.js')
     .addEntry('profile', './assets/js/profile.js')
+    .addEntry('review', './assets/js/review.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()

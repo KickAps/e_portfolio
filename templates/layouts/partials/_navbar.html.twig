@@ -1,35 +1,31 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark bg-secondary font-weight-bold fixed-top">
-    <div class="container">
-        <b><a class="navbar-brand" href="{{ path('app_home') }}">{{ website.name }}</a></b>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
+    <div class="container font-weight-bold">
+        <a class="navbar-brand" href="{{ path('app_home') }}">{{ website.name }}</a>
         <div class="collapse navbar-collapse" id="navbarsExample04">
             <ul class="navbar-nav ml-auto py-2 px-0 px-lg-3 font-weight-bold">
-            {% if app.user or spectator %}
-                <li class="{{ set_active_route('app_user') }}">
-                    <a class="nav-link" href="{{ path('app_user', {externalId : user.externalId}) }}">{{ navbar.profile }}</a>
-                </li>
-                <li class="{{ set_active_route('app_career') }}">
-                    <a class="nav-link" href="{{ path('app_career', {externalId : user.externalId})  }}">{{ navbar.career }}</a>
-                </li>
-                <li class="{{ set_active_route('app_project') }}">
-                    <a class="nav-link" href="{{ path('app_project', {externalId : user.externalId}) }}">{{ navbar.projects }}</a>
-                </li>
-            {% endif %}
-            {% if app.user and not spectator %}
-                <li class="{{ set_active_route('') }}">
-                    <a class="nav-link" href="{{ path('app_logout') }}"><i class="fas fa-sign-out-alt"></i></a>
-                </li>
-            {% elseif not app.user and not spectator %}
-                <li class="{{ set_active_route('app_register') }}">
-                    <a class="nav-link" href="{{ path('app_register') }}"><i class="fas fa-user-plus"></i></a>
-                </li>
-                <li class="{{ set_active_route('app_login') }}">
-                    <a class="nav-link" href="{{ path('app_login') }}"><i class="fas fa-sign-in-alt"></i></a>
-                </li>
-            {% endif %}
+                {% if app.user or spectator %}
+                    <li class="{{ set_active_route('app_user') }}">
+                        <a class="nav-link" href="{{ path('app_user', {externalId : user.externalId}) }}">{{ navbar.profile }}</a>
+                    </li>
+                    <li class="{{ set_active_route('app_career') }}">
+                        <a class="nav-link" href="{{ path('app_career', {externalId : user.externalId}) }}">{{ navbar.career }}</a>
+                    </li>
+                    <li class="{{ set_active_route('app_project') }}">
+                        <a class="nav-link" href="{{ path('app_project', {externalId : user.externalId}) }}">{{ navbar.projects }}</a>
+                    </li>
+                {% endif %}
+                {% if app.user and not spectator %}
+                    <li class="{{ set_active_route('') }}">
+                        <a class="nav-link" href="{{ path('app_logout') }}"><i class="fas fa-sign-out-alt"></i></a>
+                    </li>
+                {% elseif not app.user and not spectator %}
+                    <li class="{{ set_active_route('app_register') }}">
+                        <a class="nav-link" href="{{ path('app_register') }}"><i class="fas fa-user-plus"></i></a>
+                    </li>
+                    <li class="{{ set_active_route('app_login') }}">
+                        <a class="nav-link" href="{{ path('app_login') }}"><i class="fas fa-sign-in-alt"></i></a>
+                    </li>
+                {% endif %}
             </ul>
         </div>
     </div>

@@ -11,16 +11,16 @@ function initSelectMainImage() {
     // Get the current main image
     var mainImage = $('#main-image')[0].value;
 
-    images.each(function(i){
+    images.each(function(i) {
         // Get the unique name of each image
-        path = $( this ).find('img')[0].src;
+        path = $(this).find('img')[0].src;
         tmp = path.split('/');
         uniqueName = tmp[tmp.length - 1];
 
         // Get the name of each image
-        name = $( this ).find('img')[0].name;
+        name = $(this).find('img')[0].name;
 
-        if (uniqueName === mainImage) {
+        if(uniqueName === mainImage) {
             // Add the selected option by default to the select
             option = new Option(name, uniqueName, true, true);
         } else {
@@ -30,7 +30,7 @@ function initSelectMainImage() {
         $('#project_mainImage').append($(option));
     });
 
-    if (images.length !== 0) {
+    if(images.length !== 0) {
         $('#project_mainImage')[0].disabled = false;
     }
 
@@ -49,7 +49,7 @@ function imagesManager(action = null) {
     // Set the helper
     $('#project_images_help')[0].innerHTML = $('#project_images_help')[0].innerHTML.replace("$l", imagesLimit);
 
-    if (imagesLimit - imagesCount < 1) {
+    if(imagesLimit - imagesCount < 1) {
         $('.custom-file-input')[0].disabled = true;
     }
 
@@ -62,11 +62,11 @@ function imagesManager(action = null) {
         $('#project_mainImage').empty();
         $('.custom-file-label').html('');
 
-        if (action === "update") {
+        if(action === "update") {
             initSelectMainImage();
         }
 
-        for (var i = 0; i < images.length; i++) {
+        for(var i = 0; i < images.length; i++) {
             name = images[i].name;
             imagesName.push(name);
 
@@ -75,18 +75,18 @@ function imagesManager(action = null) {
             $('#project_mainImage').append($(option));
         }
 
-        if (images.length === 0 && action !== "update") {
+        if(images.length === 0 && action !== "update") {
             $('#project_mainImage')[0].disabled = true;
         }
 
         $('.custom-file-label').html(imagesName.join(' / '));
     });
 
-    $('.project-image-update').mouseover(function(e){
+    $('.project-image-update').mouseover(function(e) {
         $(e.currentTarget).find('.btn').css("display", "block");
     });
 
-    $('.project-image-update').mouseout(function(e){
+    $('.project-image-update').mouseout(function(e) {
         $(e.currentTarget).find('.btn').css("display", "none");
     });
 
@@ -94,14 +94,13 @@ function imagesManager(action = null) {
     $('#project_createdAt_day').css("display", "none");
 }
 
-$(document).ready(function()
-{
+$(document).ready(function() {
     // If the current page is the project updating page (ex: project/42/update)
-    if (window.location.pathname.match(/project\/[0-9]*\/update/i)) {
+    if(window.location.pathname.match(/project\/[0-9]*\/update/i)) {
         imagesManager("update");
         initSelectMainImage();
-    // If the current page is the project creating page
-    } else if (window.location.pathname.match(/project\/create/i)) {
+        // If the current page is the project creating page
+    } else if(window.location.pathname.match(/project\/create/i)) {
         imagesManager();
     }
 });

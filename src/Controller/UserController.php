@@ -11,20 +11,15 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class UserController extends AbstractController
-{
+class UserController extends AbstractController {
     private $em;
 
-    public function __construct(EntityManagerInterface $em)
-    {
+    public function __construct(EntityManagerInterface $em) {
         // Initiate the entity manager
         $this->em = $em;
     }
 
-    public function index(string $externalId, UserRepository $userRepository)
-    {
-        $offlineUser = $userRepository->findOneBy(['externalId' => $externalId]);
-
+    public function index(User $offlineUser) {
         list($user, $spectator) = $this->isSpectator($offlineUser);
 
         $this->isVerified();
@@ -36,16 +31,14 @@ class UserController extends AbstractController
         ]);
     }
 
-    public function update(Request $request)
-    {
+    public function update(Request $request) {
         $form = $this->createForm(UserType::class, $this->getUser(), [
             'method' => 'PUT'
         ]);
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid())
-        {
+        if($form->isSubmitted() && $form->isValid()) {
             $this->em->flush();
 
             // Flash message
@@ -67,28 +60,23 @@ class UserController extends AbstractController
         ]);
     }
 
-    public function isSpectator($offlineUser)
-    {
+    public function isSpectator($offlineUser) {
         $spectator = false;
-        if (!$user = $this->getUser())
-        {
+        if(!$user = $this->getUser()) {
             $user = $offlineUser;
             $spectator = true;
         }
         return [$user, $spectator];
     }
 
-    public function isVerified()
-    {
-        if ($this->getUser() and !$this->getUser()->isVerified())
-        {
+    public function isVerified() {
+        if($this->getUser() and !$this->getUser()->isVerified()) {
             // Flash message
             $this->addFlash('warning', 'Veuillez vérifier votre adresse mail.');
         }
     }
 
-    public function avatarUpload(Request $request)
-    {
+    public function avatarUpload(Request $request) {
         $filename = $this->getUser()->getHashEmail() . '.jpg';
         $request->files->get('croppedImage')->move($this->getParameter('avatars_dir'), $filename);
 

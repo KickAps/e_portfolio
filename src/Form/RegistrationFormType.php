@@ -14,10 +14,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class RegistrationFormType extends AbstractType
-{
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+class RegistrationFormType extends AbstractType {
+    public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
             ->add('firstName', TextType::class, [
                 'label' => 'Prénom *',
@@ -35,7 +33,7 @@ class RegistrationFormType extends AbstractType
             ->add('email', RepeatedType::class, [
                 'type' => EmailType::class,
                 'invalid_message' => 'Les adresses mails doivent être identiques',
-                'first_options'  => [
+                'first_options' => [
                     'label' => 'Email *',
                     'label_attr' => ['class' => 'title'],
                     'help' => "Un mail de confirmation vous sera envoyé"
@@ -52,7 +50,7 @@ class RegistrationFormType extends AbstractType
                 'type' => PasswordType::class,
                 'invalid_message' => 'Les mots de passe doivent être identiques.',
                 'options' => ['attr' => ['class' => 'password-field']],
-                'first_options'  => ['label' => 'Mot de passe *', 'label_attr' => ['class' => 'title']],
+                'first_options' => ['label' => 'Mot de passe *', 'label_attr' => ['class' => 'title']],
                 'second_options' => ['label' => 'Mot de passe - confirmation *', 'label_attr' => ['class' => 'title']],
                 'constraints' => [
                     new NotBlank([
@@ -65,12 +63,10 @@ class RegistrationFormType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
-            ])
-        ;
+            ]);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
-    {
+    public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults([
             'data_class' => User::class,
         ]);

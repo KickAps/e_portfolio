@@ -1,11 +1,19 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
 @import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/regular';
 
 @import 'shared/_variables.scss';
 
 @import "~bootstrap";
 @import "cropperjs";
+
+@font-face {
+    font-family: $primary-font;
+    src: url('../fonts/Montserrat-VariableFont_wght.ttf') format('truetype'),
+    url('../fonts/Montserrat-Italic-VariableFont_wght.ttf') format("truetype");
+    font-weight: 400 700;
+    font-style: normal;
+}
 
 html {
     height: 100%;
@@ -247,13 +255,14 @@ li.active {
 }
 
 .unselectable {
-  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Old versions of Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome, Edge, Opera and Firefox */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
+                                     supported by Chrome, Edge, Opera and Firefox */
 }
 
 nav {
@@ -287,6 +296,7 @@ nav {
         &:first-child {
             margin-right: 1rem;
         }
+
         &:last-child {
             margin-left: 1rem;
         }
@@ -300,6 +310,7 @@ nav {
     &.divider-light .divider-custom-line {
         background-color: #fff;
     }
+
     &.divider-light .divider-custom-icon {
         color: #fff !important;
     }
@@ -328,9 +339,27 @@ nav {
 }
 
 .btn-primary-custom {
-    @include button-variant($primary-color, darken($primary-color, 7.5%), darken($primary-color, 10%), lighten($primary-color,5%), lighten($primary-color, 10%), darken($primary-color,30%));
+    @include button-variant($primary-color, darken($primary-color, 7.5%), darken($primary-color, 10%), lighten($primary-color, 5%), lighten($primary-color, 10%), darken($primary-color, 30%));
 }
 
 .btn-secondary-custom {
-    @include button-variant($secondary-color, darken($secondary-color, 7.5%), darken($secondary-color, 10%), lighten($secondary-color,5%), lighten($secondary-color, 10%), darken($secondary-color,30%));
+    @include button-variant($secondary-color, darken($secondary-color, 7.5%), darken($secondary-color, 10%), lighten($secondary-color, 5%), lighten($secondary-color, 10%), darken($secondary-color, 30%));
+}
+
+.stars {
+    cursor: pointer;
+}
+
+a.link {
+    color: black;
+
+    &:hover {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+}
+
+div.grid {
+    display: grid;
+    grid-template-columns: auto auto auto;
 }

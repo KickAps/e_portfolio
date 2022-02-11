@@ -14,22 +14,17 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 
-class ProjectController extends AbstractController
-{
+class ProjectController extends AbstractController {
     private $em;
 
-    private function addImagesToProject(array $images, Project $project)
-    {
-        foreach ($images as $image)
-        {
-            if (!$this->getUser()->isImagesLimitReached($project))
-            {
+    private function addImagesToProject(array $images, Project $project) {
+        foreach($images as $image) {
+            if(!$this->getUser()->isImagesLimitReached($project)) {
                 $i = new Image;
                 $filename = $image->getClientOriginalName();
-                $uniqueFilename = md5(uniqid()). "-" . $filename;
+                $uniqueFilename = md5(uniqid()) . "-" . $filename;
 
-                if ($filename === $project->getMainImage())
-                {
+                if($filename === $project->getMainImage()) {
                     $project->setMainImage($uniqueFilename);
                 }
 
@@ -41,9 +36,7 @@ class ProjectController extends AbstractController
 
                 // Associate the image to the project
                 $project->addImage($i);
-            }
-            else
-            {
+            } else {
                 // Flash message
                 $this->addFlash(
                     'info',
@@ -54,8 +47,7 @@ class ProjectController extends AbstractController
         }
     }
 
-    public function __construct(EntityManagerInterface $em)
-    {
+    public function __construct(EntityManagerInterface $em) {
         // Initiate the entity manager
         $this->em = $em;
     }
@@ -63,8 +55,7 @@ class ProjectController extends AbstractController
     /**
      * @return Twig template that prints all projects
      */
-    public function index(User $offlineUser, ProjectRepository $projectRepository, UserController $userController)
-    {
+    public function index(User $offlineUser, ProjectRepository $projectRepository, UserController $userController) {
         list($user, $spectator) = $userController->isSpectator($offlineUser);
 
         $projects = $spectator ? $projectRepository->findBy(["user" => $user, "isVisible" => true]) : $user->getProjects();
@@ -80,17 +71,15 @@ class ProjectController extends AbstractController
     }
 
     /**
-     * @param  Project
+     * @param Project
      * @return Twig template that prints the project given
      *
      * @ParamConverter("offlineUser", options={"mapping": {"externalId": "externalId"}})
      */
-    public function show(User $offlineUser, Project $project, UserController $userController)
-    {
+    public function show(User $offlineUser, Project $project, UserController $userController) {
         list($user, $spectator) = $userController->isSpectator($offlineUser);
 
-        if (!$project->isOwnedBy($user) or $spectator and !$project->isVisible())
-        {
+        if(!$project->isOwnedBy($user) or $spectator and !$project->isVisible()) {
             throw $this->createNotFoundException();
         }
 
@@ -105,21 +94,18 @@ class ProjectController extends AbstractController
     }
 
     /**
-     * @param  Request
-     * @param  EntityManagerInterface
+     * @param Request
+     * @param EntityManagerInterface
      * @return Twig template
      */
-    public function create(Request $request, UserController $userController)
-    {
+    public function create(Request $request, UserController $userController) {
         $project = new Project;
 
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid())
-        {
-            if (is_null($project->getMainImage()))
-            {
+        if($form->isSubmitted() && $form->isValid()) {
+            if(is_null($project->getMainImage())) {
                 $project->setMainImage($this->getParameter('default_jpg'));
             }
 
@@ -154,14 +140,12 @@ class ProjectController extends AbstractController
     }
 
     /**
-     * @param  Project
-     * @param  Request
+     * @param Project
+     * @param Request
      * @return Twig template
      */
-    public function update(Project $project, Request $request, UserController $userController)
-    {
-        if (!$project->isOwnedBy($this->getUser()))
-        {
+    public function update(Project $project, Request $request, UserController $userController) {
+        if(!$project->isOwnedBy($this->getUser())) {
             throw $this->createNotFoundException();
         }
 
@@ -171,10 +155,8 @@ class ProjectController extends AbstractController
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid())
-        {
-            if (is_null($project->getMainImage()))
-            {
+        if($form->isSubmitted() && $form->isValid()) {
+            if(is_null($project->getMainImage())) {
                 $project->setMainImage($this->getParameter('default_jpg'));
             }
 
@@ -205,8 +187,7 @@ class ProjectController extends AbstractController
         ]);
     }
 
-    public function hide(Project $project)
-    {
+    public function hide(Project $project) {
         $project->setVisible(!$project->isVisible());
 
         $this->em->flush();
@@ -219,22 +200,18 @@ class ProjectController extends AbstractController
     }
 
     /**
-     * @param  Project
-     * @param  Request
+     * @param Project
+     * @param Request
      * @return Twig template
      */
-    public function delete(Project $project, Request $request)
-    {
-        if (!$project->isOwnedBy($this->getUser()))
-        {
+    public function delete(Project $project, Request $request) {
+        if(!$project->isOwnedBy($this->getUser())) {
             throw $this->createNotFoundException();
         }
 
         $csrf_token = $request->request->get('csrf_token');
-        if ($this->isCsrfTokenValid('project_deletion_' . $project->getId(), $csrf_token))
-        {
-            foreach ($project->getImages() as $image)
-            {
+        if($this->isCsrfTokenValid('project_deletion_' . $project->getId(), $csrf_token)) {
+            foreach($project->getImages() as $image) {
                 unlink($this->getParameter('images_dir') . $image->getUniqueName());
             }
 
@@ -253,17 +230,14 @@ class ProjectController extends AbstractController
         ]);
     }
 
-    public function deleteImage(Image $image, Request $request)
-    {
+    public function deleteImage(Image $image, Request $request) {
         $csrf_token = $request->request->get('csrf_token');
-        if ($this->isCsrfTokenValid('image_deletion_' . $image->getId(), $csrf_token))
-        {
+        if($this->isCsrfTokenValid('image_deletion_' . $image->getId(), $csrf_token)) {
             unlink($this->getParameter('images_dir') . $image->getUniqueName());
 
             $project = $image->getProject();
             // If the deleted image is the main image
-            if ($project->getMainImage() === $image->getUniqueName())
-            {
+            if($project->getMainImage() === $image->getUniqueName()) {
                 $project->setMainImage($this->getParameter('default_jpg'));
             }
 

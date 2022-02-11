@@ -1,32 +1,33 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="{{ asset('build/images/favicon.ico') }}" />
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="{{ asset('build/images/favicon.ico') }}"/>
 
-        <title>{{title ?? website.name }}</title>
+    <title>{{ title ?? website.name }}</title>
 
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
-    </head>
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+</head>
 
-    <body class="bg-primary">
-        {{ include('layouts/partials/_navbar.html.twig')}}
+<body class="bg-primary">
+{{ include('layouts/partials/_navbar.html.twig') }}
 
-        <main role="main" class="main-container">
-            {{ include('layouts/partials/_flash_messages.html.twig')}}
-            {% block body %}{% endblock %}
-        </main>
+<main role="main" class="main-container">
+    {{ include('layouts/partials/_flash_messages.html.twig') }}
+    {% block body %}{% endblock %}
+</main>
 
-        {{ include('layouts/partials/_footer.html.twig')}}
+{{ include('layouts/partials/_footer.html.twig') }}
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-            {{ encore_entry_script_tags('images') }}
-            {{ encore_entry_script_tags('timeline') }}
-            {{ encore_entry_script_tags('profile') }}
-        {% endblock %}
-    </body>
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+    {{ encore_entry_script_tags('images') }}
+    {{ encore_entry_script_tags('timeline') }}
+    {{ encore_entry_script_tags('profile') }}
+    {{ encore_entry_script_tags('review') }}
+{% endblock %}
+</body>
 </html>
