@@ -60,10 +60,11 @@ function updateInput(x, y) {
 }
 
 window.handleReviewLink = function() {
-    let review_link_input = $('a#review_link');
+    let review_link_input = $('input#review_link');
     review_link_input.on('click', function(e) {
         e.preventDefault();
-        navigator.clipboard.writeText($(this).attr('href')).then();
+        review_link_input.select();
+        navigator.clipboard.writeText($(this).attr('value')).then();
     });
 
     // Show tooltip
@@ -79,11 +80,11 @@ window.handleReviewLink = function() {
     });
 
     $('#review_link_modal').on('shown.bs.modal', function(e) {
-        $('input#review_link').attr('value', $(e.relatedTarget).data('href'));
+        review_link_input.attr('value', $(e.relatedTarget).data('href'));
     });
 
     $('#review_link_modal').on('hidden.bs.modal', function() {
-        $('input#review_link').attr('value', "");
+        review_link_input.attr('value', "");
     });
 }
 
