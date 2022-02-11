@@ -2,8 +2,8 @@ const $ = require('jquery');
 import Cropper from 'cropperjs';
 
 $(document).ready(function() {
-    var copyLinkInput = $('input[name ="personnal-link-input"]');
-    // If the current page is the profile page
+    const copyLinkInput = $('input[name ="personnal-link-input"]');
+    // If the current page is the profile page while connected
     if(copyLinkInput.length !== 0) {
         // Change cursor
         copyLinkInput.mouseover(function(e) {
@@ -30,9 +30,12 @@ $(document).ready(function() {
             copyLinkInput.tooltip('hide');
         });
 
-        handleReviewsListModal();
+
     }
 
+    if(document.querySelector("a#reviewsList")) {
+        handleReviewsListModal();
+    }
 
     // If the current page is the profile update page
     if(window.location.pathname.match(/user\/update$/i)) {
