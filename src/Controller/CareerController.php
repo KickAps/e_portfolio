@@ -191,7 +191,7 @@ class CareerController extends AbstractController {
 
             // Redirection to the show page
             return $this->redirectToRoute('app_career', [
-                'externalId' => $this->getUser()->getExternalId()
+                'externalId' => $user->getExternalId()
             ]);
         }
 

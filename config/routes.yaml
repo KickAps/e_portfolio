@@ -119,9 +119,3 @@ app_review:
     controller: App\Controller\ReviewController::index
     methods: GET
     defaults: { id: null }
-
-app_review_create:
-    path: /{externalId<[0-9A-Za-zÀ-ȕ_-]+>}/review/create
-    controller: App\Controller\ReviewController::create
-    methods: GET|POST
-
