@@ -1,7 +1,7 @@
 {% for review in sort_reviews(reviews) %}
     <article id="{{ review.id }}" class="bg-white-custom rounded shadow p-3 mb-4">
         <div>
-            <div class="mb-3">
+            <div class="text-secondary mb-3">
                 <span class="font-weight-bold">{{ review.reviewer }}</span>
                 <span class="font-italic">{{ " - " ~ review.contact }}</span>
             </div>

@@ -63,9 +63,9 @@ class AppExtension extends AbstractExtension {
 
             $intervalStr = $intervalStr === " - " ? " - moins d'un mois" : $intervalStr;
 
-            $dates = "Du <b>" . $career->getStartDate()->format('m/y') . "</b> au <b>" . $career->getEndDate()->format('m/y') . "</b><i>" . $intervalStr . "</i>";
+            $dates = "Du <b>" . $career->getStartDate()->format('m/Y') . "</b> au <b>" . $career->getEndDate()->format('m/Y') . "</b><i>" . $intervalStr . "</i>";
         } else {
-            $dates = "Le <b>" . $career->getStartDate()->format('d/m/y') . "</b>";
+            $dates = "Le <b>" . $career->getStartDate()->format('d/m/Y') . "</b>";
         }
 
         return $dates;
