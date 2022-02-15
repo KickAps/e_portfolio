@@ -375,3 +375,11 @@ div.grid {
 p.description {
     white-space: break-spaces;
 }
+
+a.career_link {
+    color: $secondary-color;
+
+    &:hover {
+        color: $secondary-color;
+    }
+}
