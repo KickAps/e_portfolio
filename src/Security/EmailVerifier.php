@@ -34,6 +34,7 @@ class EmailVerifier {
 
         $email->context($context);
 
+        // TODO : try/catch -> 500 en prod avec un mdp obsolète
         $this->mailer->send($email);
     }
 
