@@ -11,6 +11,10 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\Mime\Address;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class ReviewController extends AbstractController {
 
@@ -49,5 +53,28 @@ class ReviewController extends AbstractController {
             'user' => $user,
             'spectator' => $spectator
         ]);
+    }
+
+    public function sendNotificationEmail(Review $review, MailerInterface $mailer) {
+        $email = (new TemplatedEmail())
+                ->from(new Address('noreply@eportfolio-plus.fr', 'ePortfolio+'))
+                ->to($review->getCareer()->getUser()->getEmail())
+                ->subject('Nouvel avis')
+                ->htmlTemplate('review/notification_email.html.twig');
+
+        $context = $email->getContext();
+        $context['username'] = $review->getCareer()->getUser()->getFirstName();
+        $context['reviewer'] = $review->getReviewer();
+        $context['careerTitle'] = $review->getCareer()->getTitle();
+        $context['careerUrl'] = $this->generateUrl(
+            'app_user',
+            ['externalId' => $review->getCareer()->getUser()->getExternalId()],
+            UrlGeneratorInterface::ABSOLUTE_URL
+        );
+
+        $email->context($context);
+
+        // TODO : try/catch -> 500 en prod avec un mdp obsolète
+        $mailer->send($email);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Controller\UserController;
+use App\Controller\ReviewController;
 use App\Entity\Career;
 use App\Entity\Review;
 use App\Entity\User;
@@ -14,6 +15,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\Mailer\MailerInterface;
 
 class CareerController extends AbstractController {
     private $em;
@@ -171,7 +173,7 @@ class CareerController extends AbstractController {
      * @return RedirectResponse|Response
      * @ParamConverter("offlineUser", options={"mapping": {"externalId": "externalId"}})
      */
-    public function review(User $offlineUser, Career $career, Request $request, UserController $userController): RedirectResponse|Response {
+    public function review(User $offlineUser, Career $career, Request $request, UserController $userController, ReviewController $reviewController, MailerInterface $mailer): RedirectResponse|Response {
         $review = new Review;
 
         list($user, $spectator) = $userController->isSpectator($offlineUser);
@@ -185,6 +187,8 @@ class CareerController extends AbstractController {
 
             $this->em->persist($review);
             $this->em->flush();
+
+            $reviewController->sendNotificationEmail($review, $mailer);
 
             // Flash message
             $this->addFlash('success', 'Votre avis a bien été enregistré, merci !');
