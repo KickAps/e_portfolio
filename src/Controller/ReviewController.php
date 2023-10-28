@@ -16,11 +16,13 @@ use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class ReviewController extends AbstractController {
+class ReviewController extends AbstractController
+{
 
     private EntityManagerInterface $em;
 
-    public function __construct(EntityManagerInterface $em) {
+    public function __construct(EntityManagerInterface $em)
+    {
         // Initiate the entity manager
         $this->em = $em;
     }
@@ -34,9 +36,10 @@ class ReviewController extends AbstractController {
      * @ParamConverter("offlineUser", options={"mapping": {"externalId": "externalId"}})
      * @ParamConverter("career", options={"mapping": {"id": "id"}}, isOptional="true")
      */
-    public function index(User $offlineUser, UserController $userController, Career $career = null): Response {
+    public function index(User $offlineUser, UserController $userController, Career $career = null): Response
+    {
         list($user, $spectator) = $userController->isSpectator($offlineUser);
-        if($career) {
+        if ($career) {
             $reviews = $career->getReviews();
         } else {
             $reviews = $user->getReviews();
@@ -55,12 +58,13 @@ class ReviewController extends AbstractController {
         ]);
     }
 
-    public function sendNotificationEmail(Review $review, MailerInterface $mailer) {
+    public function sendNotificationEmail(Review $review, MailerInterface $mailer)
+    {
         $email = (new TemplatedEmail())
-                ->from(new Address('noreply@eportfolio-plus.fr', 'ePortfolio+'))
-                ->to($review->getCareer()->getUser()->getEmail())
-                ->subject('Nouvel avis')
-                ->htmlTemplate('review/notification_email.html.twig');
+            ->from(new Address('noreply@eportfolio.kickaps.xyz', 'ePortfolio+'))
+            ->to($review->getCareer()->getUser()->getEmail())
+            ->subject('Nouvel avis')
+            ->htmlTemplate('review/notification_email.html.twig');
 
         $context = $email->getContext();
         $context['username'] = $review->getCareer()->getUser()->getFirstName();
